@@ -10,6 +10,7 @@ import com.map.woodlands.woodlandsmap.R;
 
 /**
  * Created by Jimmy on 3/9/2015.
+ * This is used for Login
  */
 public class  LoginFragment extends Fragment{
 
