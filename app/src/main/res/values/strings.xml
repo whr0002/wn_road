@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">WoodlandsMap</string>
+
+    <string name="title_section1">Login</string>
+    <string name="title_section2">Form</string>
+    <string name="title_section3">Map</string>
+    <string name="title_section4">Unsubmitted Forms</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+
+
+    <string name="hello_world">Hello world!</string>
+
+    <string name="action_settings">Settings</string>
+</resources>
