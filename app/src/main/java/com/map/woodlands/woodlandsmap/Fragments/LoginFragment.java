@@ -104,6 +104,7 @@ public class  LoginFragment extends Fragment implements OnClickListener{
         // Login button clicked, do sign in
         switch(v.getId()){
             case R.id.Login:
+                disableViews();
                 messageView.setText("");
                 this.mUsername = this.emailField.getText().toString();
                 this.mPassword = this.passwordField.getText().toString();
@@ -128,6 +129,21 @@ public class  LoginFragment extends Fragment implements OnClickListener{
 
 
 
+    }
+
+    /*
+    * Disable field and buttons when login
+    * */
+    public void disableViews(){
+        this.emailField.setEnabled(false);
+        this.passwordField.setEnabled(false);
+        this.logoutBtn.setEnabled(false);
+    }
+
+    public void enableViews(){
+        this.emailField.setEnabled(true);
+        this.passwordField.setEnabled(true);
+        this.logoutBtn.setEnabled(true);
     }
 
     public void showLoginView(){
@@ -280,6 +296,7 @@ public class  LoginFragment extends Fragment implements OnClickListener{
                         messageView.setText(reader.getString("Message"));
 
                     }
+                    enableViews();
                 }catch (Exception e){
                     e.printStackTrace();
                 }
