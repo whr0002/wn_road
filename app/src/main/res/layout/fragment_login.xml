@@ -7,7 +7,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:id="@+id/relativeLayout">
+        android:id="@+id/LoginLayout">
 
         <TextView
             android:id="@+id/Email"
@@ -53,11 +53,40 @@
             android:id="@+id/Login"
             android:layout_below="@id/PasswordField"
             android:layout_alignRight="@+id/PasswordField"
-            android:layout_marginTop="48dp" />
+            android:layout_marginTop="50dp" />
 
     </RelativeLayout>
 
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:indeterminate="false"
+        android:layout_above="@+id/LoginLayout"
+        android:layout_centerHorizontal="true" />
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/LoggedInLayout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:id="@+id/username"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:id="@+id/role"
+            android:layout_below="@+id/username"/>
+
+        </RelativeLayout>
 
 
 </RelativeLayout>
