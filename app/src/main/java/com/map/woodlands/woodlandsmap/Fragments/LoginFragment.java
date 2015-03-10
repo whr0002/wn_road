@@ -1,7 +1,6 @@
 package com.map.woodlands.woodlandsmap.Fragments;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,6 +16,8 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.map.woodlands.woodlandsmap.Data.UserInfo;
 import com.map.woodlands.woodlandsmap.R;
 
 import org.apache.http.HttpResponse;
@@ -44,8 +45,10 @@ public class  LoginFragment extends Fragment implements OnClickListener{
     private EditText emailField;
     private EditText passwordField;
     private Button loginBtn;
+    private Button logoutBtn;
+    private TextView messageView;
     private ProgressBar progressBar;
-    private Context context;
+
     private TextView usernameView;
     private TextView roleView;
     private RelativeLayout loginLayout;
@@ -65,13 +68,16 @@ public class  LoginFragment extends Fragment implements OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
-        context = this.getActivity().getApplicationContext();
-
         View rootView = inflater.inflate(R.layout.fragment_login, container, false);
         emailField = (EditText) rootView.findViewById(R.id.EmailField);
         passwordField = (EditText) rootView.findViewById(R.id.PasswordField);
+        messageView = (TextView) rootView.findViewById(R.id.Message);
+
         loginBtn = (Button) rootView.findViewById(R.id.Login);
         loginBtn.setOnClickListener(this);
+
+        logoutBtn = (Button) rootView.findViewById(R.id.Logout);
+        logoutBtn.setOnClickListener(this);
 
         progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
@@ -85,30 +91,48 @@ public class  LoginFragment extends Fragment implements OnClickListener{
         emailField.setText("whr0002@gmail.com");
         passwordField.setText("`Nmhwj0002");
 
+        if(hasUserData()){
+            showLoggedInView();
+            setLoggedInView();
+        }
+
         return rootView;
     }
 
     @Override
     public void onClick(View v) {
-//        this.getActivity().runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//            }
-//        });
-//        Toast.makeText(context, "In", Toast.LENGTH_SHORT);
         // Login button clicked, do sign in
-        this.mUsername = this.emailField.getText().toString();
-        this.mPassword = this.passwordField.getText().toString();
-        Log.i("debug", this.mUsername);
-        Log.i("debug", this.mPassword);
+        switch(v.getId()){
+            case R.id.Login:
+                messageView.setText("");
+                this.mUsername = this.emailField.getText().toString();
+                this.mPassword = this.passwordField.getText().toString();
+                Log.i("debug", this.mUsername);
+                Log.i("debug", this.mPassword);
 
-        progressBar.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
 
-        new LoginAsyncTask(this.mUsername, this.mPassword).execute();
+                new LoginAsyncTask(this.mUsername, this.mPassword).execute();
+                break;
+
+            case R.id.Logout:
+                deleteUserData();
+                showLoginView();
+                break;
+
+            default:
+
+                break;
+        }
 
 
 
+
+    }
+
+    public void showLoginView(){
+        loginLayout.setVisibility(View.VISIBLE);
+        loggedInLayout.setVisibility(View.GONE);
     }
 
     public void showLoggedInView(){
@@ -145,6 +169,39 @@ public class  LoginFragment extends Fragment implements OnClickListener{
         return null;
     }
 
+    public void setLoggedInView(){
+        SharedPreferences sp = this.getActivity().getSharedPreferences("UserInfo", 0);
+        String json = sp.getString("json","");
+
+        if(!json.equals("")){
+            Gson gson = new Gson();
+            UserInfo user;
+            user = gson.fromJson(json, UserInfo.class);
+
+
+            this.usernameView.setText("Hello " + user.getUsername());
+            this.roleView.setText("Your role: " + user.getRole());
+        }
+    }
+
+    /*
+    * Check to see whether a user is logged in
+    * */
+    public boolean hasUserData(){
+        SharedPreferences sp = this.getActivity().getSharedPreferences("UserInfo", 0);
+        String json = sp.getString("json","");
+
+        if(!json.equals("")) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+    /*
+    * Save user information to local preference
+    * */
     public void saveUserData(String... data){
         SharedPreferences userPrefs = this.getActivity().getSharedPreferences("UserInfo",0);
         SharedPreferences.Editor userEditor = userPrefs.edit();
@@ -153,10 +210,40 @@ public class  LoginFragment extends Fragment implements OnClickListener{
 
         if(json.equals("")){
             // No User information yet, add now
-//            Gson gson = new Gson();
+            Gson gson = new Gson();
+            UserInfo user = new UserInfo();
+            if(data.length>2) {
+                user.setUsername(data[0]);
+                user.setPassword(data[1]);
+                user.setRole(data[2]);
+            }
+
+            json = gson.toJson(user);
+            userEditor.putString("json", json);
+            userEditor.commit();
         }
     }
 
+
+    /*
+    * Delete user information when logout
+    * */
+    public void deleteUserData(){
+        SharedPreferences sp = this.getActivity().getSharedPreferences("UserInfo", 0);
+        SharedPreferences.Editor spEditor = sp.edit();
+
+        String json = sp.getString("json", "");
+
+        if(!json.equals("")){
+            spEditor.putString("json", "");
+            spEditor.commit();
+        }
+
+    }
+
+    /*
+    * Sign in to the server
+    * */
     public class LoginAsyncTask extends AsyncTask<String,String, String>{
 
         private String mEmail;
@@ -182,13 +269,16 @@ public class  LoginFragment extends Fragment implements OnClickListener{
                 Log.i("debug", s);
                 try{
                     JSONObject reader = new JSONObject(s);
-//                    Log.i("debug", reader.getString("Status"));
-//                    Log.i("debug", reader.getString("Email"));
-//                    Log.i("debug", reader.getString("Role"));
                     if(reader.getString("Status").equals("success")){
+                        // Login Success
                         usernameView.setText("Hello " + reader.getString("Email"));
                         roleView.setText("Your role: " + reader.getString("Role"));
                         showLoggedInView();
+                        saveUserData(this.mEmail, this.mPassword, reader.getString("Role"));
+                    }else{
+                        // Login failed, show message
+                        messageView.setText(reader.getString("Message"));
+
                     }
                 }catch (Exception e){
                     e.printStackTrace();
