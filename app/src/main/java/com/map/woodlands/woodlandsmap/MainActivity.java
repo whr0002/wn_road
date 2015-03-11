@@ -43,6 +43,8 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+//        actionBar.setDisplayShowHomeEnabled(true);
+//        actionBar.setIcon(R.drawable.logo);
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -50,7 +52,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setOffscreenPageLimit(4);
+        mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mTabPagerAdapter);
 
         // When swiping between different sections, select the corresponding

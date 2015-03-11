@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.map.woodlands.woodlandsmap.Fragments.FormFragment;
 import com.map.woodlands.woodlandsmap.Fragments.LoginFragment;
 import com.map.woodlands.woodlandsmap.MainActivity;
 import com.map.woodlands.woodlandsmap.R;
@@ -16,11 +17,13 @@ import java.util.Locale;
  */
 public class TabPagerAdapter extends FragmentPagerAdapter {
     private LoginFragment mLoginFragment;
+    private FormFragment mFormFragment;
     private Context mCtx;
     public TabPagerAdapter(FragmentManager fm, Context ctx) {
         super(fm);
         this.mCtx = ctx;
         this.mLoginFragment = LoginFragment.newInstance();
+        this.mFormFragment = FormFragment.newInstance();
     }
 
     @Override
@@ -35,9 +38,6 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
 
             case 2:
                 return mCtx.getString(R.string.title_section3).toUpperCase(l);
-
-            case 3:
-                return mCtx.getString(R.string.title_section4).toUpperCase(l);
         }
         return null;
     }
@@ -49,19 +49,17 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
                 return mLoginFragment;
 
             case 1:
-                return MainActivity.PlaceholderFragment.newInstance(position + 1);
+                return mFormFragment;
 
             case 2:
                 return MainActivity.PlaceholderFragment.newInstance(position + 1);
 
-            case 3:
-                return MainActivity.PlaceholderFragment.newInstance(position + 1);
         }
         return MainActivity.PlaceholderFragment.newInstance(position+1);
     }
 
     @Override
     public int getCount() {
-        return 4;
+        return 3;
     }
 }
