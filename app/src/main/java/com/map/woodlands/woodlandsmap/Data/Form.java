@@ -5,6 +5,8 @@ package com.map.woodlands.woodlandsmap.Data;
  */
 public class Form {
 //    public String CLIENT;
+    public int ID;
+    public String STATUS;
     public String INSP_DATE;
     public String INSP_CREW;
     public String ACCESS;

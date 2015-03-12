@@ -49,7 +49,7 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
                 return mLoginFragment;
 
             case 1:
-                return mFormFragment;
+                return FormFragment.newInstance();
 
             case 2:
                 return MainActivity.PlaceholderFragment.newInstance(position + 1);

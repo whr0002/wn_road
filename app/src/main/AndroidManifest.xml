@@ -3,6 +3,9 @@
     package="com.map.woodlands.woodlandsmap" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -22,7 +25,12 @@
         <activity
             android:name=".Activities.FormActivity"
             android:label="@string/form_detail">
-            </activity>
+        </activity>
+
+        <activity
+            android:name=".Activities.EditFormActivity"
+            android:label="View a form">
+        </activity>
     </application>
 
 </manifest>

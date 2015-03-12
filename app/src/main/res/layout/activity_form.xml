@@ -30,7 +30,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="@string/inspection_date"
-                    android:id="@+id/textView"
+                    android:id="@+id/dateLabel"
                     android:layout_marginRight="10dp"
                     android:layout_gravity="center"/>
 
@@ -38,18 +38,52 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Show date"
-                    android:id="@+id/textView2"
+                    android:text=""
+                    android:id="@+id/dateView"
                     android:layout_gravity="center"/>
 
                 <ImageButton
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:src="@drawable/date_picker"
-                    android:id="@+id/imageButton"
+                    android:id="@+id/date_picker"
                     android:scaleType="fitCenter"
                     android:layout_marginLeft="10dp"
                     />
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Inlet"
+                android:textSize="20dp"
+                android:layout_gravity="center"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"
+                android:id="@+id/inlet1"
+                android:scaleType="fitCenter"
+                android:src="@drawable/file_image"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"
+                android:id="@+id/inlet2"
+                android:scaleType="fitCenter"
+                android:src="@drawable/file_image"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"/>
+
 
             </LinearLayout>
 
