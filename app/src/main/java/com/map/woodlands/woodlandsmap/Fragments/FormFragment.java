@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,8 +21,10 @@ import com.map.woodlands.woodlandsmap.Activities.EditFormActivity;
 import com.map.woodlands.woodlandsmap.Activities.FormActivity;
 import com.map.woodlands.woodlandsmap.Adapters.FormArrayAdapter;
 import com.map.woodlands.woodlandsmap.Data.Form;
+import com.map.woodlands.woodlandsmap.Data.Uploader;
 import com.map.woodlands.woodlandsmap.R;
 
+import java.io.File;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
@@ -37,6 +38,10 @@ public class FormFragment  extends Fragment{
     private ListView listView;
     private ArrayList<Form> forms;
 
+    private SharedPreferences sp;
+    private SharedPreferences.Editor spEditor;
+    public Type listType;
+    public Gson gson;
 
     public static FormFragment newInstance(){
         FormFragment f = new FormFragment();
@@ -49,6 +54,10 @@ public class FormFragment  extends Fragment{
         View v = inflater.inflate(R.layout.fragment_form, container, false);
 
         aba = (ActionBarActivity) this.getActivity();
+        listType = new TypeToken<ArrayList<Form>>(){}.getType();
+        gson = new Gson();
+        sp = aba.getSharedPreferences("Data", 0);
+        spEditor = sp.edit();
         setHasOptionsMenu(true);
 
 
@@ -88,13 +97,12 @@ public class FormFragment  extends Fragment{
 
     private ArrayList<Form> getForms() {
         ArrayList<Form> forms;
-        SharedPreferences sp = aba.getSharedPreferences("Data", 0);
         String json = sp.getString("FormData","");
         if(json.equals("")){
             forms = new ArrayList<Form>();
         }else{
-            Type listType = new TypeToken<ArrayList<Form>>(){}.getType();
-            Gson gson = new Gson();
+
+
             forms = gson.fromJson(json, listType);
         }
         return forms;
@@ -103,7 +111,7 @@ public class FormFragment  extends Fragment{
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode == 0){
-            Log.i("debug", "Form finished");
+//            Log.i("debug", "Form finished");
             setListView();
         }
     }
@@ -127,16 +135,105 @@ public class FormFragment  extends Fragment{
 
             case 2:
                 // Delete forms
+                deleteAllForms();
                 return true;
 
             case 3:
                 // Submit forms
+                submitForms();
                 return true;
 
             default:
                 return super.onOptionsItemSelected(item);
 
         }
+
+    }
+
+    private void submitForms() {
+        String json = sp.getString("FormData", "");
+        if(!json.equals("")){
+            ArrayList<Form> forms = new ArrayList<Form>();
+            forms = gson.fromJson(json, listType);
+            for(Form form : forms){
+                Uploader uploader = new Uploader(form);
+                uploader.execute();
+            }
+
+
+
+        }
+
+
+    }
+
+    private void deleteAllForms() {
+        String json = sp.getString("FormData", "");
+        ArrayList<Form> forms = new ArrayList<Form>();
+
+        if(!json.equals("")){
+            forms = gson.fromJson(json, listType);
+            for(Form form : forms){
+                deleteFileIfExists(form);
+            }
+        }
+
+
+
+        spEditor.putString("FormData", "");
+        spEditor.commit();
+        setListView();
+    }
+
+    private void deleteFileIfExists(Form form) {
+        if(form.PHOTO_INUP != null){
+            File file = new File(form.PHOTO_INUP);
+            if(file.exists()){
+                // File exists, delete it
+                file.delete();
+            }
+        }
+
+        if(form.PHOTO_INDW != null){
+            File file = new File(form.PHOTO_INDW);
+            if(file.exists()){
+                // File exists, delete it
+                file.delete();
+            }
+        }
+
+        if(form.PHOTO_OTUP != null){
+            File file = new File(form.PHOTO_OTUP);
+            if(file.exists()){
+                // File exists, delete it
+                file.delete();
+            }
+        }
+
+        if(form.PHOTO_OTDW != null){
+            File file = new File(form.PHOTO_OTDW);
+            if(file.exists()){
+                // File exists, delete it
+                file.delete();
+            }
+        }
+
+        if(form.PHOTO_1 != null){
+            File file = new File(form.PHOTO_1);
+            if(file.exists()){
+                // File exists, delete it
+                file.delete();
+            }
+        }
+
+        if(form.PHOTO_2 != null){
+            File file = new File(form.PHOTO_2);
+            if(file.exists()){
+                // File exists, delete it
+                file.delete();
+            }
+        }
+
 
     }
 

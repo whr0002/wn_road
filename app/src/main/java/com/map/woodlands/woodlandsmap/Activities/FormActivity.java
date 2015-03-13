@@ -28,12 +28,14 @@ import com.map.woodlands.woodlandsmap.Data.Form;
 import com.map.woodlands.woodlandsmap.R;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Created by Jimmy on 3/11/2015.
@@ -45,6 +47,8 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
     public int month;
     public int day;
     public String mCurrentPhotoPath;
+    public int mCurrentRequestCode;
+    public HashMap<Integer, String> mPhotoMap;
 
     public TextView dateView;
     public ImageButton dateButton;
@@ -61,6 +65,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        this.mPhotoMap = new HashMap<Integer, String>();
         setView();
 
 
@@ -74,12 +79,12 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         setCurrentDateView();
         setDatePicker();
 
-        setPhotoViews();
+        setImageViews();
     }
 
 
 
-    private void setPhotoViews() {
+    private void setImageViews() {
         photoView1 = (ImageView) findViewById(R.id.inlet1);
         photoView2 = (ImageView) findViewById(R.id.inlet2);
 
@@ -205,12 +210,22 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         f.ID = id;
         f.INSP_DATE = dateView.getText().toString();
 
+        setPhotoPath(f);
 
 
         spEditor.putInt("ID", id+1);
         spEditor.commit();
 
         return f;
+    }
+
+    public void setPhotoPath(Form f) {
+        f.PHOTO_INUP = mPhotoMap.get(1);
+        f.PHOTO_INDW = mPhotoMap.get(2);
+        f.PHOTO_OTUP = mPhotoMap.get(3);
+        f.PHOTO_OTDW = mPhotoMap.get(4);
+        f.PHOTO_1 = mPhotoMap.get(5);
+        f.PHOTO_2 = mPhotoMap.get(6);
     }
 
     @Override
@@ -229,7 +244,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         return true;
     }
 
-    public void setPhotoView(ImageView photoView){
+    public void setPhotoView(ImageView photoView, String path){
         // Get the dimensions of the view
         int targetW = photoView.getWidth();
         int targetH = photoView.getHeight();
@@ -237,19 +252,50 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         // Get the dimensions of the bitmap
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
         bmOptions.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+        BitmapFactory.decodeFile(path, bmOptions);
         int photoW = bmOptions.outWidth;
         int photoH = bmOptions.outHeight;
-
+        int scaleFactor = 1;
         // Determine how much to scale down the image
-        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+//        if(targetW != 0 && targetH != 0) {
+            scaleFactor = Math.min(photoW / targetW, photoH / targetH);
+//        }
 
         // Decode the image file into a Bitmap sized to fill the view
         bmOptions.inJustDecodeBounds = false;
         bmOptions.inSampleSize = scaleFactor << 1;
         bmOptions.inPurgeable = true;
 
-        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+        Bitmap bitmap = BitmapFactory.decodeFile(path, bmOptions);
+
+        File file = new File(path);
+        if(!file.exists()){
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }else{
+            file.delete();
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(file);
+            if (fos != null) {
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, fos);
+                fos.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 //        Matrix mtx = new Matrix();
 //        mtx.postRotate(90);
@@ -260,9 +306,10 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
 //            bitmap.recycle();
 
         photoView.setImageBitmap(bitmap);
-
+//        Log.i("debug", "Changed Image Bitmap");
 
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -273,12 +320,12 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
             switch (requestCode) {
                 case 1:
 //                    photoView1.setImageBitmap(imageBitmap);
-                    setPhotoView(photoView1);
+                    setPhotoView(photoView1, mCurrentPhotoPath);
                     break;
 
 
                 case 2:
-                    setPhotoView(photoView2);
+                    setPhotoView(photoView2, mCurrentPhotoPath);
 //                    photoView2.setImageBitmap(imageBitmap);
                     break;
 
@@ -307,6 +354,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
     }
 
     public void dispatchTakePictureIntent(int requestCode){
+        mCurrentRequestCode = requestCode;
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         if(takePictureIntent.resolveActivity(getPackageManager()) != null){
@@ -333,7 +381,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
     private File createImageFile() throws IOException{
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_"+timeStamp+"_";
+        String imageFileName = "JPEG_"+timeStamp;
         String storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)+"/picupload";
         File dir = new File(storageDir);
 
@@ -346,6 +394,8 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = image.getAbsolutePath();
         Log.i("debug", "Image path: " + mCurrentPhotoPath);
+        mPhotoMap.put(mCurrentRequestCode, mCurrentPhotoPath);
+
         return image;
     }
 }

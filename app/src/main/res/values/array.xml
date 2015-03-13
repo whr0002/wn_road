@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="accessItems">
+        <item>Truck</item>
+
+    </string-array>
+
+
+    <string-array name="streamClassItems">
+        <item>Classification 1</item>
+
+    </string-array>
+
+    <string-array name="streamMeasuredItems">
+        <item>No</item>
+        <item>Yes</item>
+
+    </string-array>
+
+</resources>
