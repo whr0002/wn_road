@@ -9,13 +9,14 @@
         android:layout_height="match_parent"
         android:id="@+id/scrollView" >
 
-
+        <!-- Form Container -->
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             >
 
+            <!-- Inspection Date -->
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -54,10 +55,11 @@
                     />
 
             </LinearLayout>
+            <!-- Inspection Crew -->
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_gravity="center"
                 android:weightSum="1"
                 >
@@ -78,13 +80,15 @@
                     android:id="@+id/crewText"
                     android:layout_weight="0.5"
                     android:singleLine="true"
-                    android:imeOptions="actionNext"/>
+                    android:imeOptions="actionNext"
+                    android:layout_gravity="center"/>
 
             </LinearLayout>
+            <!-- Access -->
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_gravity="center"
                 android:weightSum="1"
                 >
@@ -109,10 +113,11 @@
 
 
             </LinearLayout>
+            <!-- Crossing Number -->
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_gravity="center"
                 android:weightSum="1"
                 >
@@ -133,13 +138,15 @@
                     android:id="@+id/crossingNumberText"
                     android:layout_weight="0.5"
                     android:singleLine="true"
-                    android:imeOptions="actionNext"/>
+                    android:imeOptions="actionNext"
+                    android:layout_gravity="center"/>
 
             </LinearLayout>
+            <!-- Crossing ID -->
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_gravity="center"
                 android:weightSum="1"
                 >
@@ -160,13 +167,15 @@
                     android:id="@+id/crossingIDText"
                     android:layout_weight="0.5"
                     android:singleLine="true"
-                    android:imeOptions="actionNext"/>
+                    android:imeOptions="actionNext"
+                    android:layout_gravity="center"/>
 
             </LinearLayout>
+            <!-- Stream ID -->
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_gravity="center"
                 android:weightSum="1"
                 >
@@ -187,13 +196,15 @@
                     android:id="@+id/streamIDText"
                     android:layout_weight="0.5"
                     android:singleLine="true"
-                    android:imeOptions="actionNext"/>
+                    android:imeOptions="actionNext"
+                    android:layout_gravity="center"/>
 
             </LinearLayout>
+            <!-- Disposition ID -->
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_gravity="center"
                 android:weightSum="1"
                 >
@@ -214,16 +225,17 @@
                     android:id="@+id/dispositionIDText"
                     android:layout_weight="0.5"
                     android:singleLine="true"
-                    android:imeOptions="actionNext"/>
+                    android:imeOptions="actionNext"
+                    android:layout_gravity="center"/>
 
             </LinearLayout>
+            <!-- Latitude -->
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_gravity="center"
                 android:weightSum="1"
-                android:layout_marginTop="10dp"
                 >
 
                 <TextView
@@ -243,16 +255,17 @@
                     android:layout_weight="0.5"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="0.000000"
+                    android:layout_gravity="center"
                     />
 
             </LinearLayout>
+            <!-- Longitude -->
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_gravity="center"
                 android:weightSum="1"
-                android:layout_marginTop="10dp"
                 >
 
                 <TextView
@@ -272,13 +285,15 @@
                     android:layout_weight="0.5"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="0.000000"
+                    android:layout_gravity="center"
                     />
 
             </LinearLayout>
+            <!-- Stream Classification -->
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_gravity="center"
                 android:weightSum="1"
                 android:layout_marginTop="5dp"
@@ -304,10 +319,11 @@
 
 
             </LinearLayout>
+            <!-- Steam Width -->
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_gravity="center"
                 android:weightSum="1"
                 >
@@ -329,16 +345,18 @@
                     android:layout_weight="0.5"
                     android:singleLine="true"
                     android:imeOptions="actionNext"
-                    android:inputType="numberDecimal"/>
+                    android:inputType="numberDecimal"
+                    android:layout_gravity="center"/>
 
             </LinearLayout>
+            <!-- Stream Width measured -->
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_gravity="center"
                 android:weightSum="1"
-                android:layout_marginTop="5dp"
+                android:background="@color/lightBlue"
                 >
 
                 <TextView
@@ -361,44 +379,974 @@
 
 
             </LinearLayout>
-
-
-
-
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Inlet"
-                android:textSize="20dp"
-                android:layout_gravity="center"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="150dp"
-                android:id="@+id/inlet1"
-                android:scaleType="fitCenter"
-                android:src="@drawable/file_image"
+            <!-- Crossing Type -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
                 android:layout_gravity="center"
-                android:layout_weight="0.5"/>
+                android:weightSum="1"
+                android:background="@color/lightBlue"
+                >
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="150dp"
-                android:id="@+id/inlet2"
-                android:scaleType="fitCenter"
-                android:src="@drawable/file_image"
-                android:layout_gravity="center"
-                android:layout_weight="0.5"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Crossing Type"
+                    android:id="@+id/crossingTypeLabel"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"/>
+
+                <Spinner
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/crossingTypeDropdown"
+                    android:entries="@array/crossingTypeItems"
+                    android:layout_weight="0.5"
+                    android:layout_gravity="center"/>
 
 
             </LinearLayout>
+
+            <!-- Culvert block -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/culvertBlock"
+                android:orientation="vertical">
+
+                <!-- Culvert Length -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Culvert Length"
+                        android:id="@+id/culvertLengthLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/culvertLengthText"
+                        android:layout_weight="0.5"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberDecimal"
+                        android:layout_gravity="center"/>
+
+                </LinearLayout>
+                <!-- Culvert Diameter 1 -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Culvert Diameter 1"
+                        android:id="@+id/culvertDiameter1Label"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/culvertDiameter1Text"
+                        android:layout_weight="0.5"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberDecimal"
+                        android:layout_gravity="center"/>
+
+                </LinearLayout>
+                <!-- Culvert Diameter 2 -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Culvert Diameter 2"
+                        android:id="@+id/culvertDiameter2Label"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/culvertDiameter2Text"
+                        android:layout_weight="0.5"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberDecimal"
+                        android:layout_gravity="center"/>
+
+                </LinearLayout>
+                <!-- Culvert Diameter 3 -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Culvert Diameter 3"
+                        android:id="@+id/culvertDiameter3Label"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/culvertDiameter3Text"
+                        android:layout_weight="0.5"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberDecimal"
+                        android:layout_gravity="center"/>
+
+                </LinearLayout>
+                <!-- Culvert Substrate -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Culvert Substrate"
+                        android:id="@+id/culvertSubstrateLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/culvertSubstrateDropdown"
+                        android:entries="@array/culvertSubstrateItems"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
+                <!-- Culvert Substrate % -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Culvert Substrate %"
+                        android:id="@+id/culvertSubstratePLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/culvertSubstratePDropdown"
+                        android:entries="@array/culvertSubstratePItems"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
+                <!-- Culvert Substrate Type -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Culvert Substrate Type"
+                        android:id="@+id/culvertSubstrateTypeLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/culvertSubstrateTypeDropdown"
+                        android:entries="@array/culvertSubstrateTypeItems"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
+                <!-- Culvert Substrate Proportion -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Culvert Substrate Proportion"
+                        android:id="@+id/culvertSubstrateProportionLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/culvertSubstrateProportionDropdown"
+                        android:entries="@array/culvertSubstrateProportionItems"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
+                <!-- Culvert Back Water Proportion -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Culvert Back Water Proportion"
+                        android:id="@+id/culvertBWProportionLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/culvertBWProportionDropdown"
+                        android:entries="@array/culvertBWProportionItems"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
+                <!-- Culvert Slope -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Culvert Slope"
+                        android:id="@+id/culvertSlopeLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/culvertSlopeDropdown"
+                        android:entries="@array/culvertSlopeItems"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
+                <!-- Culvert Outlet Type -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Culvert Outlet Type"
+                        android:id="@+id/culvertOutletTypeLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/culvertOutletTypeDropdown"
+                        android:entries="@array/culvertOutletTypeItems"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
+                <!-- Scour Pool Present -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Scour Pool Present"
+                        android:id="@+id/scourPoolPresentLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/scourPoolPresentDropdown"
+                        android:entries="@array/scourPoolPresentItems"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
+                <!-- Culvert Pool Depth -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Culvert Pool Depth"
+                        android:id="@+id/culvertPoolDepthLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/culvertPoolDepthText"
+                        android:layout_weight="0.5"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberDecimal"
+                        android:layout_gravity="center"/>
+
+                </LinearLayout>
+                <!-- Culvert Outlet Gap -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Culvert Outlet Gap"
+                        android:id="@+id/culvertOutletGapLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/culvertOutletGapText"
+                        android:layout_weight="0.5"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberDecimal"
+                        android:layout_gravity="center"/>
+
+                </LinearLayout>
+                <!-- Delineator -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Delineator"
+                        android:id="@+id/delineatorLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/delineatorDropdown"
+                        android:entries="@array/delineatorItems"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Bridge block -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/bridgeBlock"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <!-- Bridge Length -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Bridge Length"
+                        android:id="@+id/bridgeLengthLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/bridgeLengthText"
+                        android:layout_weight="0.5"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberDecimal"
+                        android:layout_gravity="center"/>
+
+                </LinearLayout>
+                <!-- Hazard Markers -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Hazard Markers"
+                        android:id="@+id/hazardMarkersLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/hazardMarkersDropdown"
+                        android:entries="@array/hazardMarkersItems"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
+                <!-- Approach Signage -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Approach Signage"
+                        android:id="@+id/approachSignageLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/approachSignageDropdown"
+                        android:entries="@array/approachSignageItems"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
+                <!-- Road Surface -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Road Surface"
+                        android:id="@+id/roadSurfaceLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/roadSurfaceDropdown"
+                        android:entries="@array/roadSurfaceItems"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
+                <!-- Approach Rails -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Approach Rails"
+                        android:id="@+id/approachRailsLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/approachRailsDropdown"
+                        android:entries="@array/approachRailsItems"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
+                <!-- Road Drainage -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Road Drainage"
+                        android:id="@+id/roadDrainageLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/roadDrainageDropdown"
+                        android:entries="@array/roadDrainageItems"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
+                <!-- Visibility -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Visibility"
+                        android:id="@+id/visibilityLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/visibilityDropdown"
+                        android:entries="@array/visibilityItems"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
+                <!-- Wearing Surface -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Wearing Surface"
+                        android:id="@+id/wearingSurfaceLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/wearingSurfaceDropdown"
+                        android:entries="@array/wearingSurfaceItems"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
+                <!-- Rail & Curb -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Rail &amp; Curb"
+                        android:id="@+id/railCurbLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/railCurbDropdown"
+                        android:entries="@array/railCurbItems"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
+                <!-- Girders & Bracing -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Girders &amp; Bracing"
+                        android:id="@+id/girdersBracingLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/girdersBracingDropdown"
+                        android:entries="@array/girdersBracingItems"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
+                <!-- Cap Beam -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Cap Beam"
+                        android:id="@+id/capBeamLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/capBeamDropdown"
+                        android:entries="@array/capBeamItems"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
+                <!-- Piles -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Piles"
+                        android:id="@+id/pilesLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/pilesDropdown"
+                        android:entries="@array/pilesItems"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
+                <!-- Abutment Wall -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Abutment Wall"
+                        android:id="@+id/abutmentWallLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/abutmentWallDropdown"
+                        android:entries="@array/abutmentWallItems"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
+                <!-- Wing Wall -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Wing Wall"
+                        android:id="@+id/wingWallLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/wingWallDropdown"
+                        android:entries="@array/wingWallItems"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
+                <!-- Bank Stability -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Bank Stability"
+                        android:id="@+id/bankStabilityLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/bankStabilityDropdown"
+                        android:entries="@array/bankStabilityItems"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
+                <!-- Slope Protection -->
+
+                <!-- Channel Opening -->
+
+                <!-- Obstructions -->
+            </LinearLayout>
+
+
+
+            <!-- Photos -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Inlet"
+                    android:textSize="20dp"
+                    android:layout_gravity="center"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:id="@+id/inlet1"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/file_image"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:id="@+id/inlet2"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/file_image"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"/>
+
+
+                </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

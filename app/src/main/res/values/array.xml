@@ -17,4 +17,123 @@
 
     </string-array>
 
+    <string-array name="crossingTypeItems">
+        <item>Culvert</item>
+        <item>Bridge</item>
+
+    </string-array>
+
+    <string-array name="culvertSubstrateItems">
+        <item>Culvert Substrate 1</item>
+        <item>Culvert Substrate 2</item>
+
+    </string-array>
+
+    <string-array name="culvertSubstratePItems">
+        <item>Percent 1</item>
+        <item>Percent 2</item>
+
+    </string-array>
+
+    <string-array name="culvertSubstrateTypeItems">
+        <item>Type 1</item>
+        <item>Type 2</item>
+
+    </string-array>
+
+    <string-array name="culvertSubstrateProportionItems">
+        <item>Proportion 1</item>
+        <item>Proportion 2</item>
+
+    </string-array>
+
+    <string-array name="culvertBWProportionItems">
+        <item>Back Water Proportion 1</item>
+        <item>Back Water Proportion 2</item>
+
+    </string-array>
+
+    <string-array name="culvertSlopeItems">
+        <item>Slope 1</item>
+        <item>Slope 2</item>
+
+    </string-array>
+
+    <string-array name="culvertOutletTypeItems">
+        <item>Type 1</item>
+        <item>Type 2</item>
+
+    </string-array>
+
+    <string-array name="scourPoolPresentItems">
+        <item>Scour 1</item>
+        <item>Scour 2</item>
+
+    </string-array>
+
+    <string-array name="delineatorItems">
+        <item>Delineator 1</item>
+        <item>Delineator 2</item>
+
+    </string-array>
+
+    <string-array name="hazardMarkersItems">
+        <item>Marker 1</item>
+        <item>Marker 2</item>
+
+    </string-array>
+
+    <string-array name="approachSignageItems">
+        <item>Marker 1</item>
+        <item>Marker 2</item>
+
+    </string-array>
+
+    <string-array name="roadSurfaceItems">
+        <item>Surface 1</item>
+        <item>Surface 2</item>
+
+    </string-array>
+
+    <string-array name="approachRailsItems">
+        <item>Rail 1</item>
+        <item>Rail 2</item>
+
+    </string-array>
+
+    <string-array name="roadDrainageItems">
+        <item>Drainage 1</item>
+        <item>Drainage 2</item>
+
+    </string-array>
+
+    <string-array name="visibilityItems">
+        <item>V 1</item>
+        <item>V 2</item>
+
+    </string-array>
+
+    <string-array name="wearingSurfaceItems">
+    </string-array>
+
+    <string-array name="railCurbItems">
+    </string-array>
+
+    <string-array name="girdersBracingItems">
+    </string-array>
+
+    <string-array name="capBeamItems">
+    </string-array>
+
+    <string-array name="pilesItems">
+    </string-array>
+
+    <string-array name="abutmentWallItems">
+    </string-array>
+
+    <string-array name="wingWallItems">
+    </string-array>
+
+    <string-array name="bankStabilityItems">
+    </string-array>
 </resources>
