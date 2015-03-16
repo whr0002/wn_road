@@ -4,8 +4,6 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -16,19 +14,24 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.map.woodlands.woodlandsmap.Data.Form;
+import com.map.woodlands.woodlandsmap.Data.ImageProcessor;
+import com.map.woodlands.woodlandsmap.Data.ViewToggler;
 import com.map.woodlands.woodlandsmap.R;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
@@ -40,7 +43,7 @@ import java.util.HashMap;
 /**
  * Created by Jimmy on 3/11/2015.
  */
-public class FormActivity extends ActionBarActivity implements View.OnClickListener{
+public class FormActivity extends ActionBarActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     static final int DATE_DIALOG_ID = 999;
 
     public int year;
@@ -50,10 +53,31 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
     public int mCurrentRequestCode;
     public HashMap<Integer, String> mPhotoMap;
 
-    public TextView dateView;
     public ImageButton dateButton;
-    public ImageView photoView1;
-    public ImageView photoView2;
+
+    public TextView dateView,latitudeView,longitudeView;
+
+    public EditText inspectionCrewView,crossingNumberView,crossingIDView,streamIDView,dispositionIDView,
+            streamWidthView,erosionAreaView,culvertLengthView,culvertDiameter1View,
+            culvertDiameter2View,culvertDiameter3View,culvertPoolDepthView,culvertOutletGapView,
+            bridgeLengthView,fishPassageConvernsReasonView,blockageView,blockageMaterialView,
+            blockageCauseView,remarksView;
+
+
+    public Spinner accessSpinner,streamClassificationSpinner,streamWidthMeasuredSpinner,crossingTypeSpinner,erosionSpinner,
+            erosionType1Spinner,erosionType2Spinner,erosionSourceSpinner,erosionDegreeSpinner,culvertSubstrateSpinner,
+            culvertSubstratePSpinner, culvertSubstrateTypeSpinner,culvertSubstrateProportionSpinner,
+            culvertBackWaterProportionSpinner,culvertSlopeSpinner,culvertOutletTypeSpinner,scourPoolPresentSpinner,
+            delineatorSpinner,hazardMarkersSpinner,approachSignageSpinner,roadSurfaceSpinner,approachRailsSpinner,
+            roadDrainageSpinner,visibilitySpinner,wearingSurfaceSpinner,railCurbSpinner,girdersBracingSpinner,
+            capBeamSpinner,pilesSpinner,abutmentWallSpinner,wingWallSpinner,bankStabilitySpinner,slopeProtectionSpinner,
+            channelOpeningSpinner,obstructionsSpinner,fishSamplingSpinner,fishSamplingMethod,fishSamplingSpecies1Spinner,
+            fishSamplingSpecies2Spinner,fishPassageConcernsSpinner,emergencyRepairRequiredSpinner,structuralProblemsSpinner,
+            sedimentationSpinner;
+
+    public ImageView photoView1,photoView2,photoView3,photoView4,photoView5,photoView6;
+
+    public LinearLayout culvertBlock,bridgeBlock,erosionBlock,fishSamplingBlock;
 
 
 
@@ -68,28 +92,114 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         this.mPhotoMap = new HashMap<Integer, String>();
         setView();
 
-
-
-
-
-
     }
 
     protected void setView() {
         setCurrentDateView();
         setDatePicker();
-
+        setTextViews();
+        setSpinners();
+        setLayouts();
         setImageViews();
     }
 
+    public void setTextViews() {
+        latitudeView = (TextView)findViewById(R.id.latText);
+        longitudeView = (TextView)findViewById(R.id.longText);
+
+        inspectionCrewView = (EditText)findViewById(R.id.crewText);
+        crossingNumberView = (EditText)findViewById(R.id.crossingNumberText);
+        crossingIDView = (EditText)findViewById(R.id.crossingIDText);
+        streamIDView = (EditText)findViewById(R.id.streamIDText);
+        dispositionIDView = (EditText)findViewById(R.id.dispositionIDText);
+        streamWidthView = (EditText)findViewById(R.id.streamWidthText);
+        erosionAreaView = (EditText)findViewById(R.id.erosionAreaText);
+        culvertLengthView = (EditText)findViewById(R.id.culvertLengthText);
+        culvertDiameter1View = (EditText)findViewById(R.id.culvertDiameter1Text);
+        culvertDiameter2View = (EditText)findViewById(R.id.culvertDiameter2Text);
+        culvertDiameter3View = (EditText)findViewById(R.id.culvertDiameter3Text);
+        culvertPoolDepthView = (EditText)findViewById(R.id.culvertPoolDepthText);
+        culvertOutletGapView = (EditText)findViewById(R.id.culvertOutletGapText);
+        bridgeLengthView = (EditText)findViewById(R.id.bridgeLengthText);
+        fishPassageConvernsReasonView = (EditText)findViewById(R.id.fishPassageConcernsReasonText);
+        blockageView = (EditText)findViewById(R.id.blockageText);
+        blockageMaterialView = (EditText)findViewById(R.id.blockageMaterialText);
+        blockageCauseView = (EditText)findViewById(R.id.blockageCauseText);
+        remarksView = (EditText)findViewById(R.id.remarksText);
+    }
+
+    public void setSpinners() {
+        accessSpinner = (Spinner)findViewById(R.id.accessDropdown);
+        streamClassificationSpinner = (Spinner)findViewById(R.id.streamClassDropdown);
+        streamWidthMeasuredSpinner = (Spinner)findViewById(R.id.streamMeasuredDropdown);
+        crossingTypeSpinner = (Spinner)findViewById(R.id.crossingTypeDropdown);
+        erosionSpinner = (Spinner)findViewById(R.id.erosionDropdown);
+        erosionType1Spinner = (Spinner)findViewById(R.id.erosionType1Dropdown);
+        erosionType2Spinner = (Spinner)findViewById(R.id.erosionType2Dropdown);
+        erosionSourceSpinner = (Spinner)findViewById(R.id.erosionSourceDropdown);
+        erosionDegreeSpinner = (Spinner)findViewById(R.id.erosionDegreeDropdown);
+        culvertSubstrateSpinner = (Spinner)findViewById(R.id.culvertSubstrateDropdown);
+        culvertSubstratePSpinner = (Spinner)findViewById(R.id.culvertSubstratePDropdown);
+        culvertSubstrateTypeSpinner = (Spinner)findViewById(R.id.culvertSubstrateTypeDropdown);
+        culvertSubstrateProportionSpinner = (Spinner)findViewById(R.id.culvertSubstrateProportionDropdown);
+        culvertBackWaterProportionSpinner = (Spinner)findViewById(R.id.culvertBWProportionDropdown);
+        culvertSlopeSpinner = (Spinner)findViewById(R.id.culvertSlopeDropdown);
+        culvertOutletTypeSpinner = (Spinner)findViewById(R.id.culvertOutletTypeDropdown);
+        scourPoolPresentSpinner = (Spinner)findViewById(R.id.scourPoolPresentDropdown);
+        delineatorSpinner = (Spinner)findViewById(R.id.delineatorDropdown);
+        hazardMarkersSpinner = (Spinner)findViewById(R.id.hazardMarkersDropdown);
+        approachSignageSpinner = (Spinner)findViewById(R.id.approachSignageDropdown);
+        roadSurfaceSpinner = (Spinner)findViewById(R.id.roadSurfaceDropdown);
+        approachRailsSpinner = (Spinner)findViewById(R.id.approachRailsDropdown);
+        roadDrainageSpinner = (Spinner)findViewById(R.id.roadDrainageDropdown);
+        visibilitySpinner = (Spinner)findViewById(R.id.visibilityDropdown);
+        wearingSurfaceSpinner = (Spinner)findViewById(R.id.wearingSurfaceDropdown);
+        railCurbSpinner = (Spinner)findViewById(R.id.railCurbDropdown);
+        girdersBracingSpinner = (Spinner)findViewById(R.id.girdersBracingDropdown);
+        capBeamSpinner = (Spinner)findViewById(R.id.capBeamDropdown);
+        pilesSpinner = (Spinner)findViewById(R.id.pilesDropdown);
+        abutmentWallSpinner = (Spinner)findViewById(R.id.abutmentWallDropdown);
+        wingWallSpinner = (Spinner)findViewById(R.id.wingWallDropdown);
+        bankStabilitySpinner = (Spinner)findViewById(R.id.bankStabilityDropdown);
+        slopeProtectionSpinner = (Spinner)findViewById(R.id.slopeProtectionDropdown);
+        channelOpeningSpinner = (Spinner)findViewById(R.id.channelOpeningDropdown);
+        obstructionsSpinner = (Spinner)findViewById(R.id.obstructionsDropdown);
+        fishSamplingSpinner = (Spinner)findViewById(R.id.fishSamplingDropdown);
+        fishSamplingMethod = (Spinner)findViewById(R.id.fishSamplingMethodDropdown);
+        fishSamplingSpecies1Spinner = (Spinner)findViewById(R.id.fishSamplingSpecies1Dropdown);
+        fishSamplingSpecies2Spinner = (Spinner)findViewById(R.id.fishSamplingSpecies2Dropdown);
+        fishPassageConcernsSpinner = (Spinner)findViewById(R.id.fishPassageConcernsDropdown);
+        emergencyRepairRequiredSpinner = (Spinner)findViewById(R.id.emergencyRepairRequiredDropdown);
+        structuralProblemsSpinner = (Spinner)findViewById(R.id.structuralProblemsDropdown);
+        sedimentationSpinner = (Spinner)findViewById(R.id.sedimentationDropdown);
+
+        crossingTypeSpinner.setOnItemSelectedListener(this);
+        erosionSpinner.setOnItemSelectedListener(this);
+        fishSamplingSpinner.setOnItemSelectedListener(this);
+    }
+
+    public void setLayouts() {
+        culvertBlock = (LinearLayout)findViewById(R.id.culvertBlock);
+        bridgeBlock = (LinearLayout)findViewById(R.id.bridgeBlock);
+        erosionBlock = (LinearLayout)findViewById(R.id.erosionBlock);
+        fishSamplingBlock = (LinearLayout)findViewById(R.id.fishSamplingBlock);
+    }
 
 
     private void setImageViews() {
         photoView1 = (ImageView) findViewById(R.id.inlet1);
         photoView2 = (ImageView) findViewById(R.id.inlet2);
+        photoView3 = (ImageView) findViewById(R.id.outlet1);
+        photoView4 = (ImageView) findViewById(R.id.outlet2);
+        photoView5 = (ImageView) findViewById(R.id.other1);
+        photoView6 = (ImageView) findViewById(R.id.other2);
 
         photoView1.setOnClickListener(this);
         photoView2.setOnClickListener(this);
+        photoView3.setOnClickListener(this);
+        photoView4.setOnClickListener(this);
+        photoView5.setOnClickListener(this);
+        photoView6.setOnClickListener(this);
     }
 
     private void setDatePicker() {
@@ -153,7 +263,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
 
             case R.id.save:
                 // Save form
-                Form form = getForm();
+                Form form = generateForm();
                 if(validateForms(form)){
                     // Form is complete
                     saveData(form);
@@ -201,7 +311,8 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
 
     }
 
-    public Form getForm(){
+    /* Generate a new form */
+    public Form generateForm(){
         SharedPreferences sp = getSharedPreferences("Data",0);
         SharedPreferences.Editor spEditor = sp.edit();
         int id = sp.getInt("ID", 0);
@@ -209,6 +320,33 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         Form f = new Form();
         f.ID = id;
         f.INSP_DATE = dateView.getText().toString();
+        f.INSP_CREW = inspectionCrewView.getText().toString();
+        f.ACCESS = accessSpinner.getSelectedItem().toString();
+        f.CROSS_NM = crossingNumberView.getText().toString();
+        f.CROSS_ID = crossingIDView.getText().toString();
+        f.STR_ID = streamIDView.getText().toString();
+        f.DISPOSITION_ID = dispositionIDView.getText().toString();
+        f.LAT = latitudeView.getText().toString();
+        f.LONG = longitudeView.getText().toString();
+        f.STR_CLASS = streamClassificationSpinner.getSelectedItem().toString();
+        f.STR_WIDTH = streamWidthView.getText().toString();
+        f.STR_WIDTHM = streamWidthMeasuredSpinner.getSelectedItem().toString();
+        f.CROSS_TYPE = crossingTypeSpinner.getSelectedItem().toString();
+        f.EROSION = erosionSpinner.getSelectedItem().toString();
+        f.EROSION_TY1 = erosionType1Spinner.getSelectedItem().toString();
+        f.EROSION_TY2 = erosionType2Spinner.getSelectedItem().toString();
+        f.EROSION_SO = erosionSourceSpinner.getSelectedItem().toString();
+        f.EROSION_DE = erosionDegreeSpinner.getSelectedItem().toString();
+        f.EROSION_AR = erosionAreaView.getText().toString();
+        f.CULV_LEN = culvertLengthView.getText().toString();
+        f.CULV_DIA_1 = culvertDiameter1View.getText().toString();
+        f.CULV_DIA_2 = culvertDiameter2View.getText().toString();
+        f.CULV_DIA_3 = culvertDiameter3View.getText().toString();
+        f.CULV_SUBS = culvertSubstrateSpinner.getSelectedItem().toString();
+        f.CULV_SUBSP = culvertSubstratePSpinner.getSelectedItem().toString();
+
+
+
 
         setPhotoPath(f);
 
@@ -245,68 +383,8 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
     }
 
     public void setPhotoView(ImageView photoView, String path){
-        // Get the dimensions of the view
-        int targetW = photoView.getWidth();
-        int targetH = photoView.getHeight();
-
-        // Get the dimensions of the bitmap
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        bmOptions.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(path, bmOptions);
-        int photoW = bmOptions.outWidth;
-        int photoH = bmOptions.outHeight;
-        int scaleFactor = 1;
-        // Determine how much to scale down the image
-//        if(targetW != 0 && targetH != 0) {
-            scaleFactor = Math.min(photoW / targetW, photoH / targetH);
-//        }
-
-        // Decode the image file into a Bitmap sized to fill the view
-        bmOptions.inJustDecodeBounds = false;
-        bmOptions.inSampleSize = scaleFactor << 1;
-        bmOptions.inPurgeable = true;
-
-        Bitmap bitmap = BitmapFactory.decodeFile(path, bmOptions);
-
-        File file = new File(path);
-        if(!file.exists()){
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }else{
-            file.delete();
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(file);
-            if (fos != null) {
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, fos);
-                fos.close();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-//        Matrix mtx = new Matrix();
-//        mtx.postRotate(90);
-//        // Rotating Bitmap
-//        Bitmap rotatedBMP = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), mtx, true);
-//
-//        if (rotatedBMP != bitmap)
-//            bitmap.recycle();
-
-        photoView.setImageBitmap(bitmap);
-//        Log.i("debug", "Changed Image Bitmap");
+        ImageProcessor imageProcessor = new ImageProcessor(photoView, path, true);
+        imageProcessor.setImageView();
 
     }
 
@@ -323,10 +401,24 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
                     setPhotoView(photoView1, mCurrentPhotoPath);
                     break;
 
-
                 case 2:
                     setPhotoView(photoView2, mCurrentPhotoPath);
-//                    photoView2.setImageBitmap(imageBitmap);
+                    break;
+
+                case 3:
+                    setPhotoView(photoView3, mCurrentPhotoPath);
+                    break;
+
+                case 4:
+                    setPhotoView(photoView4, mCurrentPhotoPath);
+                    break;
+
+                case 5:
+                    setPhotoView(photoView5, mCurrentPhotoPath);
+                    break;
+
+                case 6:
+                    setPhotoView(photoView6, mCurrentPhotoPath);
                     break;
 
             }
@@ -348,11 +440,28 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
                 dispatchTakePictureIntent(2);
                 break;
 
+            case R.id.outlet1:
+                dispatchTakePictureIntent(3);
+                break;
+
+            case R.id.outlet2:
+                dispatchTakePictureIntent(4);
+                break;
+
+            case R.id.other1:
+                dispatchTakePictureIntent(5);
+                break;
+
+            case R.id.other2:
+                dispatchTakePictureIntent(6);
+                break;
+
             default:
                 break;
         }
     }
 
+    /* Create a camera intent */
     public void dispatchTakePictureIntent(int requestCode){
         mCurrentRequestCode = requestCode;
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -378,7 +487,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
 
     }
 
-    private File createImageFile() throws IOException{
+    public File createImageFile() throws IOException{
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_"+timeStamp;
@@ -397,5 +506,16 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         mPhotoMap.put(mCurrentRequestCode, mCurrentPhotoPath);
 
         return image;
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        ViewToggler toggler = new ViewToggler(parent, position, culvertBlock, bridgeBlock, erosionBlock, fishSamplingBlock);
+        toggler.toggleView();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

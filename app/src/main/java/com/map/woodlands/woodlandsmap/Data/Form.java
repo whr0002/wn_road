@@ -15,12 +15,15 @@ public class Form {
     public String CROSS_STR;
     public String LAT;
     public String LONG;
+    public String STR_ID;
     public String STR_CLASS;
     public String STR_WIDTH;
     public String STR_WIDTHM;
+    public String DISPOSITION_ID;
     public String CROSS_TYPE;
     public String EROSION;
-    public String EROSION_TY;
+    public String EROSION_TY1;
+    public String EROSION_TY2;
     public String EROSION_SO;
     public String EROSION_DE;
     public String EROSION_AR;
@@ -51,6 +54,7 @@ public class Form {
     public String PHOTO_2;
     public String EROSION_S2;
     public String CULV_LEN;
+    public String CULV_SUBSP;
     public String BRDG_LEN;
     public String CULV_DIA_1;
     public String CULV_DIA_2;

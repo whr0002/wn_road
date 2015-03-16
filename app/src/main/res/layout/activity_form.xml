@@ -105,7 +105,7 @@
 
                 <Spinner
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:id="@+id/accessDropdown"
                     android:entries="@array/accessItems"
                     android:layout_weight="0.5"
@@ -311,7 +311,7 @@
 
                 <Spinner
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:id="@+id/streamClassDropdown"
                     android:entries="@array/streamClassItems"
                     android:layout_weight="0.5"
@@ -356,7 +356,6 @@
                 android:layout_height="60dp"
                 android:layout_gravity="center"
                 android:weightSum="1"
-                android:background="@color/lightBlue"
                 >
 
                 <TextView
@@ -371,7 +370,7 @@
 
                 <Spinner
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:id="@+id/streamMeasuredDropdown"
                     android:entries="@array/streamMeasuredItems"
                     android:layout_weight="0.5"
@@ -386,7 +385,6 @@
                 android:layout_height="60dp"
                 android:layout_gravity="center"
                 android:weightSum="1"
-                android:background="@color/lightBlue"
                 >
 
                 <TextView
@@ -401,7 +399,7 @@
 
                 <Spinner
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:id="@+id/crossingTypeDropdown"
                     android:entries="@array/crossingTypeItems"
                     android:layout_weight="0.5"
@@ -415,6 +413,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/culvertBlock"
+                android:background="@color/lightBlue"
                 android:orientation="vertical">
 
                 <!-- Culvert Length -->
@@ -558,7 +557,7 @@
 
                     <Spinner
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:id="@+id/culvertSubstrateDropdown"
                         android:entries="@array/culvertSubstrateItems"
                         android:layout_weight="0.5"
@@ -587,7 +586,7 @@
 
                     <Spinner
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:id="@+id/culvertSubstratePDropdown"
                         android:entries="@array/culvertSubstratePItems"
                         android:layout_weight="0.5"
@@ -616,7 +615,7 @@
 
                     <Spinner
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:id="@+id/culvertSubstrateTypeDropdown"
                         android:entries="@array/culvertSubstrateTypeItems"
                         android:layout_weight="0.5"
@@ -645,7 +644,7 @@
 
                     <Spinner
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:id="@+id/culvertSubstrateProportionDropdown"
                         android:entries="@array/culvertSubstrateProportionItems"
                         android:layout_weight="0.5"
@@ -674,7 +673,7 @@
 
                     <Spinner
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:id="@+id/culvertBWProportionDropdown"
                         android:entries="@array/culvertBWProportionItems"
                         android:layout_weight="0.5"
@@ -703,7 +702,7 @@
 
                     <Spinner
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:id="@+id/culvertSlopeDropdown"
                         android:entries="@array/culvertSlopeItems"
                         android:layout_weight="0.5"
@@ -732,7 +731,7 @@
 
                     <Spinner
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:id="@+id/culvertOutletTypeDropdown"
                         android:entries="@array/culvertOutletTypeItems"
                         android:layout_weight="0.5"
@@ -761,7 +760,7 @@
 
                     <Spinner
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:id="@+id/scourPoolPresentDropdown"
                         android:entries="@array/scourPoolPresentItems"
                         android:layout_weight="0.5"
@@ -850,7 +849,7 @@
 
                     <Spinner
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:id="@+id/delineatorDropdown"
                         android:entries="@array/delineatorItems"
                         android:layout_weight="0.5"
@@ -866,6 +865,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/bridgeBlock"
                 android:orientation="vertical"
+                android:background="@color/lightBlue"
                 android:visibility="gone">
 
                 <!-- Bridge Length -->
@@ -919,7 +919,7 @@
 
                     <Spinner
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:id="@+id/hazardMarkersDropdown"
                         android:entries="@array/hazardMarkersItems"
                         android:layout_weight="0.5"
@@ -948,7 +948,7 @@
 
                     <Spinner
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:id="@+id/approachSignageDropdown"
                         android:entries="@array/approachSignageItems"
                         android:layout_weight="0.5"
@@ -977,7 +977,7 @@
 
                     <Spinner
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:id="@+id/roadSurfaceDropdown"
                         android:entries="@array/roadSurfaceItems"
                         android:layout_weight="0.5"
@@ -1006,7 +1006,7 @@
 
                     <Spinner
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:id="@+id/approachRailsDropdown"
                         android:entries="@array/approachRailsItems"
                         android:layout_weight="0.5"
@@ -1035,7 +1035,7 @@
 
                     <Spinner
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:id="@+id/roadDrainageDropdown"
                         android:entries="@array/roadDrainageItems"
                         android:layout_weight="0.5"
@@ -1064,7 +1064,7 @@
 
                     <Spinner
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:id="@+id/visibilityDropdown"
                         android:entries="@array/visibilityItems"
                         android:layout_weight="0.5"
@@ -1093,7 +1093,7 @@
 
                     <Spinner
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:id="@+id/wearingSurfaceDropdown"
                         android:entries="@array/wearingSurfaceItems"
                         android:layout_weight="0.5"
@@ -1122,7 +1122,7 @@
 
                     <Spinner
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:id="@+id/railCurbDropdown"
                         android:entries="@array/railCurbItems"
                         android:layout_weight="0.5"
@@ -1151,7 +1151,7 @@
 
                     <Spinner
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:id="@+id/girdersBracingDropdown"
                         android:entries="@array/girdersBracingItems"
                         android:layout_weight="0.5"
@@ -1180,7 +1180,7 @@
 
                     <Spinner
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:id="@+id/capBeamDropdown"
                         android:entries="@array/capBeamItems"
                         android:layout_weight="0.5"
@@ -1209,7 +1209,7 @@
 
                     <Spinner
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:id="@+id/pilesDropdown"
                         android:entries="@array/pilesItems"
                         android:layout_weight="0.5"
@@ -1238,7 +1238,7 @@
 
                     <Spinner
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:id="@+id/abutmentWallDropdown"
                         android:entries="@array/abutmentWallItems"
                         android:layout_weight="0.5"
@@ -1267,7 +1267,7 @@
 
                     <Spinner
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:id="@+id/wingWallDropdown"
                         android:entries="@array/wingWallItems"
                         android:layout_weight="0.5"
@@ -1296,7 +1296,7 @@
 
                     <Spinner
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:id="@+id/bankStabilityDropdown"
                         android:entries="@array/bankStabilityItems"
                         android:layout_weight="0.5"
@@ -1305,15 +1305,680 @@
 
                 </LinearLayout>
                 <!-- Slope Protection -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
 
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Slope Protection"
+                        android:id="@+id/slopeProtectionLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:id="@+id/slopeProtectionDropdown"
+                        android:entries="@array/slopeProtectionItems"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
                 <!-- Channel Opening -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
 
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Channel Opening"
+                        android:id="@+id/channelOpeningLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:id="@+id/channelOpeningDropdown"
+                        android:entries="@array/channelOpeningItems"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
                 <!-- Obstructions -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Obstructions"
+                        android:id="@+id/obstructionsLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:id="@+id/obstructionsDropdown"
+                        android:entries="@array/obstructionsItems"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
             </LinearLayout>
 
+            <!-- Erosion -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:weightSum="1"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Erosion"
+                    android:id="@+id/erosionLabel"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"/>
+
+                <Spinner
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/erosionDropdown"
+                    android:entries="@array/erosionItems"
+                    android:layout_weight="0.5"
+                    android:layout_gravity="center"/>
 
 
-            <!-- Photos -->
+            </LinearLayout>
+
+            <!-- Erosion Block -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/erosionBlock"
+                android:orientation="vertical"
+                android:background="@color/lightBlue"
+                android:visibility="gone">
+
+                <!-- Erosion Type 1 -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Erosion Type 1"
+                        android:id="@+id/erosionType1Label"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:id="@+id/erosionType1Dropdown"
+                        android:entries="@array/erosionType1Items"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
+
+                <!-- Erosion Type 2 -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Erosion Type 2"
+                        android:id="@+id/erosionType2Label"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:id="@+id/erosionType2Dropdown"
+                        android:entries="@array/erosionType2Items"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
+                <!-- Erosion Source -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Erosion Source"
+                        android:id="@+id/erosionSourceLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:id="@+id/erosionSourceDropdown"
+                        android:entries="@array/erosionSourceItems"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
+                <!-- Erosion Degree -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Erosion Degree"
+                        android:id="@+id/erosionDegreeLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:id="@+id/erosionDegreeDropdown"
+                        android:entries="@array/erosionDegreeItems"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
+                <!-- Erosion Area -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Erosion Area"
+                        android:id="@+id/erosionAreaLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/erosionAreaText"
+                        android:layout_weight="0.5"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberDecimal"
+                        android:layout_gravity="center"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Fish Sampling -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:weightSum="1"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Fish Sampling"
+                    android:id="@+id/fishSamplingLabel"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"/>
+
+                <Spinner
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/fishSamplingDropdown"
+                    android:entries="@array/fishSamplingItems"
+                    android:layout_weight="0.5"
+                    android:layout_gravity="center"/>
+
+
+            </LinearLayout>
+
+            <!-- Fish Sampling Block -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/fishSamplingBlock"
+                android:orientation="vertical"
+                android:background="@color/lightBlue"
+                android:visibility="gone">
+
+                <!-- Fish Sampling Method -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Fish Sampling Method"
+                        android:id="@+id/fishSamplingMethodLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:id="@+id/fishSamplingMethodDropdown"
+                        android:entries="@array/fishSamplingMethodItems"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
+
+                <!-- Fish Sampling Species 1 -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Fish Sampling Species 1"
+                        android:id="@+id/fishSamplingSpecies1Label"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:id="@+id/fishSamplingSpecies1Dropdown"
+                        android:entries="@array/fishSamplingSpecies1Items"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
+
+                <!-- Fish Sampling Species 2 -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Fish Sampling Species 2"
+                        android:id="@+id/fishSamplingSpecies2Label"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:id="@+id/fishSamplingSpecies2Dropdown"
+                        android:entries="@array/fishSamplingSpecies2Items"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+            <!-- Fish Passage Concerns -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:weightSum="1"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Fish Passage Concerns"
+                    android:id="@+id/fishPassageConcernsLabel"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"/>
+
+                <Spinner
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/fishPassageConcernsDropdown"
+                    android:entries="@array/fishPassageConcernsItems"
+                    android:layout_weight="0.5"
+                    android:layout_gravity="center"/>
+
+
+            </LinearLayout>
+
+            <!-- Fish Passage Concerns Reason -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:weightSum="1"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Fish Passage Concerns Reason"
+                    android:id="@+id/fishPassageConcernsReasonLabel"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"/>
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fishPassageConcernsReasonText"
+                    android:layout_weight="0.5"
+                    android:singleLine="true"
+                    android:imeOptions="actionNext"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <!-- Blockage NOT NULL -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:weightSum="1"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Blockage"
+                    android:id="@+id/blockageLabel"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"/>
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/blockageText"
+                    android:layout_weight="0.5"
+                    android:singleLine="true"
+                    android:imeOptions="actionNext"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <!-- Blockage Material -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:weightSum="1"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Blockage Material"
+                    android:id="@+id/blockageMaterialLabel"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"/>
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/blockageMaterialText"
+                    android:layout_weight="0.5"
+                    android:singleLine="true"
+                    android:imeOptions="actionNext"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <!-- Blockage Cause -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:weightSum="1"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Blockage Cause"
+                    android:id="@+id/blockageCauseLabel"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"/>
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/blockageCauseText"
+                    android:layout_weight="0.5"
+                    android:singleLine="true"
+                    android:imeOptions="actionNext"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+            <!-- Emergency Repair Required NOT NULL -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:weightSum="1"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Emergency Repair Required"
+                    android:id="@+id/emergencyRepairRequiredLabel"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"/>
+
+                <Spinner
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/emergencyRepairRequiredDropdown"
+                    android:entries="@array/emergencyRepairRequiredItems"
+                    android:layout_weight="0.5"
+                    android:layout_gravity="center"/>
+
+
+            </LinearLayout>
+            <!-- Structural Problems NOT NULL -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:weightSum="1"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Structural Problems"
+                    android:id="@+id/structuralProblemsLabel"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"/>
+
+                <Spinner
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/structuralProblemsDropdown"
+                    android:entries="@array/structuralProblemsItems"
+                    android:layout_weight="0.5"
+                    android:layout_gravity="center"/>
+
+
+            </LinearLayout>
+            <!-- Sedimentation -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:weightSum="1"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Sedimentation"
+                    android:id="@+id/sedimentationLabel"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"/>
+
+                <Spinner
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/sedimentationDropdown"
+                    android:entries="@array/sedimentationItems"
+                    android:layout_weight="0.5"
+                    android:layout_gravity="center"/>
+
+
+            </LinearLayout>
+            <!-- Remarks -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:weightSum="1"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Remarks"
+                    android:id="@+id/remarksLabel"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"/>
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/remarksText"
+                    android:layout_weight="0.5"
+                    android:imeOptions="actionNext"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+            <!-- Inlet Photos -->
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -1348,6 +2013,75 @@
 
                 </LinearLayout>
 
+            <!-- Outlet Photos -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Outlet"
+                    android:textSize="20dp"
+                    android:layout_gravity="center"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:id="@+id/outlet1"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/file_image"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:id="@+id/outlet2"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/file_image"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"/>
+
+
+            </LinearLayout>
+
+            <!-- Other Photos -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Others"
+                    android:textSize="20dp"
+                    android:layout_gravity="center"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:id="@+id/other1"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/file_image"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:id="@+id/other2"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/file_image"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"/>
+
+
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

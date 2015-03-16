@@ -136,4 +136,56 @@
 
     <string-array name="bankStabilityItems">
     </string-array>
+
+    <string-array name="slopeProtectionItems">
+    </string-array>
+
+    <string-array name="channelOpeningItems">
+    </string-array>
+
+    <string-array name="obstructionsItems">
+    </string-array>
+
+    <string-array name="erosionItems">
+        <item>No</item>
+        <item>Yes</item>
+    </string-array>
+
+    <string-array name="erosionType1Items">
+    </string-array>
+
+    <string-array name="erosionType2Items">
+    </string-array>
+
+    <string-array name="erosionSourceItems">
+    </string-array>
+
+    <string-array name="erosionDegreeItems">
+    </string-array>
+
+    <string-array name="fishSamplingItems">
+        <item>No</item>
+        <item>Yes</item>
+    </string-array>
+
+    <string-array name="fishSamplingMethodItems">
+    </string-array>
+
+    <string-array name="fishSamplingSpecies1Items">
+    </string-array>
+
+    <string-array name="fishSamplingSpecies2Items">
+    </string-array>
+
+    <string-array name="fishPassageConcernsItems">
+    </string-array>
+
+    <string-array name="emergencyRepairRequiredItems">
+    </string-array>
+
+    <string-array name="structuralProblemsItems">
+    </string-array>
+
+    <string-array name="sedimentationItems">
+    </string-array>
 </resources>

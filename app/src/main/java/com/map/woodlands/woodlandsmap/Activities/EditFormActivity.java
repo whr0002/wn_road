@@ -1,8 +1,6 @@
 package com.map.woodlands.woodlandsmap.Activities;
 
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -11,6 +9,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.map.woodlands.woodlandsmap.Data.Form;
+import com.map.woodlands.woodlandsmap.Data.ImageProcessor;
 import com.map.woodlands.woodlandsmap.R;
 
 import java.lang.reflect.Type;
@@ -49,19 +48,17 @@ public class EditFormActivity extends FormActivity{
 
     }
 
+    /* Generate a new form */
     @Override
-    public Form getForm() {
+    public Form generateForm() {
         if(theForm != null){
             theForm.INSP_DATE = dateView.getText().toString();
             setPhotoPath(theForm);
 
             return theForm;
         }
-        return super.getForm();
+        return super.generateForm();
     }
-
-
-
 
 
     @Override
@@ -75,7 +72,7 @@ public class EditFormActivity extends FormActivity{
             case R.id.save:
                 // Save form
 
-                Form form = getForm();
+                Form form = generateForm();
                 if(validateForms(form)){
                     // Form is complete
                     modifyData(form);
@@ -127,6 +124,26 @@ public class EditFormActivity extends FormActivity{
             setPhotoView(photoView2, theForm.PHOTO_INDW);
             mPhotoMap.put(2,theForm.PHOTO_INDW);
         }
+
+        if(theForm.PHOTO_OTUP != null){
+            setPhotoView(photoView3, theForm.PHOTO_OTUP);
+            mPhotoMap.put(3, theForm.PHOTO_OTUP);
+        }
+
+        if(theForm.PHOTO_OTDW != null){
+            setPhotoView(photoView4, theForm.PHOTO_OTDW);
+            mPhotoMap.put(4, theForm.PHOTO_OTDW);
+        }
+
+        if(theForm.PHOTO_1 != null){
+            setPhotoView(photoView5, theForm.PHOTO_1);
+            mPhotoMap.put(5,theForm.PHOTO_1);
+        }
+
+        if(theForm.PHOTO_2 != null){
+            setPhotoView(photoView6, theForm.PHOTO_2);
+            mPhotoMap.put(6,theForm.PHOTO_2);
+        }
     }
 
     /*
@@ -153,30 +170,8 @@ public class EditFormActivity extends FormActivity{
     }
 
     @Override
-    public void setPhotoView(ImageView photoView, String path){
-        // Get the dimensions of the view
-        int targetW = photoView.getWidth();
-        int targetH = photoView.getHeight();
-
-        // Get the dimensions of the bitmap
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        bmOptions.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(path, bmOptions);
-        int photoW = bmOptions.outWidth;
-        int photoH = bmOptions.outHeight;
-        int scaleFactor = 1;
-
-        // Determine how much to scale down the image
-        scaleFactor = Math.min(photoW / targetW, photoH / targetH);
-
-        // Decode the image file into a Bitmap sized to fill the view
-        bmOptions.inJustDecodeBounds = false;
-        bmOptions.inSampleSize = scaleFactor << 1;
-        bmOptions.inPurgeable = true;
-
-        Bitmap bitmap = BitmapFactory.decodeFile(path, bmOptions);
-
-        photoView.setImageBitmap(bitmap);
-
+    public void setPhotoView(ImageView photoView, String path) {
+        ImageProcessor imageProcessor = new ImageProcessor(photoView, path, false);
+        imageProcessor.setImageView();
     }
 }
