@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.map.woodlands.woodlandsmap.Data.Form;
+import com.map.woodlands.woodlandsmap.Data.GPSTracker;
 import com.map.woodlands.woodlandsmap.Data.ImageProcessor;
 import com.map.woodlands.woodlandsmap.Data.ViewToggler;
 import com.map.woodlands.woodlandsmap.R;
@@ -101,6 +102,13 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         setSpinners();
         setLayouts();
         setImageViews();
+        setLatLong();
+    }
+
+    protected void setLatLong() {
+        GPSTracker gpsTracker = new GPSTracker(this.getApplicationContext());
+        latitudeView.setText(""+gpsTracker.getLatitude());
+        longitudeView.setText(""+gpsTracker.getLongitude());
     }
 
     public void setTextViews() {
@@ -186,7 +194,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
     }
 
 
-    private void setImageViews() {
+    protected void setImageViews() {
         photoView1 = (ImageView) findViewById(R.id.inlet1);
         photoView2 = (ImageView) findViewById(R.id.inlet2);
         photoView3 = (ImageView) findViewById(R.id.outlet1);
@@ -202,7 +210,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         photoView6.setOnClickListener(this);
     }
 
-    private void setDatePicker() {
+    protected void setDatePicker() {
         dateButton = (ImageButton) findViewById(R.id.date_picker);
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -212,7 +220,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         });
     }
 
-    private void setCurrentDateView() {
+    protected void setCurrentDateView() {
         dateView = (TextView) findViewById(R.id.dateView);
         final Calendar c = Calendar.getInstance();
         year = c.get(Calendar.YEAR);
@@ -220,8 +228,8 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         day = c.get(Calendar.DAY_OF_MONTH);
 
         dateView.setText(new StringBuilder()
-                .append(month + 1).append("-").append(day)
-                .append("-").append(year));
+                .append(day).append("/").append(month + 1)
+                .append("/").append(year));
 
 
 
@@ -237,7 +245,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         return null;
     }
 
-    private DatePickerDialog.OnDateSetListener datePickerListener
+    protected DatePickerDialog.OnDateSetListener datePickerListener
             = new DatePickerDialog.OnDateSetListener(){
 
         public void onDateSet(DatePicker view, int selectedYear,
@@ -248,8 +256,8 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
 
             // Set selected date to date view
             dateView.setText(new StringBuilder()
-                    .append(month + 1).append("-").append(day)
-                    .append("-").append(year));
+                    .append(day).append("/").append(month + 1)
+                    .append("/").append(year));
         }
     };
 
@@ -317,44 +325,81 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         SharedPreferences.Editor spEditor = sp.edit();
         int id = sp.getInt("ID", 0);
 
-        Form f = new Form();
-        f.ID = id;
-        f.INSP_DATE = dateView.getText().toString();
-        f.INSP_CREW = inspectionCrewView.getText().toString();
-        f.ACCESS = accessSpinner.getSelectedItem().toString();
-        f.CROSS_NM = crossingNumberView.getText().toString();
-        f.CROSS_ID = crossingIDView.getText().toString();
-        f.STR_ID = streamIDView.getText().toString();
-        f.DISPOSITION_ID = dispositionIDView.getText().toString();
-        f.LAT = latitudeView.getText().toString();
-        f.LONG = longitudeView.getText().toString();
-        f.STR_CLASS = streamClassificationSpinner.getSelectedItem().toString();
-        f.STR_WIDTH = streamWidthView.getText().toString();
-        f.STR_WIDTHM = streamWidthMeasuredSpinner.getSelectedItem().toString();
-        f.CROSS_TYPE = crossingTypeSpinner.getSelectedItem().toString();
-        f.EROSION = erosionSpinner.getSelectedItem().toString();
-        f.EROSION_TY1 = erosionType1Spinner.getSelectedItem().toString();
-        f.EROSION_TY2 = erosionType2Spinner.getSelectedItem().toString();
-        f.EROSION_SO = erosionSourceSpinner.getSelectedItem().toString();
-        f.EROSION_DE = erosionDegreeSpinner.getSelectedItem().toString();
-        f.EROSION_AR = erosionAreaView.getText().toString();
-        f.CULV_LEN = culvertLengthView.getText().toString();
-        f.CULV_DIA_1 = culvertDiameter1View.getText().toString();
-        f.CULV_DIA_2 = culvertDiameter2View.getText().toString();
-        f.CULV_DIA_3 = culvertDiameter3View.getText().toString();
-        f.CULV_SUBS = culvertSubstrateSpinner.getSelectedItem().toString();
-        f.CULV_SUBSP = culvertSubstratePSpinner.getSelectedItem().toString();
+        Form theForm = new Form();
+        theForm.ID = id;
+        theForm.INSP_DATE = dateView.getText().toString();
+        theForm.INSP_CREW = inspectionCrewView.getText().toString();
+        theForm.ACCESS = accessSpinner.getSelectedItem().toString();
+        theForm.CROSS_NM = crossingNumberView.getText().toString();
+        theForm.CROSS_ID = crossingIDView.getText().toString();
+        theForm.STR_ID = streamIDView.getText().toString();
+        theForm.DISPOSITION_ID = dispositionIDView.getText().toString();
+        theForm.LAT = latitudeView.getText().toString();
+        theForm.LONG = longitudeView.getText().toString();
+        theForm.STR_CLASS = streamClassificationSpinner.getSelectedItem().toString();
+        theForm.STR_WIDTH = streamWidthView.getText().toString();
+        theForm.STR_WIDTHM = streamWidthMeasuredSpinner.getSelectedItem().toString();
+        theForm.CROSS_TYPE = crossingTypeSpinner.getSelectedItem().toString();
+        theForm.EROSION = erosionSpinner.getSelectedItem().toString();
+        theForm.EROSION_TY1 = erosionType1Spinner.getSelectedItem().toString();
+        theForm.EROSION_TY2 = erosionType2Spinner.getSelectedItem().toString();
+        theForm.EROSION_SO = erosionSourceSpinner.getSelectedItem().toString();
+        theForm.EROSION_DE = erosionDegreeSpinner.getSelectedItem().toString();
+        theForm.EROSION_AR = erosionAreaView.getText().toString();
+        theForm.CULV_LEN = culvertLengthView.getText().toString();
+        theForm.CULV_DIA_1 = culvertDiameter1View.getText().toString();
+        theForm.CULV_DIA_2 = culvertDiameter2View.getText().toString();
+        theForm.CULV_DIA_3 = culvertDiameter3View.getText().toString();
+        theForm.CULV_SUBS = culvertSubstrateSpinner.getSelectedItem().toString();
+        theForm.CULV_SUBSP = culvertSubstratePSpinner.getSelectedItem().toString();
+        theForm.CULV_SUBSTYPE = culvertSubstrateTypeSpinner.getSelectedItem().toString();
+        theForm.CULV_SUBSPROPORTION = culvertSubstrateProportionSpinner.getSelectedItem().toString();
+        theForm.CULV_BACKWATERPROPORTION = culvertBackWaterProportionSpinner.getSelectedItem().toString();
+        theForm.CULV_SLOPE = culvertSlopeSpinner.getSelectedItem().toString();
+        theForm.CULV_OUTLETTYPE = culvertOutletTypeSpinner.getSelectedItem().toString();
+        theForm.SCOUR_POOL = scourPoolPresentSpinner.getSelectedItem().toString();
+        theForm.CULV_OPOOD = culvertPoolDepthView.getText().toString();
+        theForm.CULV_OPGAP = culvertOutletGapView.getText().toString();
+        theForm.DELINEATOR = delineatorSpinner.getSelectedItem().toString();
+        theForm.BRDG_LEN = bridgeLengthView.getText().toString();
+        theForm.HAZMARKR = hazardMarkersSpinner.getSelectedItem().toString();
+        theForm.APROCHSIGR = approachSignageSpinner.getSelectedItem().toString();
+        theForm.RDSURFR = roadSurfaceSpinner.getSelectedItem().toString();
+        theForm.APROCHRAIL = approachRailsSpinner.getSelectedItem().toString();
+        theForm.RDDRAINR = roadDrainageSpinner.getSelectedItem().toString();
+        theForm.VISIBILITY = visibilitySpinner.getSelectedItem().toString();
+        theForm.WEARSURF = wearingSurfaceSpinner.getSelectedItem().toString();
+        theForm.RAILCURBR = railCurbSpinner.getSelectedItem().toString();
+        theForm.GIRDEBRACR = girdersBracingSpinner.getSelectedItem().toString();
+        theForm.CAPBEAMR = capBeamSpinner.getSelectedItem().toString();
+        theForm.PILESR = pilesSpinner.getSelectedItem().toString();
+        theForm.ABUTWALR = abutmentWallSpinner.getSelectedItem().toString();
+        theForm.WINGWALR = wingWallSpinner.getSelectedItem().toString();
+        theForm.BANKSTABR = bankStabilitySpinner.getSelectedItem().toString();
+        theForm.SLOPEPROTR = slopeProtectionSpinner.getSelectedItem().toString();
+        theForm.CHANNELOPEN = channelOpeningSpinner.getSelectedItem().toString();
+        theForm.OBSTRUCTIO = obstructionsSpinner.getSelectedItem().toString();
+        theForm.FISH_SAMP = fishSamplingSpinner.getSelectedItem().toString();
+        theForm.FISH_SM = fishSamplingMethod.getSelectedItem().toString();
+        theForm.FISH_SPP = fishSamplingSpecies1Spinner.getSelectedItem().toString();
+        theForm.FISH_SPP2 = fishSamplingSpecies2Spinner.getSelectedItem().toString();
+        theForm.FISH_PCONC = fishPassageConcernsSpinner.getSelectedItem().toString();
+        theForm.FISH_PCONCREASON = fishPassageConvernsReasonView.getText().toString();
+        theForm.BLOCKAGE = blockageView.getText().toString();
+        theForm.BLOC_MATR = blockageMaterialView.getText().toString();
+        theForm.BLOC_CAUS = blockageCauseView.getText().toString();
+        theForm.EMG_REP_RE = emergencyRepairRequiredSpinner.getSelectedItem().toString();
+        theForm.STU_PROBS = structuralProblemsSpinner.getSelectedItem().toString();
+        theForm.SEDEMENTAT = sedimentationSpinner.getSelectedItem().toString();
+        theForm.REMARKS = remarksView.getText().toString();
 
-
-
-
-        setPhotoPath(f);
+        setPhotoPath(theForm);
 
 
         spEditor.putInt("ID", id+1);
         spEditor.commit();
 
-        return f;
+        return theForm;
     }
 
     public void setPhotoPath(Form f) {

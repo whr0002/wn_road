@@ -114,36 +114,47 @@
     </string-array>
 
     <string-array name="wearingSurfaceItems">
+        <item></item>
     </string-array>
 
     <string-array name="railCurbItems">
+        <item></item>
     </string-array>
 
     <string-array name="girdersBracingItems">
+        <item></item>
     </string-array>
 
     <string-array name="capBeamItems">
+        <item></item>
     </string-array>
 
     <string-array name="pilesItems">
+        <item></item>
     </string-array>
 
     <string-array name="abutmentWallItems">
+        <item></item>
     </string-array>
 
     <string-array name="wingWallItems">
+        <item></item>
     </string-array>
 
     <string-array name="bankStabilityItems">
+        <item></item>
     </string-array>
 
     <string-array name="slopeProtectionItems">
+        <item></item>
     </string-array>
 
     <string-array name="channelOpeningItems">
+        <item></item>
     </string-array>
 
     <string-array name="obstructionsItems">
+        <item></item>
     </string-array>
 
     <string-array name="erosionItems">
@@ -152,15 +163,19 @@
     </string-array>
 
     <string-array name="erosionType1Items">
+        <item></item>
     </string-array>
 
     <string-array name="erosionType2Items">
+        <item></item>
     </string-array>
 
     <string-array name="erosionSourceItems">
+        <item></item>
     </string-array>
 
     <string-array name="erosionDegreeItems">
+        <item></item>
     </string-array>
 
     <string-array name="fishSamplingItems">
@@ -169,23 +184,30 @@
     </string-array>
 
     <string-array name="fishSamplingMethodItems">
+        <item></item>
     </string-array>
 
     <string-array name="fishSamplingSpecies1Items">
+        <item></item>
     </string-array>
 
     <string-array name="fishSamplingSpecies2Items">
+        <item></item>
     </string-array>
 
     <string-array name="fishPassageConcernsItems">
+        <item></item>
     </string-array>
 
     <string-array name="emergencyRepairRequiredItems">
+        <item></item>
     </string-array>
 
     <string-array name="structuralProblemsItems">
+        <item></item>
     </string-array>
 
     <string-array name="sedimentationItems">
+        <item></item>
     </string-array>
 </resources>

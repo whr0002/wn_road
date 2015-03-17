@@ -158,6 +158,7 @@ public class FormFragment  extends Fragment{
             for(Form form : forms){
                 Uploader uploader = new Uploader(form);
                 uploader.execute();
+
             }
 
 

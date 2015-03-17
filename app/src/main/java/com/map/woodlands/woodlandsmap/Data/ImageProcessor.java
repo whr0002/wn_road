@@ -18,6 +18,7 @@ public class ImageProcessor {
     public ImageProcessor(ImageView imageView, String path, Boolean isCompress){
         this.mImageView = imageView;
         this.mPath = path;
+        this.mIsCompress = isCompress;
     }
 
     public void setImageView(){

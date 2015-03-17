@@ -4,7 +4,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Spinner;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -24,15 +24,27 @@ public class EditFormActivity extends FormActivity{
     private int formIndex;
     private ArrayList<Form> mForms;
     private Form theForm;
-    private TextView dateView;
     private boolean isInOnce = false;
+
+    @Override
+    protected void setView() {
+        setCurrentDateView();
+        setDatePicker();
+        setTextViews();
+        setSpinners();
+        setLayouts();
+        setImageViews();
+
+
+    }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if(!isInOnce && formID != -1){
             // Got the form ID, set its data on view
-            setForm();
+//            setForm();
+            setPhotoFromPath();
             isInOnce = true;
         }
     }
@@ -40,10 +52,10 @@ public class EditFormActivity extends FormActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dateView = (TextView) findViewById(R.id.dateView);
+//        dateView = (TextView) findViewById(R.id.dateView);
 
         this.formID = getIntent().getIntExtra("ID", -1);
-
+        setForm();
 
 
     }
@@ -53,6 +65,70 @@ public class EditFormActivity extends FormActivity{
     public Form generateForm() {
         if(theForm != null){
             theForm.INSP_DATE = dateView.getText().toString();
+            theForm.INSP_CREW = inspectionCrewView.getText().toString();
+            theForm.ACCESS = accessSpinner.getSelectedItem().toString();
+            theForm.CROSS_NM = crossingNumberView.getText().toString();
+            theForm.CROSS_ID = crossingIDView.getText().toString();
+            theForm.STR_ID = streamIDView.getText().toString();
+            theForm.DISPOSITION_ID = dispositionIDView.getText().toString();
+            theForm.LAT = latitudeView.getText().toString();
+            theForm.LONG = longitudeView.getText().toString();
+            theForm.STR_CLASS = streamClassificationSpinner.getSelectedItem().toString();
+            theForm.STR_WIDTH = streamWidthView.getText().toString();
+            theForm.STR_WIDTHM = streamWidthMeasuredSpinner.getSelectedItem().toString();
+            theForm.CROSS_TYPE = crossingTypeSpinner.getSelectedItem().toString();
+            theForm.EROSION = erosionSpinner.getSelectedItem().toString();
+            theForm.EROSION_TY1 = erosionType1Spinner.getSelectedItem().toString();
+            theForm.EROSION_TY2 = erosionType2Spinner.getSelectedItem().toString();
+            theForm.EROSION_SO = erosionSourceSpinner.getSelectedItem().toString();
+            theForm.EROSION_DE = erosionDegreeSpinner.getSelectedItem().toString();
+            theForm.EROSION_AR = erosionAreaView.getText().toString();
+            theForm.CULV_LEN = culvertLengthView.getText().toString();
+            theForm.CULV_DIA_1 = culvertDiameter1View.getText().toString();
+            theForm.CULV_DIA_2 = culvertDiameter2View.getText().toString();
+            theForm.CULV_DIA_3 = culvertDiameter3View.getText().toString();
+            theForm.CULV_SUBS = culvertSubstrateSpinner.getSelectedItem().toString();
+            theForm.CULV_SUBSP = culvertSubstratePSpinner.getSelectedItem().toString();
+            theForm.CULV_SUBSTYPE = culvertSubstrateTypeSpinner.getSelectedItem().toString();
+            theForm.CULV_SUBSPROPORTION = culvertSubstrateProportionSpinner.getSelectedItem().toString();
+            theForm.CULV_BACKWATERPROPORTION = culvertBackWaterProportionSpinner.getSelectedItem().toString();
+            theForm.CULV_SLOPE = culvertSlopeSpinner.getSelectedItem().toString();
+            theForm.CULV_OUTLETTYPE = culvertOutletTypeSpinner.getSelectedItem().toString();
+            theForm.SCOUR_POOL = scourPoolPresentSpinner.getSelectedItem().toString();
+            theForm.CULV_OPOOD = culvertPoolDepthView.getText().toString();
+            theForm.CULV_OPGAP = culvertOutletGapView.getText().toString();
+            theForm.DELINEATOR = delineatorSpinner.getSelectedItem().toString();
+            theForm.BRDG_LEN = bridgeLengthView.getText().toString();
+            theForm.HAZMARKR = hazardMarkersSpinner.getSelectedItem().toString();
+            theForm.APROCHSIGR = approachSignageSpinner.getSelectedItem().toString();
+            theForm.RDSURFR = roadSurfaceSpinner.getSelectedItem().toString();
+            theForm.APROCHRAIL = approachRailsSpinner.getSelectedItem().toString();
+            theForm.RDDRAINR = roadDrainageSpinner.getSelectedItem().toString();
+            theForm.VISIBILITY = visibilitySpinner.getSelectedItem().toString();
+            theForm.WEARSURF = wearingSurfaceSpinner.getSelectedItem().toString();
+            theForm.RAILCURBR = railCurbSpinner.getSelectedItem().toString();
+            theForm.GIRDEBRACR = girdersBracingSpinner.getSelectedItem().toString();
+            theForm.CAPBEAMR = capBeamSpinner.getSelectedItem().toString();
+            theForm.PILESR = pilesSpinner.getSelectedItem().toString();
+            theForm.ABUTWALR = abutmentWallSpinner.getSelectedItem().toString();
+            theForm.WINGWALR = wingWallSpinner.getSelectedItem().toString();
+            theForm.BANKSTABR = bankStabilitySpinner.getSelectedItem().toString();
+            theForm.SLOPEPROTR = slopeProtectionSpinner.getSelectedItem().toString();
+            theForm.CHANNELOPEN = channelOpeningSpinner.getSelectedItem().toString();
+            theForm.OBSTRUCTIO = obstructionsSpinner.getSelectedItem().toString();
+            theForm.FISH_SAMP = fishSamplingSpinner.getSelectedItem().toString();
+            theForm.FISH_SM = fishSamplingMethod.getSelectedItem().toString();
+            theForm.FISH_SPP = fishSamplingSpecies1Spinner.getSelectedItem().toString();
+            theForm.FISH_SPP2 = fishSamplingSpecies2Spinner.getSelectedItem().toString();
+            theForm.FISH_PCONC = fishPassageConcernsSpinner.getSelectedItem().toString();
+            theForm.FISH_PCONCREASON = fishPassageConvernsReasonView.getText().toString();
+            theForm.BLOCKAGE = blockageView.getText().toString();
+            theForm.BLOC_MATR = blockageMaterialView.getText().toString();
+            theForm.BLOC_CAUS = blockageCauseView.getText().toString();
+            theForm.EMG_REP_RE = emergencyRepairRequiredSpinner.getSelectedItem().toString();
+            theForm.STU_PROBS = structuralProblemsSpinner.getSelectedItem().toString();
+            theForm.SEDEMENTAT = sedimentationSpinner.getSelectedItem().toString();
+            theForm.REMARKS = remarksView.getText().toString();
             setPhotoPath(theForm);
 
             return theForm;
@@ -103,6 +179,20 @@ public class EditFormActivity extends FormActivity{
 
     }
 
+    private int getSpinnerIndex(Spinner spinner, String name){
+        int index = 0;
+        if(spinner != null && name != null) {
+
+            for (int i = 0; i < spinner.getCount(); i++) {
+                if (spinner.getItemAtPosition(i).equals(name)) {
+                    index = i;
+                }
+            }
+
+        }
+        return index;
+    }
+
     /*
     * Set form data in view
     * */
@@ -110,7 +200,73 @@ public class EditFormActivity extends FormActivity{
         theForm = searchForForm();
         if(theForm != null) {
             dateView.setText(theForm.INSP_DATE);
-            setPhotoFromPath();
+            inspectionCrewView.setText(theForm.INSP_CREW);
+            accessSpinner.setSelection(getSpinnerIndex(accessSpinner, theForm.ACCESS));
+            crossingNumberView.setText(theForm.CROSS_NM);
+
+//            theForm.CROSS_NM = crossingNumberView.getText().toString();
+//            theForm.CROSS_ID = crossingIDView.getText().toString();
+//            theForm.STR_ID = streamIDView.getText().toString();
+//            theForm.DISPOSITION_ID = dispositionIDView.getText().toString();
+//            theForm.LAT = latitudeView.getText().toString();
+//            theForm.LONG = longitudeView.getText().toString();
+//            theForm.STR_CLASS = streamClassificationSpinner.getSelectedItem().toString();
+//            theForm.STR_WIDTH = streamWidthView.getText().toString();
+//            theForm.STR_WIDTHM = streamWidthMeasuredSpinner.getSelectedItem().toString();
+//            theForm.CROSS_TYPE = crossingTypeSpinner.getSelectedItem().toString();
+//            theForm.EROSION = erosionSpinner.getSelectedItem().toString();
+//            theForm.EROSION_TY1 = erosionType1Spinner.getSelectedItem().toString();
+//            theForm.EROSION_TY2 = erosionType2Spinner.getSelectedItem().toString();
+//            theForm.EROSION_SO = erosionSourceSpinner.getSelectedItem().toString();
+//            theForm.EROSION_DE = erosionDegreeSpinner.getSelectedItem().toString();
+//            theForm.EROSION_AR = erosionAreaView.getText().toString();
+//            theForm.CULV_LEN = culvertLengthView.getText().toString();
+//            theForm.CULV_DIA_1 = culvertDiameter1View.getText().toString();
+//            theForm.CULV_DIA_2 = culvertDiameter2View.getText().toString();
+//            theForm.CULV_DIA_3 = culvertDiameter3View.getText().toString();
+//            theForm.CULV_SUBS = culvertSubstrateSpinner.getSelectedItem().toString();
+//            theForm.CULV_SUBSP = culvertSubstratePSpinner.getSelectedItem().toString();
+//            theForm.CULV_SUBSTYPE = culvertSubstrateTypeSpinner.getSelectedItem().toString();
+//            theForm.CULV_SUBSPROPORTION = culvertSubstrateProportionSpinner.getSelectedItem().toString();
+//            theForm.CULV_BACKWATERPROPORTION = culvertBackWaterProportionSpinner.getSelectedItem().toString();
+//            theForm.CULV_SLOPE = culvertSlopeSpinner.getSelectedItem().toString();
+//            theForm.CULV_OUTLETTYPE = culvertOutletTypeSpinner.getSelectedItem().toString();
+//            theForm.SCOUR_POOL = scourPoolPresentSpinner.getSelectedItem().toString();
+//            theForm.CULV_OPOOD = culvertPoolDepthView.getText().toString();
+//            theForm.CULV_OPGAP = culvertOutletGapView.getText().toString();
+//            theForm.DELINEATOR = delineatorSpinner.getSelectedItem().toString();
+//            theForm.BRDG_LEN = bridgeLengthView.getText().toString();
+//            theForm.HAZMARKR = hazardMarkersSpinner.getSelectedItem().toString();
+//            theForm.APROCHSIGR = approachSignageSpinner.getSelectedItem().toString();
+//            theForm.RDSURFR = roadSurfaceSpinner.getSelectedItem().toString();
+//            theForm.APROCHRAIL = approachRailsSpinner.getSelectedItem().toString();
+//            theForm.RDDRAINR = roadDrainageSpinner.getSelectedItem().toString();
+//            theForm.VISIBILITY = visibilitySpinner.getSelectedItem().toString();
+//            theForm.WEARSURF = wearingSurfaceSpinner.getSelectedItem().toString();
+//            theForm.RAILCURBR = railCurbSpinner.getSelectedItem().toString();
+//            theForm.GIRDEBRACR = girdersBracingSpinner.getSelectedItem().toString();
+//            theForm.CAPBEAMR = capBeamSpinner.getSelectedItem().toString();
+//            theForm.PILESR = pilesSpinner.getSelectedItem().toString();
+//            theForm.ABUTWALR = abutmentWallSpinner.getSelectedItem().toString();
+//            theForm.WINGWALR = wingWallSpinner.getSelectedItem().toString();
+//            theForm.BANKSTABR = bankStabilitySpinner.getSelectedItem().toString();
+//            theForm.SLOPEPROTR = slopeProtectionSpinner.getSelectedItem().toString();
+//            theForm.CHANNELOPEN = channelOpeningSpinner.getSelectedItem().toString();
+//            theForm.OBSTRUCTIO = obstructionsSpinner.getSelectedItem().toString();
+//            theForm.FISH_SAMP = fishSamplingSpinner.getSelectedItem().toString();
+//            theForm.FISH_SM = fishSamplingMethod.getSelectedItem().toString();
+//            theForm.FISH_SPP = fishSamplingSpecies1Spinner.getSelectedItem().toString();
+//            theForm.FISH_SPP2 = fishSamplingSpecies2Spinner.getSelectedItem().toString();
+//            theForm.FISH_PCONC = fishPassageConcernsSpinner.getSelectedItem().toString();
+//            theForm.FISH_PCONCREASON = fishPassageConvernsReasonView.getText().toString();
+//            theForm.BLOCKAGE = blockageView.getText().toString();
+//            theForm.BLOC_MATR = blockageMaterialView.getText().toString();
+//            theForm.BLOC_CAUS = blockageCauseView.getText().toString();
+//            theForm.EMG_REP_RE = emergencyRepairRequiredSpinner.getSelectedItem().toString();
+//            theForm.STU_PROBS = structuralProblemsSpinner.getSelectedItem().toString();
+//            theForm.SEDEMENTAT = sedimentationSpinner.getSelectedItem().toString();
+//            theForm.REMARKS = remarksView.getText().toString();
+//            setPhotoFromPath();
         }
     }
 
