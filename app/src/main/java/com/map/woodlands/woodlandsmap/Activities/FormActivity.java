@@ -3,7 +3,6 @@ package com.map.woodlands.woodlandsmap.Activities;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -24,9 +23,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.map.woodlands.woodlandsmap.Data.Form;
+import com.map.woodlands.woodlandsmap.Data.FormController;
+import com.map.woodlands.woodlandsmap.Data.FormValidator;
 import com.map.woodlands.woodlandsmap.Data.GPSTracker;
 import com.map.woodlands.woodlandsmap.Data.ImageProcessor;
 import com.map.woodlands.woodlandsmap.Data.ViewToggler;
@@ -34,9 +33,7 @@ import com.map.woodlands.woodlandsmap.R;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -53,6 +50,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
     public String mCurrentPhotoPath;
     public int mCurrentRequestCode;
     public HashMap<Integer, String> mPhotoMap;
+    public FormController mFormController;
 
     public ImageButton dateButton;
 
@@ -89,7 +87,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-
+        this.mFormController = new FormController(this.getApplicationContext());
         this.mPhotoMap = new HashMap<Integer, String>();
         setView();
 
@@ -272,14 +270,11 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
             case R.id.save:
                 // Save form
                 Form form = generateForm();
-                if(validateForms(form)){
-                    // Form is complete
-                    saveData(form);
-                    finish();
-                }else{
-                    // Form is not complete
+                validateForms(form);
+                // Form is complete
+                mFormController.saveForm(form);
+                finish();
 
-                }
                 return true;
 
 
@@ -290,40 +285,10 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
 
     }
 
-    public void saveData(Form form) {
-        ArrayList<Form> formList;
-        SharedPreferences sp = getSharedPreferences("Data",0);
-        SharedPreferences.Editor spEditor = sp.edit();
-        String json = sp.getString("FormData","");
-        Gson gson = new Gson();
-
-
-        if(json.equals("")){
-            // No form data, add now
-            formList = new ArrayList<Form>();
-
-        }else{
-            // Have old data
-            Type listType = new TypeToken<ArrayList<Form>>(){}.getType();
-            formList = gson.fromJson(json, listType);
-
-        }
-
-        formList.add(form);
-        json = gson.toJson(formList);
-
-        spEditor.putString("FormData", json);
-        spEditor.commit();
-
-        Log.i("debug","json2: "+ json);
-
-    }
-
     /* Generate a new form */
     public Form generateForm(){
-        SharedPreferences sp = getSharedPreferences("Data",0);
-        SharedPreferences.Editor spEditor = sp.edit();
-        int id = sp.getInt("ID", 0);
+
+        int id = mFormController.getNextFormID();
 
         Form theForm = new Form();
         theForm.ID = id;
@@ -395,10 +360,6 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
 
         setPhotoPath(theForm);
 
-
-        spEditor.putInt("ID", id+1);
-        spEditor.commit();
-
         return theForm;
     }
 
@@ -421,10 +382,12 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
     /*
     * Validate a form
     * */
-    public boolean validateForms(Form form){
+    public void validateForms(Form form){
         // Assume it is valid now
-        form.STATUS = "Ready to submit";
-        return true;
+        FormValidator formValidator = new FormValidator(form);
+        formValidator.validateForm();
+//        form.STATUS = formValidator.getFormStatus();
+
     }
 
     public void setPhotoView(ImageView photoView, String path){

@@ -1,0 +1,185 @@
+package com.map.woodlands.woodlandsmap.Data;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.map.woodlands.woodlandsmap.Fragments.FormFragment;
+
+import java.io.File;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+
+/**
+ * Created by Jimmy on 3/18/2015.
+ */
+public class FormController {
+
+    private Type mType;
+    private ArrayList<Form> mForms;
+    private Gson gson;
+    private String json;
+    private SharedPreferences sp;
+    private SharedPreferences.Editor spEditor;
+    private Context mContext;
+    private FormFragment mFormFragment;
+
+    public FormController(Context context){
+        mContext = context;
+        this.mType = new TypeToken<ArrayList<Form>>(){}.getType();
+        this.mForms = new ArrayList<Form>();
+        this.gson = new Gson();
+        this.sp = mContext.getSharedPreferences("Data", 0);
+        this.spEditor = sp.edit();
+    }
+
+    public FormController(Context context, FormFragment formFragment){
+        mContext = context;
+        this.mType = new TypeToken<ArrayList<Form>>(){}.getType();
+        this.mForms = new ArrayList<Form>();
+        this.gson = new Gson();
+        this.sp = mContext.getSharedPreferences("Data", 0);
+        this.spEditor = sp.edit();
+        this.mFormFragment = formFragment;
+    }
+
+    /* Get all ready-to-submit forms */
+    public ArrayList<Form> getReadyToSubmitForms(){
+        ArrayList<Form> tempForms = new ArrayList<Form>();
+        mForms.clear();
+        json = sp.getString("FormData","");
+        if(!json.equals("")){
+            mForms = gson.fromJson(json, mType);
+            for(Form f : mForms){
+                if(f.STATUS.toLowerCase().contains("ready")){
+                    tempForms.add(f);
+                }
+            }
+            return tempForms;
+        }
+
+        return null;
+    }
+
+    /* Get all forms */
+    public ArrayList<Form> getAllForms(){
+        mForms.clear();
+        json = sp.getString("FormData","");
+        if(!json.equals("")){
+            mForms = gson.fromJson(json, mType);
+
+        }
+
+        return mForms;
+    }
+
+    public void deleteOneForm(int formID){
+        mForms.clear();
+        mForms = getAllForms();
+        IndexForm mif = getIndexForm(formID);
+        if(mif != null){
+            mForms.remove(mif.index);
+            deleteImageFileIfExists(mif.form);
+        }
+
+        json = gson.toJson(mForms);
+        spEditor.putString("FormData", json);
+        spEditor.commit();
+
+        mFormFragment.setListView();
+
+    }
+
+    public void deleteAllForms(){
+        mForms.clear();
+        json = sp.getString("FormData", "");
+        if(!json.equals("")){
+            mForms = gson.fromJson(json, mType);
+            for(Form f : mForms){
+                deleteImageFileIfExists(f);
+            }
+        }
+        spEditor.putString("FormData","");
+        spEditor.commit();
+
+        // Refresh view
+        mFormFragment.setListView();
+    }
+
+    public void submitForms() {
+        mForms.clear();
+        mForms = getReadyToSubmitForms();
+        if(mForms != null) {
+            for (Form form : mForms) {
+                Uploader uploader = new Uploader(form);
+                uploader.execute();
+
+            }
+        }
+    }
+
+    public void saveForm(Form form){
+        mForms = getAllForms();
+        mForms.add(form);
+        json = gson.toJson(mForms);
+        spEditor.putString("FormData", json);
+        spEditor.commit();
+
+        Log.i("debug", "json2: " + json);
+
+    }
+
+    public void saveForm(int index, Form form){
+        mForms.clear();
+        mForms = getAllForms();
+        mForms.set(index, form);
+        json = gson.toJson(mForms);
+        spEditor.putString("FormData", json);
+        spEditor.commit();
+    }
+
+    public int getNextFormID(){
+        int i = sp.getInt("ID",0);
+        spEditor.putInt("ID", i+1);
+        spEditor.commit();
+        return i;
+    }
+
+    public  IndexForm getIndexForm(int formID){
+
+        mForms.clear();
+        mForms = getAllForms();
+        for(int i=0;i<mForms.size();i++){
+            if(mForms.get(i).ID == formID){
+                return new IndexForm(i, mForms.get(i));
+            }
+        }
+
+        return null;
+    }
+
+    private void deleteImageFileIfExists(Form form) {
+        ArrayList<String> paths = new ArrayList<String>();
+        paths.add(form.PHOTO_INUP);
+        paths.add(form.PHOTO_INDW);
+        paths.add(form.PHOTO_OTUP);
+        paths.add(form.PHOTO_OTDW);
+        paths.add(form.PHOTO_1);
+        paths.add(form.PHOTO_2);
+
+        for(String path : paths){
+            if(path != null) {
+                File file = new File(path);
+                if (file.exists()) {
+                    // File exists, delete it
+                    file.delete();
+                }
+            }
+        }
+
+    }
+
+
+}

@@ -1,5 +1,7 @@
 package com.map.woodlands.woodlandsmap.Data;
 
+import java.util.ArrayList;
+
 /**
  * Created by Jimmy on 3/11/2015.
  */
@@ -92,5 +94,5 @@ public class Form {
     public String SLOPEPROTR;
     public String CHANNELOPEN;
     public String OBSTRUCTIO;
-
+    public ArrayList<String> messages;
 }

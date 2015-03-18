@@ -1,7 +1,6 @@
 package com.map.woodlands.woodlandsmap.Fragments;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
@@ -15,17 +14,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.map.woodlands.woodlandsmap.Activities.EditFormActivity;
 import com.map.woodlands.woodlandsmap.Activities.FormActivity;
 import com.map.woodlands.woodlandsmap.Adapters.FormArrayAdapter;
 import com.map.woodlands.woodlandsmap.Data.Form;
-import com.map.woodlands.woodlandsmap.Data.Uploader;
+import com.map.woodlands.woodlandsmap.Data.FormController;
 import com.map.woodlands.woodlandsmap.R;
 
-import java.io.File;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
@@ -38,10 +33,7 @@ public class FormFragment  extends Fragment{
     private ListView listView;
     private ArrayList<Form> forms;
 
-    private SharedPreferences sp;
-    private SharedPreferences.Editor spEditor;
-    public Type listType;
-    public Gson gson;
+    public FormController formController;
 
     public static FormFragment newInstance(){
         FormFragment f = new FormFragment();
@@ -54,13 +46,8 @@ public class FormFragment  extends Fragment{
         View v = inflater.inflate(R.layout.fragment_form, container, false);
 
         aba = (ActionBarActivity) this.getActivity();
-        listType = new TypeToken<ArrayList<Form>>(){}.getType();
-        gson = new Gson();
-        sp = aba.getSharedPreferences("Data", 0);
-        spEditor = sp.edit();
+        formController = new FormController(aba.getApplicationContext(), this);
         setHasOptionsMenu(true);
-
-
 
         return v;
     }
@@ -72,9 +59,9 @@ public class FormFragment  extends Fragment{
     }
 
     public void setListView() {
-        forms = getForms();
+        forms = formController.getAllForms();
 //        Log.i("debug","#Forms: "+ forms.size());
-        final FormArrayAdapter adapter = new FormArrayAdapter(aba, forms);
+        final FormArrayAdapter adapter = new FormArrayAdapter(aba, forms, this);
 
         listView = (ListView) aba.findViewById(R.id.listView);
         listView.setAdapter(adapter);
@@ -95,18 +82,7 @@ public class FormFragment  extends Fragment{
 
     }
 
-    private ArrayList<Form> getForms() {
-        ArrayList<Form> forms;
-        String json = sp.getString("FormData","");
-        if(json.equals("")){
-            forms = new ArrayList<Form>();
-        }else{
 
-
-            forms = gson.fromJson(json, listType);
-        }
-        return forms;
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -135,106 +111,18 @@ public class FormFragment  extends Fragment{
 
             case 2:
                 // Delete forms
-                deleteAllForms();
+                formController.deleteAllForms();
                 return true;
 
             case 3:
                 // Submit forms
-                submitForms();
+                formController.submitForms();
                 return true;
 
             default:
                 return super.onOptionsItemSelected(item);
 
         }
-
-    }
-
-    private void submitForms() {
-        String json = sp.getString("FormData", "");
-        if(!json.equals("")){
-            ArrayList<Form> forms = new ArrayList<Form>();
-            forms = gson.fromJson(json, listType);
-            for(Form form : forms){
-                Uploader uploader = new Uploader(form);
-                uploader.execute();
-
-            }
-
-
-
-        }
-
-
-    }
-
-    private void deleteAllForms() {
-        String json = sp.getString("FormData", "");
-        ArrayList<Form> forms = new ArrayList<Form>();
-
-        if(!json.equals("")){
-            forms = gson.fromJson(json, listType);
-            for(Form form : forms){
-                deleteFileIfExists(form);
-            }
-        }
-
-
-
-        spEditor.putString("FormData", "");
-        spEditor.commit();
-        setListView();
-    }
-
-    private void deleteFileIfExists(Form form) {
-        if(form.PHOTO_INUP != null){
-            File file = new File(form.PHOTO_INUP);
-            if(file.exists()){
-                // File exists, delete it
-                file.delete();
-            }
-        }
-
-        if(form.PHOTO_INDW != null){
-            File file = new File(form.PHOTO_INDW);
-            if(file.exists()){
-                // File exists, delete it
-                file.delete();
-            }
-        }
-
-        if(form.PHOTO_OTUP != null){
-            File file = new File(form.PHOTO_OTUP);
-            if(file.exists()){
-                // File exists, delete it
-                file.delete();
-            }
-        }
-
-        if(form.PHOTO_OTDW != null){
-            File file = new File(form.PHOTO_OTDW);
-            if(file.exists()){
-                // File exists, delete it
-                file.delete();
-            }
-        }
-
-        if(form.PHOTO_1 != null){
-            File file = new File(form.PHOTO_1);
-            if(file.exists()){
-                // File exists, delete it
-                file.delete();
-            }
-        }
-
-        if(form.PHOTO_2 != null){
-            File file = new File(form.PHOTO_2);
-            if(file.exists()){
-                // File exists, delete it
-                file.delete();
-            }
-        }
-
 
     }
 
