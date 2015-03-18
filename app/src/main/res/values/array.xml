@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="accessItems">
+        <item>ATV</item>
+        <item>Foot</item>
         <item>Truck</item>
 
     </string-array>
 
 
     <string-array name="streamClassItems">
-        <item>Classification 1</item>
+        <item>ephemeral</item>
+        <item>non-fluvial</item>
+        <item>fluvial - intermittent</item>
+        <item>fluvial - small permanent</item>
+        <item>fluvial - large permanent</item>
 
     </string-array>
 
     <string-array name="streamMeasuredItems">
-        <item>No</item>
-        <item>Yes</item>
+        <item>Estimated</item>
+        <item>Measured</item>
 
     </string-array>
 
@@ -172,10 +178,19 @@
 
     <string-array name="erosionSourceItems">
         <item></item>
+        <item>ditch</item>
+        <item>bank slump</item>
+        <item>fill slope</item>
+        <item>road surface</item>
+        <item>bridge deck</item>
+        <item>other</item>
     </string-array>
 
     <string-array name="erosionDegreeItems">
         <item></item>
+        <item>low</item>
+        <item>moderate</item>
+        <item>high</item>
     </string-array>
 
     <string-array name="fishSamplingItems">

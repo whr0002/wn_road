@@ -47,6 +47,23 @@ public class FormValidator {
                 messages.add(generateLengthMessage("Disposition ID", 20));
             }
 
+            if(mForm.LAT.length()> 0 && !isNumeric(mForm.LAT)){
+                messages.add(generateNumericMessage("Latitude"));
+            }
+
+            if(mForm.LONG.length()> 0 && !isNumeric(mForm.LONG)){
+                messages.add(generateNumericMessage("Longitude"));
+            }
+
+            if(mForm.STR_CLASS.length() > 30){
+                messages.add(generateLengthMessage("Stream Classification", 30));
+            }
+
+            if(mForm.STR_WIDTH.length()> 0 && !isNumeric(mForm.STR_WIDTH)){
+                messages.add(generateNumericMessage("Stream Width"));
+            }
+
+
 
         }else{
             messages.add("Form is null");
@@ -56,12 +73,21 @@ public class FormValidator {
             mForm.STATUS = "Ready to submit";
         }else{
             mForm.STATUS = "Not complete";
-            mForm.messages = messages;
         }
+        mForm.messages = messages;
     }
 
-    public String generateLengthMessage(String fieldName, int length){
+    private boolean isNumeric(String str){
+        return str.matches("-?\\d+(\\.\\d+)?");
+    }
+
+    private String generateLengthMessage(String fieldName, int length){
         String s = "The length of " + fieldName +" must be less than " + length + " characters";
+        return s;
+    }
+
+    private String generateNumericMessage(String fieldName){
+        String s = fieldName +" must be a numeric value";
         return s;
     }
 }

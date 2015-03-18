@@ -1,7 +1,11 @@
 package com.map.woodlands.woodlandsmap.Data;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -18,14 +22,29 @@ import java.util.List;
  */
 public class Uploader {
     public Form mForm;
-    public Uploader(Form form){
+    public Context mContext;
+    private UserInfo user;
+    private AsyncHttpClient client;
+    public Uploader(Form form, Context context){
         this.mForm = form;
+        this.mContext = context;
+        this.user = getUserInfo();
+        this.client = new AsyncHttpClient();
+        client.setConnectTimeout(10000);
+
+//        if(user != null){
+//            client.setBasicAuth(user.username, user.password);
+//        }
     }
 
     public void execute(){
-        uploadForm();
-        uploadPhotos();
-
+        if(user != null) {
+            Toast.makeText(mContext, "Uploading", Toast.LENGTH_SHORT).show();
+            uploadForm();
+            uploadPhotos();
+        }else{
+            Toast.makeText(mContext,"Please login first", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void uploadPhotos(){
@@ -37,7 +56,6 @@ public class Uploader {
         photoPathes.add(mForm.PHOTO_1);
         photoPathes.add(mForm.PHOTO_2);
 
-        AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
 
         for(int i=0;i<photoPathes.size();i++){
@@ -58,12 +76,18 @@ public class Uploader {
         client.post("http://woodlandstest.azurewebsites.net/android/filepost", params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int i, Header[] headers, byte[] bytes) {
-                Log.i("debug", "Photo upload success!");
+                String s = "";
+                try {
+                    s = new String(bytes, "UTF-8");
+                }catch (Exception e){}
+                Log.i("debug", s);
+                Toast.makeText(mContext,s,Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-                Log.i("debug", "Photo upload failed!");
+                Log.i("debug", "Photo 40X");
+                Toast.makeText(mContext,"Photo 40X",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -71,9 +95,9 @@ public class Uploader {
     }
 
     public void uploadForm(){
-        AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         try{
+            params.put("UserName", user.getUsername());
             params.put("INSP_DATE",mForm.INSP_DATE);
             params.put("INSP_CREW",mForm.INSP_CREW);
             params.put("ACCESS",mForm.ACCESS);
@@ -153,24 +177,41 @@ public class Uploader {
             @Override
             public void onSuccess(int i, Header[] headers, byte[] bytes) {
 //                Log.i("debug", "200 OK");
-                String s = "Nothing";
+                String s = "";
                 try {
                     s = new String(bytes, "UTF-8");
                 }catch (Exception e){}
                 Log.i("debug", s);
+                Toast.makeText(mContext,s,Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
 //                Log.i("debug", "40X Fail");
-                String s = "Nothing";
+                String s = "Form upload fail";
                 try {
                     s = new String(bytes, "UTF-8");
                 }catch (Exception e){}
+                Toast.makeText(mContext,s,Toast.LENGTH_SHORT).show();
             }
         });
 
     }
 
+
+    public UserInfo getUserInfo(){
+        SharedPreferences sp = mContext.getSharedPreferences("UserInfo", 0);
+        String json = sp.getString("json","");
+
+        if(!json.equals("")){
+            Gson gson = new Gson();
+            UserInfo user;
+            user = gson.fromJson(json, UserInfo.class);
+            return user;
+//            this.usernameView.setText("Hello " + user.getUsername());
+//            this.roleView.setText("Your role: " + user.getRole());
+        }
+        return null;
+    }
 
 }

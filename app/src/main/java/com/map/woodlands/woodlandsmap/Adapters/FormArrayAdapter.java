@@ -54,7 +54,11 @@ public class FormArrayAdapter extends ArrayAdapter<Form>{
         if(mForms.get(position).messages == null){
             holder.warningIcon.setVisibility(View.GONE);
         }else{
-            holder.warningIcon.setVisibility(View.VISIBLE);
+            if(mForms.get(position).messages.size() != 0) {
+                holder.warningIcon.setVisibility(View.VISIBLE);
+            }else{
+                holder.warningIcon.setVisibility(View.GONE);
+            }
         }
 
         holder.dateView.setText(mForms.get(position).INSP_DATE);

@@ -108,8 +108,8 @@ public class  LoginFragment extends Fragment implements OnClickListener{
                 messageView.setText("");
                 this.mUsername = this.emailField.getText().toString();
                 this.mPassword = this.passwordField.getText().toString();
-                Log.i("debug", this.mUsername);
-                Log.i("debug", this.mPassword);
+//                Log.i("debug", this.mUsername);
+//                Log.i("debug", this.mPassword);
 
                 progressBar.setVisibility(View.VISIBLE);
 
@@ -125,10 +125,6 @@ public class  LoginFragment extends Fragment implements OnClickListener{
 
                 break;
         }
-
-
-
-
     }
 
     /*
