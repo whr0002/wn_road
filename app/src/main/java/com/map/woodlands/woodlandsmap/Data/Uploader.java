@@ -9,8 +9,10 @@ import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.map.woodlands.woodlandsmap.Fragments.FormFragment;
 
 import org.apache.http.Header;
+import org.apache.http.entity.StringEntity;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -25,22 +27,47 @@ public class Uploader {
     public Context mContext;
     private UserInfo user;
     private AsyncHttpClient client;
+    private ArrayList<Form> mForms;
+    private FormController mFormController;
+
+
     public Uploader(Form form, Context context){
         this.mForm = form;
         this.mContext = context;
         this.user = getUserInfo();
         this.client = new AsyncHttpClient();
-        client.setConnectTimeout(10000);
+        this.mFormController = new FormController(mContext);
+//        client.setConnectTimeout(10000);
 
 //        if(user != null){
 //            client.setBasicAuth(user.username, user.password);
 //        }
+    }
+    public Uploader(Form form, Context context, FormFragment formFragment){
+        this.mForm = form;
+        this.mContext = context;
+        this.user = getUserInfo();
+        this.client = new AsyncHttpClient();
+        this.mFormController = new FormController(mContext, formFragment);
+
+//        client.setConnectTimeout(10000);
+
+//        if(user != null){
+//            client.setBasicAuth(user.username, user.password);
+//        }
+    }
+    public Uploader(ArrayList<Form> forms, Context context){
+        this.mForms = forms;
+        this.mContext = context;
+        this.user = getUserInfo();
+        this.client = new AsyncHttpClient();
     }
 
     public void execute(){
         if(user != null) {
             Toast.makeText(mContext, "Uploading", Toast.LENGTH_SHORT).show();
             uploadForm();
+//            uploadJson();
             uploadPhotos();
         }else{
             Toast.makeText(mContext,"Please login first", Toast.LENGTH_SHORT).show();
@@ -183,6 +210,9 @@ public class Uploader {
                 }catch (Exception e){}
                 Log.i("debug", s);
                 Toast.makeText(mContext,s,Toast.LENGTH_SHORT).show();
+                if(s.toLowerCase().equals("form submitted")) {
+                    deleteFormIfSuccess();
+                }
             }
 
             @Override
@@ -198,6 +228,45 @@ public class Uploader {
 
     }
 
+    private void deleteFormIfSuccess() {
+        mFormController.deleteOneForm(mForm.ID);
+    }
+
+    public void uploadJson(){
+        Gson gson = new Gson();
+        JsonModel jm= new JsonModel(mForms);
+        String json = gson.toJson(jm);
+        Log.i("debug", json);
+        StringEntity entity = null;
+        try {
+            entity = new StringEntity(json);
+            entity.setContentType("application/json");
+        }catch (Exception e){e.printStackTrace();}
+
+        client.post(mContext, "http://woodlandstest.azurewebsites.net/android/jsonpost", entity,
+                "application/json", new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int i, Header[] headers, byte[] bytes) {
+                Log.i("debug", "json 200 OK");
+                String response = "";
+                try{
+                    response = new String(bytes,"UTF-8");
+                }catch (Exception e){}
+                Log.i("debug", response);
+            }
+
+            @Override
+            public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
+                Log.i("debug", "json 40X fail");
+                String response = "";
+                try{
+                    response = new String(bytes,"UTF-8");
+                }catch (Exception e){}
+                Log.i("debug", response);
+            }
+        }  );
+
+    }
 
     public UserInfo getUserInfo(){
         SharedPreferences sp = mContext.getSharedPreferences("UserInfo", 0);

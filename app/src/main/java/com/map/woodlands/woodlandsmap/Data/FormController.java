@@ -3,7 +3,6 @@ package com.map.woodlands.woodlandsmap.Data;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -115,10 +114,12 @@ public class FormController {
         mForms = getReadyToSubmitForms();
         if(mForms != null) {
             for (Form form : mForms) {
-                Uploader uploader = new Uploader(form, mContext);
+                Uploader uploader = new Uploader(form, mContext, mFormFragment);
                 uploader.execute();
 
             }
+//            Uploader uploader = new Uploader(mForms, mContext);
+//            uploader.execute();
         }
 
         mFormFragment.setListView();
