@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="accessItems">
+        <item></item>
         <item>ATV</item>
         <item>Foot</item>
         <item>Truck</item>
@@ -9,6 +10,7 @@
 
 
     <string-array name="streamClassItems">
+        <item></item>
         <item>ephemeral</item>
         <item>non-fluvial</item>
         <item>fluvial - intermittent</item>
@@ -18,21 +20,31 @@
     </string-array>
 
     <string-array name="streamMeasuredItems">
+        <item></item>
         <item>Estimated</item>
         <item>Measured</item>
 
     </string-array>
 
     <string-array name="crossingTypeItems">
-        <item>Culvert</item>
-        <item>Bridge</item>
+        <item>bridge - permanent</item>
+        <item>bridge - temporary</item>
+        <item>culvert - single</item>
+        <item>culvert - multiple</item>
+        <item>culvert - open bottom</item>
+        <item>log - fill</item>
+        <item>snow - fill</item>
+        <item>ford</item>
+        <item>suspended</item>
+        <item>reclaimed</item>
 
     </string-array>
 
     <string-array name="culvertSubstrateItems">
-        <item>Culvert Substrate 1</item>
-        <item>Culvert Substrate 2</item>
-
+        <item></item>
+        <item>Yes</item>
+        <item>No</item>
+        <item>Pot</item>
     </string-array>
 
     <string-array name="culvertSubstratePItems">
@@ -42,50 +54,71 @@
     </string-array>
 
     <string-array name="culvertSubstrateTypeItems">
-        <item>Type 1</item>
-        <item>Type 2</item>
+        <item></item>
+        <item>sand</item>
+        <item>gravel</item>
+        <item>cobble</item>
+        <item>boulder</item>
+        <item>other</item>
 
     </string-array>
 
     <string-array name="culvertSubstrateProportionItems">
-        <item>Proportion 1</item>
-        <item>Proportion 2</item>
-
+        <item></item>
+        <item>0 - 25</item>
+        <item>26 - 50</item>
+        <item>51 - 75</item>
+        <item>76 - 100</item>
     </string-array>
 
     <string-array name="culvertBWProportionItems">
-        <item>Back Water Proportion 1</item>
-        <item>Back Water Proportion 2</item>
+        <item></item>
+        <item>0</item>
+        <item>1 - 25</item>
+        <item>26 - 50</item>
+        <item>51 - 75</item>
+        <item>76 - 100</item>
 
     </string-array>
 
     <string-array name="culvertSlopeItems">
-        <item>Slope 1</item>
-        <item>Slope 2</item>
+        <item></item>
+        <item>level, uniform</item>
+        <item>&gt;2%, bent</item>
 
     </string-array>
 
     <string-array name="culvertOutletTypeItems">
-        <item>Type 1</item>
-        <item>Type 2</item>
+        <item></item>
+        <item>embedded</item>
+        <item>level</item>
+        <item>hanging</item>
 
     </string-array>
 
     <string-array name="scourPoolPresentItems">
-        <item>Scour 1</item>
-        <item>Scour 2</item>
+        <item></item>
+        <item>Yes</item>
+        <item>No</item>
 
     </string-array>
 
     <string-array name="delineatorItems">
-        <item>Delineator 1</item>
-        <item>Delineator 2</item>
+        <item></item>
+        <item>no</item>
+        <item>yes, ok</item>
+        <item>yes, needs repair</item>
 
     </string-array>
 
     <string-array name="hazardMarkersItems">
-        <item>Marker 1</item>
-        <item>Marker 2</item>
+        <item></item>
+        <item>X</item>
+        <item>NA</item>
+        <item>Closed</item>
+        <item>Poor</item>
+        <item>Fair</item>
+        <item>Good</item>
 
     </string-array>
 
@@ -166,14 +199,21 @@
     <string-array name="erosionItems">
         <item>No</item>
         <item>Yes</item>
+        <item>Pot</item>
     </string-array>
 
     <string-array name="erosionType1Items">
         <item></item>
+        <item>Inlet</item>
+        <item>Outlet</item>
+        <item>Both</item>
     </string-array>
 
     <string-array name="erosionType2Items">
         <item></item>
+        <item>Inlet</item>
+        <item>Outlet</item>
+        <item>Both</item>
     </string-array>
 
     <string-array name="erosionSourceItems">
@@ -194,16 +234,87 @@
     </string-array>
 
     <string-array name="fishSamplingItems">
-        <item>No</item>
+        <item></item>
         <item>Yes</item>
+        <item>No</item>
     </string-array>
 
     <string-array name="fishSamplingMethodItems">
         <item></item>
+        <item>angling</item>
+        <item>netting</item>
+        <item>baited traps</item>
+        <item>electroshocking</item>
+        <item>observation</item>
     </string-array>
 
     <string-array name="fishSamplingSpecies1Items">
         <item></item>
+        <item>Arctic lamprey</item>
+        <item>Stonecat</item>
+        <item>Lake sturgeon</item>
+        <item>Burbot</item>
+        <item>Northern pike</item>
+        <item>Goldeye</item>
+        <item>Mooneye</item>
+        <item>Trout-perch</item>
+        <item>Lake chub</item>
+        <item>Brassy minnow</item>
+        <item>Western silvery</item>
+        <item>Pearl dace</item>
+        <item>Emerald shiner</item>
+        <item>Spottail shiner</item>
+        <item>River shiner</item>
+        <item>Northern redbelly dace</item>
+        <item>Finescale dace</item>
+        <item>Fathead minnow</item>
+        <item>Flathead chub</item>
+        <item>Northern pikeminnow</item>
+        <item>Redside shiner</item>
+        <item>Longnose dace</item>
+        <item>Quillback Carpiodes</item>
+        <item>Longnose sucker</item>
+        <item>White sucker</item>
+        <item>Largescale sucker</item>
+        <item>Mountain sucker</item>
+        <item>Silver redhorse</item>
+        <item>Shorthead redhorse</item>
+        <item>Brook stickleback</item>
+        <item>Ninespine stickleback</item>
+        <item>Iowa darter</item>
+        <item>Logperch</item>
+        <item>Yellow perch</item>
+        <item>Sauger Sander</item>
+        <item>Walleye</item>
+        <item>Cisco</item>
+        <item>Shortjaw cisco</item>
+        <item>Lake whitefish</item>
+        <item>Pygmy whitefish</item>
+        <item>Mountain whitefish</item>
+        <item>Round whitefish</item>
+        <item>Rainbow trout</item>
+        <item>Westslope cutthroat</item>
+        <item>Brown trout</item>
+        <item>Bull trout</item>
+        <item>Brook trout</item>
+        <item>Lake trout</item>
+        <item>Arctic grayling</item>
+        <item>Prickly sculpin</item>
+        <item>Slimy sculpin</item>
+        <item>Spoonhead sculpin</item>
+        <item>Eastslope sculpin</item>
+        <item>Deepwater sculpin</item>
+        <item>burbot</item>
+        <item>white sucker</item>
+        <item>longnose sucker</item>
+        <item>dace</item>
+        <item>slimy sculpin</item>
+        <item>spoonhead sculpin</item>
+        <item>rainbow trout</item>
+        <item>bull trout</item>
+        <item>cutthroat trout</item>
+        <item>UNKNOWN</item>
+
     </string-array>
 
     <string-array name="fishSamplingSpecies2Items">
@@ -219,10 +330,15 @@
     </string-array>
 
     <string-array name="structuralProblemsItems">
-        <item></item>
+        <item>Yes</item>
+        <item>No</item>
+        <item>Pot</item>
     </string-array>
 
     <string-array name="sedimentationItems">
         <item></item>
+        <item>Yes</item>
+        <item>No</item>
+        <item>Pot</item>
     </string-array>
 </resources>

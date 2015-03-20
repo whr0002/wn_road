@@ -31,12 +31,15 @@ public class ViewToggler {
     public void toggleView(){
         switch (mParent.getId()){
             case R.id.crossingTypeDropdown:
-                if(mParent.getItemAtPosition(mPosition).toString().equals("Culvert")){
+                if(mParent.getItemAtPosition(mPosition).toString().toLowerCase().contains("culvert")){
                     culvertBlock.setVisibility(View.VISIBLE);
                     bridgeBlock.setVisibility(View.GONE);
-                }else{
+                }else if(mParent.getItemAtPosition(mPosition).toString().toLowerCase().contains("bridge")){
                     culvertBlock.setVisibility(View.GONE);
                     bridgeBlock.setVisibility(View.VISIBLE);
+                }else{
+                    culvertBlock.setVisibility(View.GONE);
+                    bridgeBlock.setVisibility(View.GONE);
                 }
                 break;
 

@@ -1703,7 +1703,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/fishSamplingSpecies2Dropdown"
-                        android:entries="@array/fishSamplingSpecies2Items"
+                        android:entries="@array/fishSamplingSpecies1Items"
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
