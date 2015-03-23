@@ -332,7 +332,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Stream Width"
+                    android:text="Stream Width(m)"
                     android:id="@+id/streamWidthLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
@@ -429,7 +429,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Culvert Length"
+                        android:text="Culvert Length(m)"
                         android:id="@+id/culvertLengthLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -459,7 +459,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Culvert Diameter 1"
+                        android:text="Culvert Diameter 1(m)"
                         android:id="@+id/culvertDiameter1Label"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -489,7 +489,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Culvert Diameter 2"
+                        android:text="Culvert Diameter 2(m)"
                         android:id="@+id/culvertDiameter2Label"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -519,7 +519,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Culvert Diameter 3"
+                        android:text="Culvert Diameter 3(m)"
                         android:id="@+id/culvertDiameter3Label"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -588,7 +588,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/culvertSubstratePDropdown"
-                        android:entries="@array/culvertSubstratePItems"
+                        android:entries="@array/culvertSubstrateProportionItems"
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -781,7 +781,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Culvert Pool Depth"
+                        android:text="Culvert Pool Depth(m)"
                         android:id="@+id/culvertPoolDepthLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -811,7 +811,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Culvert Outlet Gap"
+                        android:text="Culvert Outlet Gap(m)"
                         android:id="@+id/culvertOutletGapLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -881,7 +881,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Bridge Length"
+                        android:text="Bridge Length(m)"
                         android:id="@+id/bridgeLengthLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -950,7 +950,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/approachSignageDropdown"
-                        android:entries="@array/approachSignageItems"
+                        android:entries="@array/hazardMarkersItems"
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -979,7 +979,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/roadSurfaceDropdown"
-                        android:entries="@array/roadSurfaceItems"
+                        android:entries="@array/hazardMarkersItems"
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1037,7 +1037,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/roadDrainageDropdown"
-                        android:entries="@array/roadDrainageItems"
+                        android:entries="@array/hazardMarkersItems"
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1066,7 +1066,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/visibilityDropdown"
-                        android:entries="@array/visibilityItems"
+                        android:entries="@array/hazardMarkersItems"
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1095,7 +1095,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/wearingSurfaceDropdown"
-                        android:entries="@array/wearingSurfaceItems"
+                        android:entries="@array/hazardMarkersItems"
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1124,7 +1124,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/railCurbDropdown"
-                        android:entries="@array/railCurbItems"
+                        android:entries="@array/hazardMarkersItems"
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1153,7 +1153,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/girdersBracingDropdown"
-                        android:entries="@array/girdersBracingItems"
+                        android:entries="@array/hazardMarkersItems"
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1182,7 +1182,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/capBeamDropdown"
-                        android:entries="@array/capBeamItems"
+                        android:entries="@array/hazardMarkersItems"
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1211,7 +1211,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/pilesDropdown"
-                        android:entries="@array/pilesItems"
+                        android:entries="@array/hazardMarkersItems"
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1240,7 +1240,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/abutmentWallDropdown"
-                        android:entries="@array/abutmentWallItems"
+                        android:entries="@array/hazardMarkersItems"
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1269,7 +1269,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/wingWallDropdown"
-                        android:entries="@array/wingWallItems"
+                        android:entries="@array/hazardMarkersItems"
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1298,7 +1298,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/bankStabilityDropdown"
-                        android:entries="@array/bankStabilityItems"
+                        android:entries="@array/hazardMarkersItems"
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1327,7 +1327,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/slopeProtectionDropdown"
-                        android:entries="@array/slopeProtectionItems"
+                        android:entries="@array/hazardMarkersItems"
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1356,7 +1356,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/channelOpeningDropdown"
-                        android:entries="@array/channelOpeningItems"
+                        android:entries="@array/hazardMarkersItems"
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1385,7 +1385,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/obstructionsDropdown"
-                        android:entries="@array/obstructionsItems"
+                        android:entries="@array/hazardMarkersItems"
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1562,7 +1562,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Erosion Area"
+                        android:text="Erosion Area(m&#x00B2;)"
                         android:id="@+id/erosionAreaLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"

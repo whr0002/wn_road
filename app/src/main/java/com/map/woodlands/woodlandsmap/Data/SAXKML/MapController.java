@@ -5,6 +5,7 @@ import android.util.Log;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -13,6 +14,8 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.map.woodlands.woodlandsmap.Data.Coordinate;
+import com.map.woodlands.woodlandsmap.Data.MarkerToggler;
 import com.map.woodlands.woodlandsmap.R;
 
 import org.apache.http.Header;
@@ -27,11 +30,15 @@ public class MapController {
     private GoogleMap map;
     private AsyncHttpClient client;
     private CoordinatesParser coordinatesParser;
+    private MarkerToggler mt;
+    ArrayList<Marker> markers;
 
-    public MapController(GoogleMap gmap){
+    public MapController(GoogleMap gmap, MarkerToggler m){
         this.map = gmap;
         this.client = new AsyncHttpClient();
         this.coordinatesParser = new CoordinatesParser();
+        this.mt = m;
+        this.markers = new ArrayList<Marker>();
     }
 
     public void loadKML(String url){
@@ -113,5 +120,89 @@ public class MapController {
         CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
         map.animateCamera(cu);
 
+    }
+
+    public void loadAllMarkers(ArrayList<Coordinate> list){
+        if(list != null){
+            for(Coordinate c : list){
+                Marker m = null;
+                MarkerOptions mo = new MarkerOptions()
+                        .position(new LatLng(Double.parseDouble(c.Latitude), Double.parseDouble(c.Longitude)))
+                        .title("Risk: " + c.Risk);
+                if(c.Risk.toLowerCase().contains("high")) {
+                    m = map.addMarker(mo);
+
+                }else if(c.Risk.toLowerCase().contains("mod")){
+                    mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_orange));
+                    m = map.addMarker(mo);
+                }else if(c.Risk.toLowerCase().contains("low")){
+                    mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_green));
+                    m = map.addMarker(mo);
+                }else if(c.Risk.toLowerCase().contains("no")){
+                    mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_grey));
+                    m = map.addMarker(mo);
+                }
+
+
+                if(m != null) {
+                    m.setVisible(false);
+                    markers.add(m);
+                }
+            }
+            if(markers.size()>0) {
+                autocenterPoint(markers);
+            }
+        }
+
+    }
+
+
+    public void toggleAllMarkers(boolean b) {
+        if(markers != null && markers.size()>0){
+            for(Marker m : markers){
+
+                m.setVisible(b);
+            }
+        }
+    }
+
+    public void toggleHighMarkers(boolean b){
+        if(markers != null && markers.size()>0){
+            for(Marker m : markers){
+                if (m.getTitle().toLowerCase().contains("high")) {
+                    m.setVisible(b);
+                }
+            }
+        }
+    }
+
+    public void toggleModMarkers(boolean b){
+        if(markers != null && markers.size()>0){
+            for(Marker m : markers){
+                if (m.getTitle().toLowerCase().contains("mod")) {
+                    m.setVisible(b);
+                }
+            }
+        }
+    }
+
+    public void toggleLowMarkers(boolean b){
+        if(markers != null && markers.size()>0){
+            for(Marker m : markers){
+                if (m.getTitle().toLowerCase().contains("low")) {
+                    m.setVisible(b);
+                }
+            }
+        }
+    }
+
+    public void toggleNoMarkers(boolean b){
+        if(markers != null && markers.size()>0){
+            for(Marker m : markers){
+                if (m.getTitle().toLowerCase().contains("no")) {
+                    m.setVisible(b);
+                }
+            }
+        }
     }
 }

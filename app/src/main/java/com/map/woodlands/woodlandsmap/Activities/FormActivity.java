@@ -226,7 +226,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         day = c.get(Calendar.DAY_OF_MONTH);
 
         dateView.setText(new StringBuilder()
-                .append(day).append("/").append(month + 1)
+                .append(month + 1).append("/").append(day)
                 .append("/").append(year));
 
 

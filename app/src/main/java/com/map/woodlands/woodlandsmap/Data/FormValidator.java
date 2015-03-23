@@ -63,7 +63,73 @@ public class FormValidator {
                 messages.add(generateNumericMessage("Stream Width"));
             }
 
+            if(mForm.CROSS_TYPE.length() == 0){
+                messages.add("Crossing Type is required");
+            }
 
+            if(mForm.EROSION.length() == 0){
+                messages.add("Erosion is required");
+            }
+
+            if(mForm.EROSION_AR.length()> 0 && !isNumeric(mForm.EROSION_AR)){
+                messages.add(generateNumericMessage("Erosion Area"));
+            }
+
+            if(mForm.CULV_LEN.length()> 0 && !isNumeric(mForm.CULV_LEN)){
+                messages.add(generateNumericMessage("Culvert Length"));
+            }
+
+            if(mForm.CULV_DIA_1.length()> 0 && !isNumeric(mForm.CULV_DIA_1)){
+                messages.add(generateNumericMessage("Culvert Diameter 1"));
+            }
+
+            if(mForm.CULV_DIA_2.length()> 0 && !isNumeric(mForm.CULV_DIA_2)){
+                messages.add(generateNumericMessage("Culvert Diameter 2"));
+            }
+
+            if(mForm.CULV_DIA_3.length()> 0 && !isNumeric(mForm.CULV_DIA_3)){
+                messages.add(generateNumericMessage("Culvert Diameter 3"));
+            }
+
+            if(mForm.CULV_OPOOD.length()> 0 && !isNumeric(mForm.CULV_OPOOD)){
+                messages.add(generateNumericMessage("Culvert Pool Depth"));
+            }
+
+            if(mForm.CULV_OPGAP.length()> 0 && !isNumeric(mForm.CULV_OPGAP)){
+                messages.add(generateNumericMessage("Culvert Outlet Gap"));
+            }
+
+            if(mForm.BRDG_LEN.length()> 0 && !isNumeric(mForm.BRDG_LEN)){
+                messages.add(generateNumericMessage("Bridge Length"));
+            }
+
+            if(mForm.FISH_PCONC.length() == 0){
+                messages.add("Fish Passage Concerns is required");
+            }
+
+            if(mForm.FISH_PCONCREASON.length() > 20){
+                messages.add(generateLengthMessage("Fish Passage Concerns Reason", 20));
+            }
+
+            if(mForm.BLOCKAGE.length() == 0){
+                messages.add("Blockage is required");
+            }
+
+            if(mForm.BLOCKAGE.length() > 50){
+                messages.add(generateLengthMessage("Blockage", 50));
+            }
+
+            if(mForm.BLOC_MATR.length() > 20){
+                messages.add(generateLengthMessage("Blockage Material", 20));
+            }
+
+            if(mForm.BLOC_CAUS.length() > 50){
+                messages.add(generateLengthMessage("Blockage Cause", 50));
+            }
+
+            if(mForm.REMARKS.length() > 120){
+                messages.add(generateLengthMessage("Remarks", 120));
+            }
 
         }else{
             messages.add("Form is null");

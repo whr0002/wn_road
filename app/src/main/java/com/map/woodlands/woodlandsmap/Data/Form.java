@@ -95,4 +95,5 @@ public class Form {
     public String CHANNELOPEN;
     public String OBSTRUCTIO;
     public ArrayList<String> messages;
+    public String displayDate;
 }

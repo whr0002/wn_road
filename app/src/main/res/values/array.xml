@@ -322,11 +322,14 @@
     </string-array>
 
     <string-array name="fishPassageConcernsItems">
-        <item></item>
+        <item>No Converns</item>
+        <item>Converns</item>
+        <item>Inadequate / Unsatisfactory</item>
     </string-array>
 
     <string-array name="emergencyRepairRequiredItems">
-        <item></item>
+        <item>Yes</item>
+        <item>No</item>
     </string-array>
 
     <string-array name="structuralProblemsItems">

@@ -108,7 +108,7 @@ public class Uploader {
                     s = new String(bytes, "UTF-8");
                 }catch (Exception e){}
                 Log.i("debug", s);
-                Toast.makeText(mContext,s,Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext,s,Toast.LENGTH_SHORT).show();
             }
 
             @Override
