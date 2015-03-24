@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="photo_inup" />
+    <item type="id" name="photo_indw" />
+    <item type="id" name="photo_otup" />
+    <item type="id" name="photo_otdw" />
+    <item type="id" name="photo_1" />
+    <item type="id" name="photo_2" />
+    
+</resources>

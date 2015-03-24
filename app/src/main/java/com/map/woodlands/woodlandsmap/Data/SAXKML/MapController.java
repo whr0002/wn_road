@@ -15,7 +15,9 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.map.woodlands.woodlandsmap.Data.Coordinate;
+import com.map.woodlands.woodlandsmap.Data.KMLController;
 import com.map.woodlands.woodlandsmap.Data.MarkerToggler;
+import com.map.woodlands.woodlandsmap.Data.ViewToggler;
 import com.map.woodlands.woodlandsmap.R;
 
 import org.apache.http.Header;
@@ -32,27 +34,43 @@ public class MapController {
     private CoordinatesParser coordinatesParser;
     private MarkerToggler mt;
     ArrayList<Marker> markers;
+    private ViewToggler viewToggler;
+    private KMLController kmlController;
 
-    public MapController(GoogleMap gmap, MarkerToggler m){
+    public MapController(GoogleMap gmap, MarkerToggler m, ViewToggler viewToggler){
         this.map = gmap;
         this.client = new AsyncHttpClient();
         this.coordinatesParser = new CoordinatesParser();
         this.mt = m;
         this.markers = new ArrayList<Marker>();
+        this.viewToggler = viewToggler;
+        this.kmlController = new KMLController();
     }
 
-    public void loadKML(String url){
+    public void loadKML(final String url, final String fileName){
+        viewToggler.toggleLoadingView();
         NavigationDataSet navigationDataSet = null;
         client.get(url, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int i, Header[] headers, byte[] bytes) {
+                String filetype = url.substring(url.length()-3);
+                kmlController.saveFile(bytes, fileName+"."+filetype);
                 Log.i("debug", "Got KML file");
-                addDataToMap(MapService.getNavigationDataSet(bytes));
+                if(url.contains("kml")) {
+                    // It is a kml file
+                    addDataToMap(MapService.getNavigationDataSet(bytes));
+                }else if(url.contains("kmz")){
+                    // It is a kmz file
+                    addDataToMap(MapService.getNavigationDataSet(kmlController.getKMLFromKMZ(bytes)));
+
+                }
+                viewToggler.toggleLoadingView();
             }
 
             @Override
             public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
                 Log.i("debug", "Fail to get KML file");
+                viewToggler.toggleLoadingView();
             }
         });
 
@@ -60,37 +78,39 @@ public class MapController {
     }
 
     public void addDataToMap(NavigationDataSet n){
-        ArrayList<Placemark> placemarks = n.getPlacemarks();
-        ArrayList<Marker> markers = new ArrayList<Marker>();
-        ArrayList<Polyline> polylines = new ArrayList<Polyline>();
-        for(Placemark p : placemarks){
-            ArrayList<LatLng> latLngs = new ArrayList<LatLng>();
+        if(n != null) {
+            ArrayList<Placemark> placemarks = n.getPlacemarks();
+            ArrayList<Marker> markers = new ArrayList<Marker>();
+            ArrayList<Polyline> polylines = new ArrayList<Polyline>();
+            for (Placemark p : placemarks) {
+                ArrayList<LatLng> latLngs = new ArrayList<LatLng>();
 
-            latLngs = coordinatesParser.getLatLngs(p);
+                latLngs = coordinatesParser.getLatLngs(p);
 
-            if(latLngs.size() > 0){
-                if(p.getType() != null ){
-                    if(p.getType().equals("Point")) {
-                        // This is Point placemark
+                if (latLngs.size() > 0) {
+                    if (p.getType() != null) {
+                        if (p.getType().equals("Point")) {
+                            // This is Point placemark
 
-                        Marker m = map.addMarker(new MarkerOptions().position(latLngs.get(0)).title(p.title));
-                        markers.add(m);
+                            Marker m = map.addMarker(new MarkerOptions().position(latLngs.get(0)).title(p.title));
+                            markers.add(m);
 
-                    }else if(p.getType().equals("Polygon")){
-                        // This is Polygon placemark
+                        } else if (p.getType().equals("Polygon")) {
+                            // This is Polygon placemark
 
-                        Iterable<LatLng> iterable = latLngs;
-                        Polyline polyline = map.addPolyline(new PolylineOptions().addAll(iterable).width(5).color(R.color.lightBlue));
-                        polylines.add(polyline);
+                            Iterable<LatLng> iterable = latLngs;
+                            Polyline polyline = map.addPolyline(new PolylineOptions().addAll(iterable).width(5).color(R.color.lightBlue));
+                            polylines.add(polyline);
 
+                        }
                     }
                 }
             }
-        }
-        if(markers.size()>0){
-            autocenterPoint(markers);
-        }else if(polylines.size()>0) {
-            autocenterPolygon(polylines);
+            if (markers.size() > 0) {
+                autocenterPoint(markers);
+            } else if (polylines.size() > 0) {
+                autocenterPolygon(polylines);
+            }
         }
 
     }
@@ -156,53 +176,16 @@ public class MapController {
 
     }
 
-
-    public void toggleAllMarkers(boolean b) {
+    public void toggleMarkers(boolean b, String title){
         if(markers != null && markers.size()>0){
             for(Marker m : markers){
-
-                m.setVisible(b);
-            }
-        }
-    }
-
-    public void toggleHighMarkers(boolean b){
-        if(markers != null && markers.size()>0){
-            for(Marker m : markers){
-                if (m.getTitle().toLowerCase().contains("high")) {
+                if (m.getTitle().toLowerCase().contains(title)) {
                     m.setVisible(b);
                 }
             }
+            autocenterPoint(markers);
         }
     }
 
-    public void toggleModMarkers(boolean b){
-        if(markers != null && markers.size()>0){
-            for(Marker m : markers){
-                if (m.getTitle().toLowerCase().contains("mod")) {
-                    m.setVisible(b);
-                }
-            }
-        }
-    }
 
-    public void toggleLowMarkers(boolean b){
-        if(markers != null && markers.size()>0){
-            for(Marker m : markers){
-                if (m.getTitle().toLowerCase().contains("low")) {
-                    m.setVisible(b);
-                }
-            }
-        }
-    }
-
-    public void toggleNoMarkers(boolean b){
-        if(markers != null && markers.size()>0){
-            for(Marker m : markers){
-                if (m.getTitle().toLowerCase().contains("no")) {
-                    m.setVisible(b);
-                }
-            }
-        }
-    }
 }

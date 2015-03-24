@@ -30,9 +30,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignTop="@id/map"
+        android:layout_alignBottom="@id/map"
         android:padding="6dp"
-        android:background="#D000"
+        android:background="#80FFFFFF"
         android:orientation="vertical">
         <Spinner
             android:id="@+id/layers_spinner"
@@ -40,4 +40,7 @@
             android:layout_height="wrap_content"/>
     </LinearLayout>
 
+
+    <include layout="@layout/loading"
+        android:id="@+id/loadingView"/>
 </RelativeLayout>

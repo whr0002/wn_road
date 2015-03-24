@@ -16,29 +16,34 @@ public class ViewToggler {
     private LinearLayout bridgeBlock;
     private LinearLayout erosionBlock;
     private LinearLayout fishSamplingBlock;
+    private LinearLayout blockageBlock;
+    private View loadingView;
 
     public ViewToggler(AdapterView<?> parent, int position, LinearLayout... blocks){
         this.mParent = parent;
         this.mPosition = position;
-        if(blocks.length>3){
+        if(blocks.length>4){
             this.culvertBlock = blocks[0];
             this.bridgeBlock = blocks[1];
             this.erosionBlock = blocks[2];
             this.fishSamplingBlock = blocks[3];
+            this.blockageBlock = blocks[4];
         }
+    }
+
+    public ViewToggler(View v){
+        this.loadingView = v;
+
     }
 
     public void toggleView(){
         switch (mParent.getId()){
             case R.id.crossingTypeDropdown:
-                if(mParent.getItemAtPosition(mPosition).toString().toLowerCase().contains("culvert")){
-                    culvertBlock.setVisibility(View.VISIBLE);
-                    bridgeBlock.setVisibility(View.GONE);
-                }else if(mParent.getItemAtPosition(mPosition).toString().toLowerCase().contains("bridge")){
+                if(mParent.getItemAtPosition(mPosition).toString().toLowerCase().contains("bridge")){
                     culvertBlock.setVisibility(View.GONE);
                     bridgeBlock.setVisibility(View.VISIBLE);
                 }else{
-                    culvertBlock.setVisibility(View.GONE);
+                    culvertBlock.setVisibility(View.VISIBLE);
                     bridgeBlock.setVisibility(View.GONE);
                 }
                 break;
@@ -58,6 +63,22 @@ public class ViewToggler {
                     fishSamplingBlock.setVisibility(View.GONE);
                 }
                 break;
+
+            case R.id.blockageDropdown:
+                if(mParent.getItemAtPosition(mPosition).toString().equals("No")){
+                    blockageBlock.setVisibility(View.GONE);
+                }else{
+                    blockageBlock.setVisibility(View.VISIBLE);
+                }
+                break;
+        }
+    }
+
+    public void toggleLoadingView(){
+        if(loadingView.getVisibility() == View.VISIBLE){
+            loadingView.setVisibility(View.GONE);
+        }else{
+            loadingView.setVisibility(View.VISIBLE);
         }
     }
 }

@@ -23,6 +23,7 @@ import com.map.woodlands.woodlandsmap.Data.DataController;
 import com.map.woodlands.woodlandsmap.Data.MarkerToggler;
 import com.map.woodlands.woodlandsmap.Data.PopupController;
 import com.map.woodlands.woodlandsmap.Data.SAXKML.MapController;
+import com.map.woodlands.woodlandsmap.Data.ViewToggler;
 import com.map.woodlands.woodlandsmap.R;
 
 import static com.google.android.gms.maps.GoogleMap.MAP_TYPE_HYBRID;
@@ -43,12 +44,18 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     private PopupController popupController;
     private DataController dataController;
     private MarkerToggler markerToggler;
+    private ViewToggler viewToggler;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_map, container, false);
         setHasOptionsMenu(true);
+
+        View loadingView = v.findViewById(R.id.loadingView);
+        loadingView.setVisibility(View.GONE);
+        viewToggler = new ViewToggler(loadingView);
+
         this.markerToggler = new MarkerToggler();
         mContext = this.getActivity().getApplicationContext();
 
@@ -60,7 +67,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         map.setMyLocationEnabled(true);
         map.setOnMarkerClickListener(this);
 
-        this.mapController = new MapController(map, markerToggler);
+        this.mapController = new MapController(map, markerToggler, viewToggler);
         // Needs to call MapsInitializer before doing any CameraUpdateFactory calls
         try {
             MapsInitializer.initialize(this.getActivity());
@@ -74,7 +81,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
         mMapView.getMapAsync(this);
         this.popupController = new PopupController(mContext, mapController, markerToggler);
-        this.dataController = new DataController(this.getActivity(), mapController);
+        this.dataController = new DataController(this.getActivity(), mapController, viewToggler);
 
         Spinner spinner = (Spinner) v.findViewById(R.id.layers_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
@@ -82,6 +89,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
+
+
         return v;
     }
 
@@ -120,6 +129,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     }
 
 
+    public void getMapData(){
+        dataController.loadCoords();
+        dataController.getKML();
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -128,9 +142,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
     @Override
     public void onMapReady(GoogleMap map) {
-//        map.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
-        dataController.loadCoords();
-
+        getMapData();
     }
 
     @Override
@@ -159,6 +171,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
     @Override
     public boolean onMarkerClick(Marker marker) {
+        viewToggler.toggleLoadingView();
         dataController.loadRow(marker.getPosition());
         return false;
     }

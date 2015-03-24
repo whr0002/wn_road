@@ -59,7 +59,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
     public EditText inspectionCrewView,crossingNumberView,crossingIDView,streamIDView,dispositionIDView,
             streamWidthView,erosionAreaView,culvertLengthView,culvertDiameter1View,
             culvertDiameter2View,culvertDiameter3View,culvertPoolDepthView,culvertOutletGapView,
-            bridgeLengthView,fishPassageConvernsReasonView,blockageView,blockageMaterialView,
+            bridgeLengthView,fishPassageConvernsReasonView,blockageMaterialView,
             blockageCauseView,remarksView;
 
 
@@ -72,11 +72,11 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
             capBeamSpinner,pilesSpinner,abutmentWallSpinner,wingWallSpinner,bankStabilitySpinner,slopeProtectionSpinner,
             channelOpeningSpinner,obstructionsSpinner,fishSamplingSpinner,fishSamplingMethod,fishSamplingSpecies1Spinner,
             fishSamplingSpecies2Spinner,fishPassageConcernsSpinner,emergencyRepairRequiredSpinner,structuralProblemsSpinner,
-            sedimentationSpinner;
+            sedimentationSpinner, blockageSpinner;
 
     public ImageView photoView1,photoView2,photoView3,photoView4,photoView5,photoView6;
 
-    public LinearLayout culvertBlock,bridgeBlock,erosionBlock,fishSamplingBlock;
+    public LinearLayout culvertBlock,bridgeBlock,erosionBlock,fishSamplingBlock, blockageBlock;
 
 
 
@@ -128,7 +128,6 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         culvertOutletGapView = (EditText)findViewById(R.id.culvertOutletGapText);
         bridgeLengthView = (EditText)findViewById(R.id.bridgeLengthText);
         fishPassageConvernsReasonView = (EditText)findViewById(R.id.fishPassageConcernsReasonText);
-        blockageView = (EditText)findViewById(R.id.blockageText);
         blockageMaterialView = (EditText)findViewById(R.id.blockageMaterialText);
         blockageCauseView = (EditText)findViewById(R.id.blockageCauseText);
         remarksView = (EditText)findViewById(R.id.remarksText);
@@ -178,10 +177,12 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         emergencyRepairRequiredSpinner = (Spinner)findViewById(R.id.emergencyRepairRequiredDropdown);
         structuralProblemsSpinner = (Spinner)findViewById(R.id.structuralProblemsDropdown);
         sedimentationSpinner = (Spinner)findViewById(R.id.sedimentationDropdown);
+        blockageSpinner = (Spinner)findViewById(R.id.blockageDropdown);
 
         crossingTypeSpinner.setOnItemSelectedListener(this);
         erosionSpinner.setOnItemSelectedListener(this);
         fishSamplingSpinner.setOnItemSelectedListener(this);
+        blockageSpinner.setOnItemSelectedListener(this);
     }
 
     public void setLayouts() {
@@ -189,6 +190,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         bridgeBlock = (LinearLayout)findViewById(R.id.bridgeBlock);
         erosionBlock = (LinearLayout)findViewById(R.id.erosionBlock);
         fishSamplingBlock = (LinearLayout)findViewById(R.id.fishSamplingBlock);
+        blockageBlock = (LinearLayout)findViewById(R.id.blockageBlock);
     }
 
 
@@ -271,7 +273,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
                 // Save form
                 Form form = generateForm();
                 validateForms(form);
-                // Form is complete
+
                 mFormController.saveForm(form);
                 finish();
 
@@ -350,7 +352,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         theForm.FISH_SPP2 = fishSamplingSpecies2Spinner.getSelectedItem().toString();
         theForm.FISH_PCONC = fishPassageConcernsSpinner.getSelectedItem().toString();
         theForm.FISH_PCONCREASON = fishPassageConvernsReasonView.getText().toString();
-        theForm.BLOCKAGE = blockageView.getText().toString();
+        theForm.BLOCKAGE = blockageSpinner.getSelectedItem().toString();
         theForm.BLOC_MATR = blockageMaterialView.getText().toString();
         theForm.BLOC_CAUS = blockageCauseView.getText().toString();
         theForm.EMG_REP_RE = emergencyRepairRequiredSpinner.getSelectedItem().toString();
@@ -518,7 +520,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        ViewToggler toggler = new ViewToggler(parent, position, culvertBlock, bridgeBlock, erosionBlock, fishSamplingBlock);
+        ViewToggler toggler = new ViewToggler(parent, position, culvertBlock, bridgeBlock, erosionBlock, fishSamplingBlock, blockageBlock);
         toggler.toggleView();
     }
 

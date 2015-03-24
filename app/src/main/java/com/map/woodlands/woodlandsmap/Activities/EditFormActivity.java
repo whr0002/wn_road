@@ -118,7 +118,7 @@ public class EditFormActivity extends FormActivity{
             f.FISH_SPP2 = fishSamplingSpecies2Spinner.getSelectedItem().toString();
             f.FISH_PCONC = fishPassageConcernsSpinner.getSelectedItem().toString();
             f.FISH_PCONCREASON = fishPassageConvernsReasonView.getText().toString();
-            f.BLOCKAGE = blockageView.getText().toString();
+            f.BLOCKAGE = blockageSpinner.getSelectedItem().toString();
             f.BLOC_MATR = blockageMaterialView.getText().toString();
             f.BLOC_CAUS = blockageCauseView.getText().toString();
             f.EMG_REP_RE = emergencyRepairRequiredSpinner.getSelectedItem().toString();
@@ -238,7 +238,7 @@ public class EditFormActivity extends FormActivity{
             fishSamplingSpecies2Spinner.setSelection(getSpinnerIndex(fishSamplingSpecies2Spinner,f.FISH_SPP2));
             fishPassageConcernsSpinner.setSelection(getSpinnerIndex(fishPassageConcernsSpinner,f.FISH_PCONC));
             fishPassageConvernsReasonView.setText(f.FISH_PCONCREASON);
-            blockageView.setText(f.BLOCKAGE);
+            blockageSpinner.setSelection(getSpinnerIndex(blockageSpinner, f.BLOCKAGE));
             blockageMaterialView.setText(f.BLOC_MATR);
             blockageCauseView.setText(f.BLOC_CAUS);
             emergencyRepairRequiredSpinner.setSelection(getSpinnerIndex(emergencyRepairRequiredSpinner,f.EMG_REP_RE));

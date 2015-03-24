@@ -58,12 +58,14 @@ public class  LoginFragment extends Fragment implements OnClickListener{
     private String mPassword;
 
     private Activity mActivity;
+    private static MapFragment mapFragment;
 
-    public static LoginFragment newInstance(){
+    public static LoginFragment newInstance(MapFragment m){
         LoginFragment mLoginFragment = new LoginFragment();
-
+        mapFragment = m;
         return mLoginFragment;
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -287,6 +289,8 @@ public class  LoginFragment extends Fragment implements OnClickListener{
                         roleView.setText("Your role: " + reader.getString("Role"));
                         showLoggedInView();
                         saveUserData(this.mEmail, this.mPassword, reader.getString("Role"));
+
+                        mapFragment.getMapData();
                     }else{
                         // Login failed, show message
                         messageView.setText(reader.getString("Message"));

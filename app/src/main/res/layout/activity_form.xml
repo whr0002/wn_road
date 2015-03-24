@@ -1008,7 +1008,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/approachRailsDropdown"
-                        android:entries="@array/approachRailsItems"
+                        android:entries="@array/hazardMarkersItems"
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1793,76 +1793,88 @@
                     android:layout_gravity="center"
                     android:layout_weight="0.5"/>
 
-                <EditText
+                <Spinner
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/blockageText"
+                    android:layout_height="match_parent"
+                    android:id="@+id/blockageDropdown"
+                    android:entries="@array/emergencyRepairRequiredItems"
                     android:layout_weight="0.5"
-                    android:singleLine="true"
-                    android:imeOptions="actionNext"
                     android:layout_gravity="center"/>
 
             </LinearLayout>
 
-            <!-- Blockage Material -->
+            <!-- Blockage Block -->
             <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:weightSum="1"
-                >
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/blockageBlock"
+            android:orientation="vertical"
+            android:background="@color/lightBlue"
+            android:visibility="gone">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Blockage Material"
-                    android:id="@+id/blockageMaterialLabel"
-                    android:layout_marginLeft="10dp"
+
+                <!-- Blockage Material -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
                     android:layout_gravity="center"
-                    android:layout_weight="0.5"/>
+                    android:weightSum="1"
+                    >
 
-                <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/blockageMaterialText"
-                    android:layout_weight="0.5"
-                    android:singleLine="true"
-                    android:imeOptions="actionNext"
-                    android:layout_gravity="center"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Blockage Material"
+                        android:id="@+id/blockageMaterialLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/blockageMaterialText"
+                        android:layout_weight="0.5"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        android:layout_gravity="center"/>
+
+                </LinearLayout>
+
+                <!-- Blockage Cause -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Blockage Cause"
+                        android:id="@+id/blockageCauseLabel"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/blockageCauseText"
+                        android:layout_weight="0.5"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        android:layout_gravity="center"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <!-- Blockage Cause -->
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:weightSum="1"
-                >
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Blockage Cause"
-                    android:id="@+id/blockageCauseLabel"
-                    android:layout_marginLeft="10dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="0.5"/>
-
-                <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/blockageCauseText"
-                    android:layout_weight="0.5"
-                    android:singleLine="true"
-                    android:imeOptions="actionNext"
-                    android:layout_gravity="center"/>
-
-            </LinearLayout>
             <!-- Emergency Repair Required NOT NULL -->
             <LinearLayout
                 android:orientation="horizontal"
@@ -1956,6 +1968,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
                 android:weightSum="1"
                 >
 
@@ -1983,14 +1996,17 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:weightSum="1">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Inlet"
                     android:textSize="20dp"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="0.2"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -1999,7 +2015,7 @@
                     android:scaleType="fitCenter"
                     android:src="@drawable/file_image"
                     android:layout_gravity="center"
-                    android:layout_weight="0.5"/>
+                    android:layout_weight="0.4"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -2008,7 +2024,7 @@
                     android:scaleType="fitCenter"
                     android:src="@drawable/file_image"
                     android:layout_gravity="center"
-                    android:layout_weight="0.5"/>
+                    android:layout_weight="0.4"/>
 
 
                 </LinearLayout>
@@ -2018,14 +2034,17 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:weightSum="1">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Outlet"
                     android:textSize="20dp"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="0.2"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -2034,7 +2053,7 @@
                     android:scaleType="fitCenter"
                     android:src="@drawable/file_image"
                     android:layout_gravity="center"
-                    android:layout_weight="0.5"/>
+                    android:layout_weight="0.4"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -2043,7 +2062,7 @@
                     android:scaleType="fitCenter"
                     android:src="@drawable/file_image"
                     android:layout_gravity="center"
-                    android:layout_weight="0.5"/>
+                    android:layout_weight="0.4"/>
 
 
             </LinearLayout>
@@ -2053,14 +2072,17 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:weightSum="1">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Others"
                     android:textSize="20dp"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="0.2"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -2069,7 +2091,7 @@
                     android:scaleType="fitCenter"
                     android:src="@drawable/file_image"
                     android:layout_gravity="center"
-                    android:layout_weight="0.5"/>
+                    android:layout_weight="0.4"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -2078,7 +2100,7 @@
                     android:scaleType="fitCenter"
                     android:src="@drawable/file_image"
                     android:layout_gravity="center"
-                    android:layout_weight="0.5"/>
+                    android:layout_weight="0.4"/>
 
 
             </LinearLayout>

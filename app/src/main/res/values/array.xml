@@ -328,13 +328,13 @@
     </string-array>
 
     <string-array name="emergencyRepairRequiredItems">
-        <item>Yes</item>
         <item>No</item>
+        <item>Yes</item>
     </string-array>
 
     <string-array name="structuralProblemsItems">
-        <item>Yes</item>
         <item>No</item>
+        <item>Yes</item>
         <item>Pot</item>
     </string-array>
 

@@ -1,6 +1,7 @@
 package com.map.woodlands.woodlandsmap.Data;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
@@ -11,6 +12,7 @@ import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.map.woodlands.woodlandsmap.Activities.ViewCrossingDataActivity;
 import com.map.woodlands.woodlandsmap.Data.SAXKML.MapController;
 
 import org.apache.http.Header;
@@ -27,16 +29,20 @@ public class DataController {
     private AsyncHttpClient client;
     private final String coordsUri = "http://woodlandstest.azurewebsites.net/androiddata/coordinates";
     private final String rowUri = "http://woodlandstest.azurewebsites.net/androiddata/onerow";
+    private final String kmlUri = "http://woodlandstest.azurewebsites.net/androiddata/KMLs";
     private Type listType;
+
     private Gson gson;
     private MapController mapController;
+    private ViewToggler mViewToggler;
 
-    public DataController(Activity a, MapController mapController){
+    public DataController(Activity a, MapController mapController, ViewToggler viewToggler){
         this.mActivity = a;
         this.client = new AsyncHttpClient();
         this.listType = new TypeToken<ArrayList<Coordinate>>(){}.getType();
         this.gson = new Gson();
         this.mapController = mapController;
+        this.mViewToggler = viewToggler;
     }
     public void loadCoords(){
         UserInfo ui = getUserRole();
@@ -89,8 +95,12 @@ public class DataController {
                 @Override
                 public void onSuccess(int i, Header[] headers, byte[] bytes) {
                     try{
+                        mViewToggler.toggleLoadingView();
                         String json = new String(bytes);
-                        Log.i("debug", json);
+//                        Log.i("debug", json);
+                        Intent intent = new Intent(mActivity.getApplicationContext(), ViewCrossingDataActivity.class);
+                        intent.putExtra("json", json);
+                        mActivity.startActivity(intent);
 
                     }catch (Exception e){
                         e.printStackTrace();
@@ -99,7 +109,44 @@ public class DataController {
 
                 @Override
                 public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
+                    mViewToggler.toggleLoadingView();
                     Toast.makeText(mActivity.getApplicationContext(), "Fail to get data", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
+    }
+
+    public void getKML(){
+        UserInfo ui = getUserRole();
+
+        if(ui != null) {
+            RequestParams params = new RequestParams();
+            params.put("Email", ui.username);
+            params.put("Password", ui.password);
+            params.put("RememberMe", "false");
+            params.put("Role", ui.role);
+            client.post(kmlUri, params, new AsyncHttpResponseHandler() {
+                @Override
+                public void onSuccess(int i, Header[] headers, byte[] bytes) {
+                    try{
+                        String json = new String(bytes);
+                        Log.i("debug", json);
+                        // Parse JSON and Save it
+                        SharedPreferences sp = mActivity.getSharedPreferences("KMLData", 0);
+                        SharedPreferences.Editor spEditor = sp.edit();
+                        spEditor.putString("json", json);
+                        spEditor.commit();
+
+
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
+                    Toast.makeText(mActivity.getApplicationContext(), "Fail to get KML", Toast.LENGTH_SHORT).show();
                 }
             });
 

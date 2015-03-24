@@ -48,6 +48,11 @@
             android:name=".Activities.EditFormActivity"
             android:label="View a form">
         </activity>
+
+        <activity
+            android:name=".Activities.ViewCrossingDataActivity"
+            android:label="Watercourse Crossing Inspection Form">
+        </activity>
     </application>
 
 </manifest>

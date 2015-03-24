@@ -24,9 +24,10 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
     public TabPagerAdapter(FragmentManager fm, Context ctx) {
         super(fm);
         this.mCtx = ctx;
-        this.mLoginFragment = LoginFragment.newInstance();
+
         this.mFormFragment = FormFragment.newInstance();
         this.mMapFragment = new MapFragment();
+        this.mLoginFragment = LoginFragment.newInstance(mMapFragment);
     }
 
     @Override
