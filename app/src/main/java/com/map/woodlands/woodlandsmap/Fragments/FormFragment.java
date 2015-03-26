@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.map.woodlands.woodlandsmap.Activities.EditFormActivity;
 import com.map.woodlands.woodlandsmap.Activities.FormActivity;
@@ -31,6 +32,7 @@ public class FormFragment  extends Fragment{
     private ActionBarActivity aba;
 
     private ListView listView;
+    private TextView noneView;
     private ArrayList<Form> forms;
 
     public FormController formController;
@@ -60,7 +62,16 @@ public class FormFragment  extends Fragment{
 
     public void setListView() {
         forms = formController.getAllForms();
+        noneView = (TextView)aba.findViewById(R.id.none);
+        if(forms == null || forms.size() == 0){
+            // No form, Show "None" on view
+            this.noneView.setVisibility(View.VISIBLE);
+        }else {
+            this.noneView.setVisibility(View.GONE);
+        }
+
 //        Log.i("debug","#Forms: "+ forms.size());
+
         final FormArrayAdapter adapter = new FormArrayAdapter(aba, forms, this);
 
         listView = (ListView) aba.findViewById(R.id.listView);
@@ -79,6 +90,8 @@ public class FormFragment  extends Fragment{
                 startActivityForResult(intent, 0);
             }
         });
+
+
 
     }
 
@@ -105,14 +118,14 @@ public class FormFragment  extends Fragment{
 
                 return true;
 
-            case 1:
-                // Filter forms
-                return true;
-
-            case 2:
-                // Delete forms
-                formController.deleteAllForms();
-                return true;
+//            case 1:
+//                // Filter forms
+//                return true;
+//
+//            case 2:
+//                // Delete forms
+//                formController.deleteAllForms();
+//                return true;
 
             case 3:
                 // Submit forms
@@ -133,15 +146,15 @@ public class FormFragment  extends Fragment{
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS
                         | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
 
-        menu.add(0,1,1,"Filter")
-                .setIcon(R.drawable.file_search)
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS
-                        | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
-
-        menu.add(0,2,2,"Delete")
-                .setIcon(R.drawable.file_delete)
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS
-                | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+//        menu.add(0,1,1,"Filter")
+//                .setIcon(R.drawable.file_search)
+//                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS
+//                        | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+//
+//        menu.add(0,2,2,"Delete")
+//                .setIcon(R.drawable.file_delete)
+//                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS
+//                | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
 
         menu.add(0,3,3,"Submit")
                 .setIcon(R.drawable.file_submit)

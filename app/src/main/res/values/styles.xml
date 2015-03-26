@@ -5,9 +5,11 @@
         <!-- Customize your theme here. -->
     </style>
 
+
     <color name="red">#FF0000</color>
     <color name="lightBlue">#d9e1f2</color>
     <color name="blue">#b4c6e7</color>
-
+    <color name="black">#000000</color>
+    <color name="cblue">#ff2840ff</color>
 
 </resources>

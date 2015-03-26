@@ -28,6 +28,7 @@ public class ViewCrossingDataActivity extends ActionBarActivity {
     private String json;
     private LinearLayout linearLayout;
     private boolean isColor = true;
+    private ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +36,8 @@ public class ViewCrossingDataActivity extends ActionBarActivity {
         setContentView(R.layout.activity_crossing);
 
         this.linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
-        ActionBar actionbar = this.getSupportActionBar();
-        actionbar.setDisplayHomeAsUpEnabled(true);
+        this.actionBar = this.getSupportActionBar();
+        this.actionBar.setDisplayHomeAsUpEnabled(true);
 
         Bundle extras = getIntent().getExtras();
         if(extras != null){
@@ -83,10 +84,14 @@ public class ViewCrossingDataActivity extends ActionBarActivity {
     }
 
     private void addView(String key, String value){
+        if(key.toLowerCase().contains("water crossing")){
+            actionBar.setTitle(value);
+        }
+
         // Wrapper
         LinearLayout linearLayout1 = new LinearLayout(this);
         LinearLayout.LayoutParams linearParams = new LinearLayout
-                .LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 90);
+                .LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         linearLayout1.setWeightSum(1.0f);
         linearLayout1.setOrientation(LinearLayout.HORIZONTAL);
         linearLayout1.setLayoutParams(linearParams);
@@ -98,7 +103,7 @@ public class ViewCrossingDataActivity extends ActionBarActivity {
         titleView.setTextSize(18);
         LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT);
         textViewParams.weight = 0.5f;
-        textViewParams.leftMargin = 10;
+        textViewParams.setMargins(10, 10, 10, 10);
         textViewParams.gravity = Gravity.CENTER_VERTICAL;
         titleView.setGravity(Gravity.LEFT);
         titleView.setLayoutParams(textViewParams);
@@ -109,7 +114,7 @@ public class ViewCrossingDataActivity extends ActionBarActivity {
         valueView.setTextSize(18);
         LinearLayout.LayoutParams textViewParams2 = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT);
         textViewParams2.weight = 0.5f;
-        textViewParams2.leftMargin = 10;
+        textViewParams2.setMargins(10, 10, 10, 10);
         textViewParams2.gravity = Gravity.CENTER_VERTICAL;
         valueView.setGravity(Gravity.LEFT);
         valueView.setLayoutParams(textViewParams2);

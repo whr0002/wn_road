@@ -27,22 +27,22 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="@string/inspection_date"
+                    android:textSize="18sp" android:textColor="@color/black" android:text="@string/inspection_date"
                     android:id="@+id/dateLabel"
                     android:layout_marginLeft="10dp"
 
                     android:layout_gravity="center"
-                    android:layout_weight="0.6"/>
+                    android:layout_weight="0.6" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="18sp"
                     android:text="00-00-0000"
                     android:id="@+id/dateView"
                     android:layout_gravity="center"
-                    android:layout_weight="0.39"/>
+                    android:layout_weight="0.39"
+                    android:textColor="@color/cblue"/>
 
                 <ImageButton
                     android:layout_width="50dp"
@@ -67,14 +67,15 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="Inspection Crew"
                     android:id="@+id/crewLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
-                    android:layout_weight="0.5"/>
+                    android:layout_weight="0.5"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"/>
 
-                <EditText
+                <EditText android:textColor="@color/cblue"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/crewText"
@@ -96,18 +97,20 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
+
                     android:text="Access"
                     android:id="@+id/accessLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
-                    android:layout_weight="0.5"/>
+                    android:layout_weight="0.5"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"/>
 
                 <Spinner
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:id="@+id/accessDropdown"
-                    android:entries="@array/accessItems"
+
                     android:layout_weight="0.5"
                     android:layout_gravity="center"/>
 
@@ -125,21 +128,23 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="Crossing Number"
                     android:id="@+id/crossingNumberLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
-                    android:layout_weight="0.5"/>
+                    android:layout_weight="0.5"
+                    android:textSize="18sp"
+                    android:textColor="@color/black" />
 
-                <EditText
+                <EditText android:textColor="@color/cblue"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/crossingNumberText"
                     android:layout_weight="0.5"
                     android:singleLine="true"
                     android:imeOptions="actionNext"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    />
 
             </LinearLayout>
             <!-- Crossing ID -->
@@ -154,14 +159,15 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="Crossing ID"
                     android:id="@+id/crossingIDLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
-                    android:layout_weight="0.5"/>
+                    android:layout_weight="0.5"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"/>
 
-                <EditText
+                <EditText android:textColor="@color/cblue"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/crossingIDText"
@@ -183,14 +189,15 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="Stream ID"
                     android:id="@+id/streamIDLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
-                    android:layout_weight="0.5"/>
+                    android:layout_weight="0.5"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"/>
 
-                <EditText
+                <EditText android:textColor="@color/cblue"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/streamIDText"
@@ -212,14 +219,14 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Disposition ID"
+
+                    android:textSize="18sp" android:textColor="@color/black" android:text="Disposition ID"
                     android:id="@+id/dispositionIDLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
                     android:layout_weight="0.5"/>
 
-                <EditText
+                <EditText android:textColor="@color/cblue"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/dispositionIDText"
@@ -241,8 +248,8 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Latitude"
+
+                    android:textSize="18sp" android:textColor="@color/black" android:text="Latitude"
                     android:id="@+id/latLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
@@ -253,10 +260,11 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/latText"
                     android:layout_weight="0.5"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
+
+                    android:textSize="18sp"
                     android:text="0.000000"
                     android:layout_gravity="center"
-                    />
+                    android:textColor="@color/cblue" />
 
             </LinearLayout>
             <!-- Longitude -->
@@ -271,8 +279,8 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Longitude"
+
+                    android:textSize="18sp" android:textColor="@color/black" android:text="Longitude"
                     android:id="@+id/longLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
@@ -283,7 +291,8 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/longText"
                     android:layout_weight="0.5"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/cblue"
+                    android:textSize="18sp"
                     android:text="0.000000"
                     android:layout_gravity="center"
                     />
@@ -302,8 +311,8 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Stream Classification"
+
+                    android:textSize="18sp" android:textColor="@color/black" android:text="Stream Classification"
                     android:id="@+id/streamClassLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
@@ -331,14 +340,14 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Stream Width(m)"
+
+                    android:textSize="18sp" android:textColor="@color/black" android:text="Stream Width(m)"
                     android:id="@+id/streamWidthLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
                     android:layout_weight="0.5"/>
 
-                <EditText
+                <EditText android:textColor="@color/cblue"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/streamWidthText"
@@ -361,8 +370,8 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Stream Width measured?"
+
+                    android:textSize="18sp" android:textColor="@color/black" android:text="Stream Width measured?"
                     android:id="@+id/streamMeasuredLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
@@ -390,8 +399,8 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Crossing Type"
+
+                    android:textSize="18sp" android:textColor="@color/black" android:text="Crossing Type"
                     android:id="@+id/crossingTypeLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
@@ -428,14 +437,14 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Culvert Length(m)"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Culvert Length(m)"
                         android:id="@+id/culvertLengthLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
                         android:layout_weight="0.5"/>
 
-                    <EditText
+                    <EditText android:textColor="@color/cblue"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/culvertLengthText"
@@ -458,14 +467,14 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Culvert Diameter 1(m)"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Culvert Diameter 1(m)"
                         android:id="@+id/culvertDiameter1Label"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
                         android:layout_weight="0.5"/>
 
-                    <EditText
+                    <EditText android:textColor="@color/cblue"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/culvertDiameter1Text"
@@ -488,14 +497,14 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Culvert Diameter 2(m)"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Culvert Diameter 2(m)"
                         android:id="@+id/culvertDiameter2Label"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
                         android:layout_weight="0.5"/>
 
-                    <EditText
+                    <EditText android:textColor="@color/cblue"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/culvertDiameter2Text"
@@ -518,14 +527,14 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Culvert Diameter 3(m)"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Culvert Diameter 3(m)"
                         android:id="@+id/culvertDiameter3Label"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
                         android:layout_weight="0.5"/>
 
-                    <EditText
+                    <EditText android:textColor="@color/cblue"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/culvertDiameter3Text"
@@ -548,8 +557,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Culvert Substrate"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Culvert Substrate"
                         android:id="@+id/culvertSubstrateLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -565,35 +574,7 @@
 
 
                 </LinearLayout>
-                <!-- Culvert Substrate % -->
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_gravity="center"
-                    android:weightSum="1"
-                    >
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Culvert Substrate %"
-                        android:id="@+id/culvertSubstratePLabel"
-                        android:layout_marginLeft="10dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="0.5"/>
-
-                    <Spinner
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:id="@+id/culvertSubstratePDropdown"
-                        android:entries="@array/culvertSubstrateProportionItems"
-                        android:layout_weight="0.5"
-                        android:layout_gravity="center"/>
-
-
-                </LinearLayout>
                 <!-- Culvert Substrate Type -->
                 <LinearLayout
                     android:orientation="horizontal"
@@ -606,8 +587,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Culvert Substrate Type"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Culvert Substrate Type"
                         android:id="@+id/culvertSubstrateTypeLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -635,8 +616,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Culvert Substrate Proportion"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Culvert Substrate Proportion"
                         android:id="@+id/culvertSubstrateProportionLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -664,8 +645,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Culvert Back Water Proportion"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Culvert Back Water Proportion"
                         android:id="@+id/culvertBWProportionLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -693,8 +674,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Culvert Slope"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Culvert Slope"
                         android:id="@+id/culvertSlopeLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -722,8 +703,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Culvert Outlet Type"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Culvert Outlet Type"
                         android:id="@+id/culvertOutletTypeLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -751,8 +732,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Scour Pool Present"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Scour Pool Present"
                         android:id="@+id/scourPoolPresentLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -780,14 +761,14 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Culvert Pool Depth(m)"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Culvert Pool Depth(m)"
                         android:id="@+id/culvertPoolDepthLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
                         android:layout_weight="0.5"/>
 
-                    <EditText
+                    <EditText android:textColor="@color/cblue"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/culvertPoolDepthText"
@@ -810,14 +791,14 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Culvert Outlet Gap(m)"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Culvert Outlet Gap(m)"
                         android:id="@+id/culvertOutletGapLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
                         android:layout_weight="0.5"/>
 
-                    <EditText
+                    <EditText android:textColor="@color/cblue"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/culvertOutletGapText"
@@ -840,8 +821,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Delineator"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Delineator"
                         android:id="@+id/delineatorLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -880,14 +861,14 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Bridge Length(m)"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Bridge Length(m)"
                         android:id="@+id/bridgeLengthLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
                         android:layout_weight="0.5"/>
 
-                    <EditText
+                    <EditText android:textColor="@color/cblue"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/bridgeLengthText"
@@ -910,8 +891,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Hazard Markers"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Hazard Markers"
                         android:id="@+id/hazardMarkersLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -939,8 +920,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Approach Signage"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Approach Signage"
                         android:id="@+id/approachSignageLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -968,8 +949,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Road Surface"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Road Surface"
                         android:id="@+id/roadSurfaceLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -997,8 +978,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Approach Rails"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Approach Rails"
                         android:id="@+id/approachRailsLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -1026,8 +1007,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Road Drainage"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Road Drainage"
                         android:id="@+id/roadDrainageLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -1055,8 +1036,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Visibility"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Visibility"
                         android:id="@+id/visibilityLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -1084,8 +1065,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Wearing Surface"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Wearing Surface"
                         android:id="@+id/wearingSurfaceLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -1113,8 +1094,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Rail &amp; Curb"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Rail &amp; Curb"
                         android:id="@+id/railCurbLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -1142,8 +1123,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Girders &amp; Bracing"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Girders &amp; Bracing"
                         android:id="@+id/girdersBracingLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -1171,8 +1152,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Cap Beam"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Cap Beam"
                         android:id="@+id/capBeamLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -1200,8 +1181,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Piles"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Piles"
                         android:id="@+id/pilesLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -1229,8 +1210,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Abutment Wall"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Abutment Wall"
                         android:id="@+id/abutmentWallLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -1258,8 +1239,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Wing Wall"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Wing Wall"
                         android:id="@+id/wingWallLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -1287,8 +1268,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Bank Stability"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Bank Stability"
                         android:id="@+id/bankStabilityLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -1316,8 +1297,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Slope Protection"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Slope Protection"
                         android:id="@+id/slopeProtectionLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -1345,8 +1326,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Channel Opening"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Channel Opening"
                         android:id="@+id/channelOpeningLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -1374,8 +1355,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Obstructions"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Obstructions"
                         android:id="@+id/obstructionsLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -1405,8 +1386,8 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Erosion"
+
+                    android:textSize="18sp" android:textColor="@color/black" android:text="Erosion"
                     android:id="@+id/erosionLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
@@ -1444,8 +1425,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Erosion Type 1"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Erosion Type"
                         android:id="@+id/erosionType1Label"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -1462,7 +1443,7 @@
 
                 </LinearLayout>
 
-                <!-- Erosion Type 2 -->
+                <!-- Erosion Type 2
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
@@ -1474,8 +1455,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Erosion Type 2"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Erosion Type 2"
                         android:id="@+id/erosionType2Label"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -1490,7 +1471,7 @@
                         android:layout_gravity="center"/>
 
 
-                </LinearLayout>
+                </LinearLayout>-->
                 <!-- Erosion Source -->
                 <LinearLayout
                     android:orientation="horizontal"
@@ -1503,8 +1484,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Erosion Source"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Erosion Source"
                         android:id="@+id/erosionSourceLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -1532,8 +1513,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Erosion Degree"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Erosion Degree"
                         android:id="@+id/erosionDegreeLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -1561,14 +1542,14 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Erosion Area(m&#x00B2;)"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Erosion Area(m&#x00B2;)"
                         android:id="@+id/erosionAreaLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
                         android:layout_weight="0.5"/>
 
-                    <EditText
+                    <EditText android:textColor="@color/cblue"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/erosionAreaText"
@@ -1593,8 +1574,8 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Fish Sampling"
+
+                    android:textSize="18sp" android:textColor="@color/black" android:text="Fish Sampling"
                     android:id="@+id/fishSamplingLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
@@ -1632,8 +1613,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Fish Sampling Method"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Fish Sampling Method"
                         android:id="@+id/fishSamplingMethodLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -1662,8 +1643,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Fish Sampling Species 1"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Fish Sampling Species 1"
                         android:id="@+id/fishSamplingSpecies1Label"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -1692,8 +1673,8 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Fish Sampling Species 2"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Fish Sampling Species 2"
                         android:id="@+id/fishSamplingSpecies2Label"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -1726,8 +1707,8 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Fish Passage Concerns"
+
+                    android:textSize="18sp" android:textColor="@color/black" android:text="Fish Passage Concerns"
                     android:id="@+id/fishPassageConcernsLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
@@ -1756,14 +1737,14 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Fish Passage Concerns Reason"
+
+                    android:textSize="18sp" android:textColor="@color/black" android:text="Fish Passage Concerns Reason"
                     android:id="@+id/fishPassageConcernsReasonLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
                     android:layout_weight="0.5"/>
 
-                <EditText
+                <EditText android:textColor="@color/cblue"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/fishPassageConcernsReasonText"
@@ -1786,8 +1767,8 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Blockage"
+
+                    android:textSize="18sp" android:textColor="@color/black" android:text="Blockage"
                     android:id="@+id/blockageLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
@@ -1825,14 +1806,14 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Blockage Material"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Blockage Material"
                         android:id="@+id/blockageMaterialLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
                         android:layout_weight="0.5"/>
 
-                    <EditText
+                    <EditText android:textColor="@color/cblue"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/blockageMaterialText"
@@ -1855,14 +1836,14 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Blockage Cause"
+
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Blockage Cause"
                         android:id="@+id/blockageCauseLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
                         android:layout_weight="0.5"/>
 
-                    <EditText
+                    <EditText android:textColor="@color/cblue"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/blockageCauseText"
@@ -1887,8 +1868,8 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Emergency Repair Required"
+
+                    android:textSize="18sp" android:textColor="@color/black" android:text="Emergency Repair Required"
                     android:id="@+id/emergencyRepairRequiredLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
@@ -1916,8 +1897,8 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Structural Problems"
+
+                    android:textSize="18sp" android:textColor="@color/black" android:text="Structural Problems"
                     android:id="@+id/structuralProblemsLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
@@ -1945,8 +1926,8 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Sedimentation"
+
+                    android:textSize="18sp" android:textColor="@color/black" android:text="Sedimentation"
                     android:id="@+id/sedimentationLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
@@ -1975,14 +1956,14 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Remarks"
+
+                    android:textSize="18sp" android:textColor="@color/black" android:text="Remarks"
                     android:id="@+id/remarksLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
                     android:layout_weight="0.5"/>
 
-                <EditText
+                <EditText android:textColor="@color/cblue"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/remarksText"
@@ -2002,8 +1983,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Inlet"
-                    android:textSize="20dp"
+                    android:textSize="18sp" android:textColor="@color/black" android:text="Inlet"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="0.2"/>
@@ -2040,8 +2020,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Outlet"
-                    android:textSize="20dp"
+                    android:textSize="18sp" android:textColor="@color/black" android:text="Outlet"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="0.2"/>
@@ -2078,8 +2057,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Others"
-                    android:textSize="20dp"
+                    android:textSize="18sp" android:textColor="@color/black" android:text="Others"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="0.2"/>

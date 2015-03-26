@@ -48,14 +48,19 @@ public class MapController {
     }
 
     public void loadKML(final String url, final String fileName){
+
         viewToggler.toggleLoadingView();
         NavigationDataSet navigationDataSet = null;
         client.get(url, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int i, Header[] headers, byte[] bytes) {
+                Log.i("debug", "Got KML file");
+
+                // Save it to local storage
                 String filetype = url.substring(url.length()-3);
                 kmlController.saveFile(bytes, fileName+"."+filetype);
-                Log.i("debug", "Got KML file");
+
+                // Start loading to the map
                 if(url.contains("kml")) {
                     // It is a kml file
                     addDataToMap(MapService.getNavigationDataSet(bytes));
@@ -69,7 +74,10 @@ public class MapController {
 
             @Override
             public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-                Log.i("debug", "Fail to get KML file");
+                Log.i("debug", "Fail to get KML file, try to load from local");
+                String fullFilename = fileName + "." + url.substring(url.length()-3);
+                kmlController.loadFile(fullFilename);
+
                 viewToggler.toggleLoadingView();
             }
         });
@@ -149,23 +157,24 @@ public class MapController {
                 MarkerOptions mo = new MarkerOptions()
                         .position(new LatLng(Double.parseDouble(c.Latitude), Double.parseDouble(c.Longitude)))
                         .title("Risk: " + c.Risk);
-                if(c.Risk.toLowerCase().contains("high")) {
+                String riskS = c.Risk.toLowerCase();
+                if(riskS.contains("high")) {
                     m = map.addMarker(mo);
 
-                }else if(c.Risk.toLowerCase().contains("mod")){
+                }else if(riskS.contains("mod")){
                     mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_orange));
                     m = map.addMarker(mo);
-                }else if(c.Risk.toLowerCase().contains("low")){
+                }else if(riskS.contains("low")){
                     mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_green));
                     m = map.addMarker(mo);
-                }else if(c.Risk.toLowerCase().contains("no")){
+                }else if(riskS.contains("no")){
                     mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_grey));
                     m = map.addMarker(mo);
                 }
 
 
                 if(m != null) {
-                    m.setVisible(false);
+//                    m.setVisible(false);
                     markers.add(m);
                 }
             }

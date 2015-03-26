@@ -10,6 +10,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.map.woodlands.woodlandsmap.Fragments.FormFragment;
+import com.map.woodlands.woodlandsmap.R;
 
 import org.apache.http.Header;
 import org.apache.http.entity.StringEntity;
@@ -17,6 +18,7 @@ import org.apache.http.entity.StringEntity;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -29,6 +31,8 @@ public class Uploader {
     private AsyncHttpClient client;
     private ArrayList<Form> mForms;
     private FormController mFormController;
+    private String baseStorageUrl;
+    private HashMap<String,String> mHashMap;
 
 
     public Uploader(Form form, Context context){
@@ -49,6 +53,8 @@ public class Uploader {
         this.user = getUserInfo();
         this.client = new AsyncHttpClient();
         this.mFormController = new FormController(mContext, formFragment);
+        this.baseStorageUrl = mContext.getResources().getString(R.string.storage_url);
+        this.mHashMap = new HashMap<String, String>();
 
 //        client.setConnectTimeout(10000);
 
@@ -66,9 +72,8 @@ public class Uploader {
     public void execute(){
         if(user != null) {
             Toast.makeText(mContext, "Uploading", Toast.LENGTH_SHORT).show();
-            uploadForm();
-//            uploadJson();
             uploadPhotos();
+            uploadForm();
         }else{
             Toast.makeText(mContext,"Please login first", Toast.LENGTH_SHORT).show();
         }
@@ -84,6 +89,10 @@ public class Uploader {
         photoPathes.add(mForm.PHOTO_2);
 
         RequestParams params = new RequestParams();
+        UserInfo ui = getUserInfo();
+        if(ui.role != null){
+            params.put("Role", ui.role);
+        }
 
         for(int i=0;i<photoPathes.size();i++){
             String path = photoPathes.get(i);
@@ -91,16 +100,18 @@ public class Uploader {
             String paramName = "image"+j;
             if(path != null){
                 File mFile = new File(path);
-
+                setRealPhotoUrl(mFile, ui.role, j);
                 try{
                     params.put(paramName, mFile);
-                }catch (FileNotFoundException e){}
+                }catch (FileNotFoundException e){
+                    Toast.makeText(mContext, "Image file not found", Toast.LENGTH_SHORT).show();
+                }
 
 
             }
         }
 
-        client.post("http://woodlandstest.azurewebsites.net/android/filepost", params, new AsyncHttpResponseHandler() {
+        client.post(mContext.getResources().getString(R.string.image_post_url), params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int i, Header[] headers, byte[] bytes) {
                 String s = "";
@@ -121,10 +132,29 @@ public class Uploader {
 
     }
 
+    private void setRealPhotoUrl(File file, String role, int index){
+        if(file.exists()){
+            String filename = file.getName();
+            String fullPath = "";
+            if(role == null){
+                fullPath = baseStorageUrl+"unknown/"+filename;
+            }else if(role.toLowerCase().equals("super admin")){
+                fullPath = baseStorageUrl+"superadmin/"+filename;
+            }else{
+                fullPath = baseStorageUrl+role.toLowerCase()+"/"+filename;
+            }
+
+            Log.i("debug", fullPath);
+            mHashMap.put(Integer.toString(index), fullPath);
+
+        }
+    }
+
     public void uploadForm(){
         RequestParams params = new RequestParams();
         try{
             params.put("UserName", user.getUsername());
+            params.put("Group", user.role);
             params.put("INSP_DATE",mForm.INSP_DATE);
             params.put("INSP_CREW",mForm.INSP_CREW);
             params.put("ACCESS",mForm.ACCESS);
@@ -158,12 +188,19 @@ public class Uploader {
             params.put("FISH_SPP2",mForm.FISH_SPP2);
             params.put("FISH_PCONCREASON",mForm.FISH_PCONCREASON);
             params.put("REMARKS",mForm.REMARKS);
-            params.put("PHOTO_INUP",mForm.PHOTO_INUP);
-            params.put("PHOTO_INDW",mForm.PHOTO_INDW);
-            params.put("PHOTO_OTUP",mForm.PHOTO_OTUP);
-            params.put("PHOTO_OTDW",mForm.PHOTO_OTDW);
-            params.put("PHOTO_1",mForm.PHOTO_1);
-            params.put("PHOTO_2",mForm.PHOTO_2);
+//            params.put("PHOTO_INUP",mForm.PHOTO_INUP);
+//            params.put("PHOTO_INDW",mForm.PHOTO_INDW);
+//            params.put("PHOTO_OTUP",mForm.PHOTO_OTUP);
+//            params.put("PHOTO_OTDW",mForm.PHOTO_OTDW);
+//            params.put("PHOTO_1",mForm.PHOTO_1);
+//            params.put("PHOTO_2",mForm.PHOTO_2);
+
+            params.put("PHOTO_INUP",mHashMap.get("1"));
+            params.put("PHOTO_INDW",mHashMap.get("2"));
+            params.put("PHOTO_OTUP",mHashMap.get("3"));
+            params.put("PHOTO_OTDW",mHashMap.get("4"));
+            params.put("PHOTO_1",mHashMap.get("5"));
+            params.put("PHOTO_2",mHashMap.get("6"));
             params.put("CULV_LEN",mForm.CULV_LEN);
             params.put("CULV_SUBSP",mForm.CULV_SUBSP);
             params.put("CULV_SUBSTYPE",mForm.CULV_SUBSTYPE);
@@ -200,7 +237,7 @@ public class Uploader {
         }catch (Exception e){
             e.printStackTrace();
         }
-        client.post("http://woodlandstest.azurewebsites.net/android/formpost", params, new AsyncHttpResponseHandler() {
+        client.post(mContext.getResources().getString(R.string.form_post_url), params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int i, Header[] headers, byte[] bytes) {
 //                Log.i("debug", "200 OK");

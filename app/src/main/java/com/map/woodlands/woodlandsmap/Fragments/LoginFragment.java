@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.map.woodlands.woodlandsmap.Data.UserInfo;
@@ -71,6 +72,7 @@ public class  LoginFragment extends Fragment implements OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
         View rootView = inflater.inflate(R.layout.fragment_login, container, false);
+        mActivity = this.getActivity();
         emailField = (EditText) rootView.findViewById(R.id.EmailField);
         passwordField = (EditText) rootView.findViewById(R.id.PasswordField);
         messageView = (TextView) rootView.findViewById(R.id.Message);
@@ -135,7 +137,6 @@ public class  LoginFragment extends Fragment implements OnClickListener{
     public void disableViews(){
         this.emailField.setEnabled(false);
         this.passwordField.setEnabled(false);
-        this.logoutBtn.setEnabled(false);
     }
 
     public void enableViews(){
@@ -156,7 +157,7 @@ public class  LoginFragment extends Fragment implements OnClickListener{
 
     public String signIn(String email, String password){
         HttpClient httpClient = new DefaultHttpClient();
-        HttpPost httpPost = new HttpPost("http://woodlandstest.azurewebsites.net/Android/Login");
+        HttpPost httpPost = new HttpPost(getResources().getString(R.string.login_url));
 
         try{
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
@@ -220,22 +221,22 @@ public class  LoginFragment extends Fragment implements OnClickListener{
         SharedPreferences userPrefs = this.getActivity().getSharedPreferences("UserInfo",0);
         SharedPreferences.Editor userEditor = userPrefs.edit();
 
-        String json = userPrefs.getString("json","");
+        String json = "";
 
-        if(json.equals("")){
-            // No User information yet, add now
-            Gson gson = new Gson();
-            UserInfo user = new UserInfo();
-            if(data.length>2) {
-                user.setUsername(data[0]);
-                user.setPassword(data[1]);
-                user.setRole(data[2]);
-            }
 
-            json = gson.toJson(user);
-            userEditor.putString("json", json);
-            userEditor.commit();
+        // No User information yet, add now
+        Gson gson = new Gson();
+        UserInfo user = new UserInfo();
+        if(data.length>2) {
+            user.setUsername(data[0]);
+            user.setPassword(data[1]);
+            user.setRole(data[2]);
         }
+
+        json = gson.toJson(user);
+        userEditor.putString("json", json);
+        userEditor.commit();
+
     }
 
 
@@ -301,7 +302,8 @@ public class  LoginFragment extends Fragment implements OnClickListener{
                     e.printStackTrace();
                 }
             } else{
-                Log.i("debug", "Response is null");
+                Toast.makeText(mActivity,"Login failed",Toast.LENGTH_SHORT).show();
+                enableViews();
             }
 
         }

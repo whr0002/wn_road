@@ -3,7 +3,7 @@ package com.map.woodlands.woodlandsmap.Data;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.util.Log;
+import android.content.res.Resources;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -14,6 +14,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.map.woodlands.woodlandsmap.Activities.ViewCrossingDataActivity;
 import com.map.woodlands.woodlandsmap.Data.SAXKML.MapController;
+import com.map.woodlands.woodlandsmap.R;
 
 import org.apache.http.Header;
 
@@ -27,9 +28,9 @@ public class DataController {
 
     private Activity mActivity;
     private AsyncHttpClient client;
-    private final String coordsUri = "http://woodlandstest.azurewebsites.net/androiddata/coordinates";
-    private final String rowUri = "http://woodlandstest.azurewebsites.net/androiddata/onerow";
-    private final String kmlUri = "http://woodlandstest.azurewebsites.net/androiddata/KMLs";
+    private String coordsUri;
+    private String rowUri;
+    private String kmlUri;
     private Type listType;
 
     private Gson gson;
@@ -43,6 +44,11 @@ public class DataController {
         this.gson = new Gson();
         this.mapController = mapController;
         this.mViewToggler = viewToggler;
+
+        Resources resources = a.getResources();
+        coordsUri = resources.getString(R.string.coords_url);
+        rowUri = resources.getString(R.string.row_url);
+        kmlUri = resources.getString(R.string.kml_url);
     }
     public void loadCoords(){
         UserInfo ui = getUserRole();
@@ -131,7 +137,7 @@ public class DataController {
                 public void onSuccess(int i, Header[] headers, byte[] bytes) {
                     try{
                         String json = new String(bytes);
-                        Log.i("debug", json);
+//                        Log.i("debug", json);
                         // Parse JSON and Save it
                         SharedPreferences sp = mActivity.getSharedPreferences("KMLData", 0);
                         SharedPreferences.Editor spEditor = sp.edit();

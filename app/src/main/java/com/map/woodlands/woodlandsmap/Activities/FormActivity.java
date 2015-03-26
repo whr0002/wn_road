@@ -9,11 +9,11 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -64,8 +64,8 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
 
 
     public Spinner accessSpinner,streamClassificationSpinner,streamWidthMeasuredSpinner,crossingTypeSpinner,erosionSpinner,
-            erosionType1Spinner,erosionType2Spinner,erosionSourceSpinner,erosionDegreeSpinner,culvertSubstrateSpinner,
-            culvertSubstratePSpinner, culvertSubstrateTypeSpinner,culvertSubstrateProportionSpinner,
+            erosionType1Spinner,erosionSourceSpinner,erosionDegreeSpinner,culvertSubstrateSpinner,
+            culvertSubstrateTypeSpinner,culvertSubstrateProportionSpinner,
             culvertBackWaterProportionSpinner,culvertSlopeSpinner,culvertOutletTypeSpinner,scourPoolPresentSpinner,
             delineatorSpinner,hazardMarkersSpinner,approachSignageSpinner,roadSurfaceSpinner,approachRailsSpinner,
             roadDrainageSpinner,visibilitySpinner,wearingSurfaceSpinner,railCurbSpinner,girdersBracingSpinner,
@@ -140,11 +140,9 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         crossingTypeSpinner = (Spinner)findViewById(R.id.crossingTypeDropdown);
         erosionSpinner = (Spinner)findViewById(R.id.erosionDropdown);
         erosionType1Spinner = (Spinner)findViewById(R.id.erosionType1Dropdown);
-        erosionType2Spinner = (Spinner)findViewById(R.id.erosionType2Dropdown);
         erosionSourceSpinner = (Spinner)findViewById(R.id.erosionSourceDropdown);
         erosionDegreeSpinner = (Spinner)findViewById(R.id.erosionDegreeDropdown);
         culvertSubstrateSpinner = (Spinner)findViewById(R.id.culvertSubstrateDropdown);
-        culvertSubstratePSpinner = (Spinner)findViewById(R.id.culvertSubstratePDropdown);
         culvertSubstrateTypeSpinner = (Spinner)findViewById(R.id.culvertSubstrateTypeDropdown);
         culvertSubstrateProportionSpinner = (Spinner)findViewById(R.id.culvertSubstrateProportionDropdown);
         culvertBackWaterProportionSpinner = (Spinner)findViewById(R.id.culvertBWProportionDropdown);
@@ -179,10 +177,60 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         sedimentationSpinner = (Spinner)findViewById(R.id.sedimentationDropdown);
         blockageSpinner = (Spinner)findViewById(R.id.blockageDropdown);
 
+        setSpinnerAdapter(accessSpinner, R.array.accessItems);
+        setSpinnerAdapter(streamClassificationSpinner, R.array.streamClassItems);
+        setSpinnerAdapter(streamWidthMeasuredSpinner, R.array.streamMeasuredItems);
+        setSpinnerAdapter(crossingTypeSpinner, R.array.crossingTypeItems);
+        setSpinnerAdapter(erosionSpinner, R.array.erosionItems);
+        setSpinnerAdapter(erosionType1Spinner, R.array.erosionType1Items);
+        setSpinnerAdapter(erosionSourceSpinner, R.array.erosionSourceItems);
+        setSpinnerAdapter(erosionDegreeSpinner, R.array.erosionDegreeItems);
+        setSpinnerAdapter(culvertSubstrateSpinner, R.array.culvertSubstrateItems);
+        setSpinnerAdapter(culvertSubstrateTypeSpinner, R.array.culvertSubstrateTypeItems);
+        setSpinnerAdapter(culvertSubstrateProportionSpinner, R.array.culvertSubstrateProportionItems);
+        setSpinnerAdapter(culvertBackWaterProportionSpinner, R.array.culvertBWProportionItems);
+        setSpinnerAdapter(culvertSlopeSpinner, R.array.culvertSlopeItems);
+        setSpinnerAdapter(culvertOutletTypeSpinner, R.array.culvertOutletTypeItems);
+        setSpinnerAdapter(scourPoolPresentSpinner, R.array.scourPoolPresentItems);
+        setSpinnerAdapter(delineatorSpinner, R.array.delineatorItems);
+        setSpinnerAdapter(hazardMarkersSpinner, R.array.hazardMarkersItems);
+        setSpinnerAdapter(approachSignageSpinner, R.array.hazardMarkersItems);
+        setSpinnerAdapter(roadSurfaceSpinner, R.array.hazardMarkersItems);
+        setSpinnerAdapter(approachRailsSpinner, R.array.hazardMarkersItems);
+        setSpinnerAdapter(roadDrainageSpinner, R.array.hazardMarkersItems);
+        setSpinnerAdapter(visibilitySpinner, R.array.hazardMarkersItems);
+        setSpinnerAdapter(wearingSurfaceSpinner, R.array.hazardMarkersItems);
+        setSpinnerAdapter(railCurbSpinner, R.array.hazardMarkersItems);
+        setSpinnerAdapter(girdersBracingSpinner, R.array.hazardMarkersItems);
+        setSpinnerAdapter(capBeamSpinner, R.array.hazardMarkersItems);
+        setSpinnerAdapter(pilesSpinner, R.array.hazardMarkersItems);
+        setSpinnerAdapter(abutmentWallSpinner, R.array.hazardMarkersItems);
+        setSpinnerAdapter(wingWallSpinner, R.array.hazardMarkersItems);
+        setSpinnerAdapter(bankStabilitySpinner, R.array.hazardMarkersItems);
+        setSpinnerAdapter(slopeProtectionSpinner, R.array.hazardMarkersItems);
+        setSpinnerAdapter(channelOpeningSpinner, R.array.hazardMarkersItems);
+        setSpinnerAdapter(obstructionsSpinner, R.array.hazardMarkersItems);
+        setSpinnerAdapter(fishSamplingSpinner, R.array.fishSamplingItems);
+        setSpinnerAdapter(fishSamplingMethod, R.array.fishSamplingMethodItems);
+        setSpinnerAdapter(fishSamplingSpecies1Spinner, R.array.fishSamplingSpecies1Items);
+        setSpinnerAdapter(fishSamplingSpecies2Spinner, R.array.fishSamplingSpecies1Items);
+        setSpinnerAdapter(fishPassageConcernsSpinner, R.array.fishPassageConcernsItems);
+        setSpinnerAdapter(emergencyRepairRequiredSpinner, R.array.emergencyRepairRequiredItems);
+        setSpinnerAdapter(structuralProblemsSpinner, R.array.structuralProblemsItems);
+        setSpinnerAdapter(sedimentationSpinner, R.array.sedimentationItems);
+        setSpinnerAdapter(blockageSpinner, R.array.emergencyRepairRequiredItems);
+
+
         crossingTypeSpinner.setOnItemSelectedListener(this);
         erosionSpinner.setOnItemSelectedListener(this);
         fishSamplingSpinner.setOnItemSelectedListener(this);
         blockageSpinner.setOnItemSelectedListener(this);
+    }
+
+    public void setSpinnerAdapter(Spinner spinner, int arrayID){
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, arrayID, R.layout.spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
     }
 
     public void setLayouts() {
@@ -256,7 +304,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
 
             // Set selected date to date view
             dateView.setText(new StringBuilder()
-                    .append(day).append("/").append(month + 1)
+                    .append(month + 1).append("/").append(day)
                     .append("/").append(year));
         }
     };
@@ -309,7 +357,6 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         theForm.CROSS_TYPE = crossingTypeSpinner.getSelectedItem().toString();
         theForm.EROSION = erosionSpinner.getSelectedItem().toString();
         theForm.EROSION_TY1 = erosionType1Spinner.getSelectedItem().toString();
-        theForm.EROSION_TY2 = erosionType2Spinner.getSelectedItem().toString();
         theForm.EROSION_SO = erosionSourceSpinner.getSelectedItem().toString();
         theForm.EROSION_DE = erosionDegreeSpinner.getSelectedItem().toString();
         theForm.EROSION_AR = erosionAreaView.getText().toString();
@@ -318,7 +365,6 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         theForm.CULV_DIA_2 = culvertDiameter2View.getText().toString();
         theForm.CULV_DIA_3 = culvertDiameter3View.getText().toString();
         theForm.CULV_SUBS = culvertSubstrateSpinner.getSelectedItem().toString();
-        theForm.CULV_SUBSP = culvertSubstratePSpinner.getSelectedItem().toString();
         theForm.CULV_SUBSTYPE = culvertSubstrateTypeSpinner.getSelectedItem().toString();
         theForm.CULV_SUBSPROPORTION = culvertSubstrateProportionSpinner.getSelectedItem().toString();
         theForm.CULV_BACKWATERPROPORTION = culvertBackWaterProportionSpinner.getSelectedItem().toString();
@@ -512,7 +558,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
 
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = image.getAbsolutePath();
-        Log.i("debug", "Image path: " + mCurrentPhotoPath);
+//        Log.i("debug", "Image path: " + mCurrentPhotoPath);
         mPhotoMap.put(mCurrentRequestCode, mCurrentPhotoPath);
 
         return image;

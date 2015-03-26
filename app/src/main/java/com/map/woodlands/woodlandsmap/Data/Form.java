@@ -96,4 +96,11 @@ public class Form {
     public String OBSTRUCTIO;
     public ArrayList<String> messages;
     public String displayDate;
+
+//    public String photo_inup_url;
+//    public String photo_indw_url;
+//    public String photo_otup_url;
+//    public String photo_otdw_url;
+//    public String photo_other1_url;
+//    public String pho
 }

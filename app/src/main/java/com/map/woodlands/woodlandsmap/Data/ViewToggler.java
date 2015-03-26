@@ -37,9 +37,14 @@ public class ViewToggler {
     }
 
     public void toggleView(){
+        String s = mParent.getItemAtPosition(mPosition).toString().toLowerCase();
         switch (mParent.getId()){
             case R.id.crossingTypeDropdown:
-                if(mParent.getItemAtPosition(mPosition).toString().toLowerCase().contains("bridge")){
+
+                if(s.length() == 0){
+                    culvertBlock.setVisibility(View.GONE);
+                    bridgeBlock.setVisibility(View.GONE);
+                }else if(s.contains("bridge")){
                     culvertBlock.setVisibility(View.GONE);
                     bridgeBlock.setVisibility(View.VISIBLE);
                 }else{
@@ -49,15 +54,15 @@ public class ViewToggler {
                 break;
 
             case R.id.erosionDropdown:
-                if(mParent.getItemAtPosition(mPosition).toString().equals("No")){
-                    erosionBlock.setVisibility(View.GONE);
-                }else{
+                if(s.equals("yes") || s.equals("pot")){
                     erosionBlock.setVisibility(View.VISIBLE);
+                }else{
+                    erosionBlock.setVisibility(View.GONE);
                 }
                 break;
 
             case R.id.fishSamplingDropdown:
-                if(mParent.getItemAtPosition(mPosition).toString().equals("Yes")){
+                if(s.equals("yes")){
                     fishSamplingBlock.setVisibility(View.VISIBLE);
                 }else{
                     fishSamplingBlock.setVisibility(View.GONE);
@@ -65,10 +70,10 @@ public class ViewToggler {
                 break;
 
             case R.id.blockageDropdown:
-                if(mParent.getItemAtPosition(mPosition).toString().equals("No")){
-                    blockageBlock.setVisibility(View.GONE);
-                }else{
+                if(s.equals("yes")){
                     blockageBlock.setVisibility(View.VISIBLE);
+                }else{
+                    blockageBlock.setVisibility(View.GONE);
                 }
                 break;
         }

@@ -19,6 +19,9 @@ public class KMLController {
         return null;
     }
 
+    public void loadFile(String filename){
+
+    }
     // Save KML or KMZ files to local storage
     public void saveFile(byte[] bytes, String filename){
         Log.i("debug", filename);
@@ -34,7 +37,7 @@ public class KMLController {
         File kmlz = new File(storagePath + "/" + filename);
 
         if(kmlz.exists()){
-            return;
+            kmlz.delete();
         }
 
         try{

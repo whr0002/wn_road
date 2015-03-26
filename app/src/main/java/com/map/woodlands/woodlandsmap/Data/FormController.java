@@ -2,7 +2,6 @@ package com.map.woodlands.woodlandsmap.Data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -132,7 +131,7 @@ public class FormController {
         spEditor.putString("FormData", json);
         spEditor.commit();
 
-        Log.i("debug", "json2: " + json);
+//        Log.i("debug", "json2: " + json);
 
     }
 

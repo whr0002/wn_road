@@ -7,4 +7,13 @@
         android:layout_height="match_parent"
         android:id="@+id/listView"
         />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/none"
+        android:text="@string/none_form"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:visibility="gone"/>
 </RelativeLayout>

@@ -1,113 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1"
+    android:background="@drawable/gradient">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:id="@+id/LoginLayout"
-        >
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.3">
 
-        <TextView
-            android:id="@+id/Email"
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/email"
-            android:textSize="18dp"
-            android:layout_alignRight="@+id/Password"
-            android:layout_marginTop="15dp"/>
+            android:id="@+id/imageView"
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:ems="10"
-            android:id="@+id/EmailField"
-            android:layout_toRightOf="@+id/Email"
-            />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/Password"
-            android:text="@string/password"
-            android:textSize="18dp"
-            android:layout_below="@+id/Email"
 
-            android:layout_marginTop="15dp"/>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:ems="10"
-            android:id="@+id/PasswordField"
-            android:layout_below="@+id/EmailField"
-            android:layout_toRightOf="@+id/Password" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/login"
-            android:id="@+id/Login"
-            android:layout_below="@id/PasswordField"
-            android:layout_alignRight="@+id/PasswordField"
-            android:layout_marginTop="50dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/Message"
-            android:layout_below="@+id/PasswordField"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/red"/>
+            android:src="@drawable/scari"
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 
-    <ProgressBar
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/progressBar"
-        android:indeterminate="false"
-        android:layout_above="@+id/LoginLayout"
-        android:layout_centerHorizontal="true" />
-
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/LoggedInLayout">
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/login_wrapper"
+        android:layout_weight="0.7">
 
-        <TextView
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:id="@+id/username"/>
+            android:layout_centerInParent="true"
+            android:id="@+id/LoginLayout">
 
-        <TextView
+            <TextView
+                android:id="@+id/Email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/email"
+                android:textSize="18dp"
+                android:layout_alignRight="@+id/Password"
+                android:layout_marginTop="15dp"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:ems="10"
+                android:id="@+id/EmailField"
+                android:layout_toRightOf="@+id/Email"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/Password"
+                android:text="@string/password"
+                android:textSize="18dp"
+                android:layout_below="@+id/Email"
+
+                android:layout_marginTop="15dp"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:id="@+id/PasswordField"
+                android:layout_below="@+id/EmailField"
+                android:layout_toRightOf="@+id/Password" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login"
+                android:id="@+id/Login"
+                android:layout_below="@id/PasswordField"
+                android:layout_alignRight="@+id/PasswordField"
+                android:layout_marginTop="50dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/Message"
+                android:layout_below="@+id/PasswordField"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/red"/>
+
+        </RelativeLayout>
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:id="@+id/role"
-            android:layout_below="@+id/username"/>
+            android:id="@+id/progressBar"
+            android:indeterminate="false"
+            android:layout_above="@+id/LoginLayout"
+            android:layout_centerHorizontal="true" />
 
-
-        <Button
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/logout"
-            android:id="@+id/Logout"
-            android:layout_below="@id/role"
-            android:layout_alignRight="@+id/role"
-            android:layout_marginTop="50dp" />
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/LoggedInLayout">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:id="@+id/username"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:id="@+id/role"
+                android:layout_below="@+id/username"/>
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/logout"
+                android:id="@+id/Logout"
+                android:layout_below="@id/role"
+                android:layout_alignRight="@+id/role"
+                android:layout_marginTop="50dp" />
+        </RelativeLayout>
+
         </RelativeLayout>
 
 
-</RelativeLayout>
+
+
+
+
+</LinearLayout>

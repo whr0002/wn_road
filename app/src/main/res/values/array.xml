@@ -27,6 +27,7 @@
     </string-array>
 
     <string-array name="crossingTypeItems">
+        <item></item>
         <item>bridge - permanent</item>
         <item>bridge - temporary</item>
         <item>culvert - single</item>
@@ -152,53 +153,10 @@
 
     </string-array>
 
-    <string-array name="wearingSurfaceItems">
-        <item></item>
-    </string-array>
-
-    <string-array name="railCurbItems">
-        <item></item>
-    </string-array>
-
-    <string-array name="girdersBracingItems">
-        <item></item>
-    </string-array>
-
-    <string-array name="capBeamItems">
-        <item></item>
-    </string-array>
-
-    <string-array name="pilesItems">
-        <item></item>
-    </string-array>
-
-    <string-array name="abutmentWallItems">
-        <item></item>
-    </string-array>
-
-    <string-array name="wingWallItems">
-        <item></item>
-    </string-array>
-
-    <string-array name="bankStabilityItems">
-        <item></item>
-    </string-array>
-
-    <string-array name="slopeProtectionItems">
-        <item></item>
-    </string-array>
-
-    <string-array name="channelOpeningItems">
-        <item></item>
-    </string-array>
-
-    <string-array name="obstructionsItems">
-        <item></item>
-    </string-array>
-
     <string-array name="erosionItems">
-        <item>No</item>
+        <item></item>
         <item>Yes</item>
+        <item>No</item>
         <item>Pot</item>
     </string-array>
 
@@ -317,24 +275,23 @@
 
     </string-array>
 
-    <string-array name="fishSamplingSpecies2Items">
-        <item></item>
-    </string-array>
-
     <string-array name="fishPassageConcernsItems">
-        <item>No Converns</item>
-        <item>Converns</item>
+        <item></item>
+        <item>No Concerns</item>
+        <item>Concerns</item>
         <item>Inadequate / Unsatisfactory</item>
     </string-array>
 
     <string-array name="emergencyRepairRequiredItems">
-        <item>No</item>
+        <item></item>
         <item>Yes</item>
+        <item>No</item>
     </string-array>
 
     <string-array name="structuralProblemsItems">
-        <item>No</item>
+        <item></item>
         <item>Yes</item>
+        <item>No</item>
         <item>Pot</item>
     </string-array>
 

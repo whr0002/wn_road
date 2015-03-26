@@ -1,6 +1,7 @@
 package com.map.woodlands.woodlandsmap.Fragments;
 
 import android.content.Context;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -14,6 +15,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
@@ -35,8 +41,15 @@ import static com.google.android.gms.maps.GoogleMap.MAP_TYPE_TERRAIN;
 /**
  * Created by Jimmy on 3/19/2015.
  */
-public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, AdapterView.OnItemSelectedListener {
+public class MapFragment extends Fragment implements OnMapReadyCallback,
+        GoogleMap.OnMarkerClickListener,
+        AdapterView.OnItemSelectedListener,
+        GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener,
+        LocationListener
+{
 
+    private GoogleApiClient mGoogleApiClient;
     private MapView mMapView;
     private GoogleMap map;
     private MapController mapController;
@@ -45,6 +58,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     private DataController dataController;
     private MarkerToggler markerToggler;
     private ViewToggler viewToggler;
+    private static final LocationRequest REQUEST = LocationRequest.create()
+            .setInterval(5000)          // 5 seconds
+            .setFastestInterval(16)     // 16ms = 60 fps
+            .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
 
 
     @Override
@@ -62,12 +80,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         mMapView = (MapView) v.findViewById(R.id.map);
         mMapView.onCreate(savedInstanceState);
 
-        map = mMapView.getMap();
-        map.getUiSettings().setMyLocationButtonEnabled(true);
-        map.setMyLocationEnabled(true);
-        map.setOnMarkerClickListener(this);
-
-        this.mapController = new MapController(map, markerToggler, viewToggler);
         // Needs to call MapsInitializer before doing any CameraUpdateFactory calls
         try {
             MapsInitializer.initialize(this.getActivity());
@@ -80,8 +92,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 //        map.animateCamera(cameraUpdate);
 
         mMapView.getMapAsync(this);
-        this.popupController = new PopupController(mContext, mapController, markerToggler);
-        this.dataController = new DataController(this.getActivity(), mapController, viewToggler);
+        mGoogleApiClient = new GoogleApiClient.Builder(mContext)
+                            .addApi(LocationServices.API)
+                            .addConnectionCallbacks(this)
+                            .addOnConnectionFailedListener(this)
+                            .build();
 
         Spinner spinner = (Spinner) v.findViewById(R.id.layers_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
@@ -138,17 +153,31 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     public void onResume() {
         super.onResume();
         mMapView.onResume();
+        mGoogleApiClient.connect();
     }
 
     @Override
     public void onMapReady(GoogleMap map) {
+//        this.map = mMapView.getMap();
+        this.map = map;
+        this.map.getUiSettings().setMyLocationButtonEnabled(true);
+        this.map.setMyLocationEnabled(true);
+        this.map.setOnMarkerClickListener(this);
+
+        this.mapController = new MapController(this.map, markerToggler, viewToggler);
+        this.popupController = new PopupController(mContext, mapController, markerToggler);
+        this.dataController = new DataController(this.getActivity(), mapController, viewToggler);
+
         getMapData();
+
+
     }
 
     @Override
     public void onPause() {
         mMapView.onPause();
         super.onPause();
+        mGoogleApiClient.disconnect();
     }
 
     @Override
@@ -204,5 +233,29 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         } else {
             Log.i("debug", "Error setting layer with name " + layerName);
         }
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+
+        LocationServices.FusedLocationApi.requestLocationUpdates(
+                mGoogleApiClient,
+                REQUEST,
+                this);  // LocationListener
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+//        Toast.makeText(mContext, location.toString(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+
     }
 }
