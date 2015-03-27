@@ -32,11 +32,11 @@ public class ImageProcessor {
         BitmapFactory.decodeFile(mPath, bmOptions);
         int photoW = bmOptions.outWidth;
         int photoH = bmOptions.outHeight;
-        int scaleFactor = 1;
+        int scaleFactor = 5;
         // Determine how much to scale down the image
-//        if(targetW != 0 && targetH != 0) {
-        scaleFactor = Math.min(photoW / targetW, photoH / targetH);
-//        }
+        if(targetW != 0 && targetH != 0) {
+            scaleFactor = Math.min(photoW / targetW, photoH / targetH);
+        }
 
         // Decode the image file into a Bitmap sized to fill the view
         bmOptions.inJustDecodeBounds = false;
@@ -60,7 +60,7 @@ public class ImageProcessor {
                 file.createNewFile();
             } catch (IOException e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
+//                e.printStackTrace();
             }
         }else{
             file.delete();
@@ -68,7 +68,7 @@ public class ImageProcessor {
                 file.createNewFile();
             } catch (IOException e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
+//                e.printStackTrace();
             }
         }
 
@@ -80,7 +80,7 @@ public class ImageProcessor {
                 fos.close();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 }

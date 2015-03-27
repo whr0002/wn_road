@@ -29,6 +29,7 @@ public class ViewCrossingDataActivity extends ActionBarActivity {
     private LinearLayout linearLayout;
     private boolean isColor = true;
     private ActionBar actionBar;
+    private JSONObject jsonObject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,8 @@ public class ViewCrossingDataActivity extends ActionBarActivity {
         Bundle extras = getIntent().getExtras();
         if(extras != null){
             json = extras.getString("json");
-            parseJson();
+//            Log.i("debug", json);
+            parseJsonInOrder();
         }
 
     }
@@ -62,7 +64,7 @@ public class ViewCrossingDataActivity extends ActionBarActivity {
 
             JSONObject jsonObject = new JSONObject(json.trim());
             Iterator<?> keys = jsonObject.keys();
-            StringBuilder sb = new StringBuilder();
+
             while(keys.hasNext()){
                 String key = (String)keys.next();
                 Object o = jsonObject.get(key);
@@ -83,8 +85,120 @@ public class ViewCrossingDataActivity extends ActionBarActivity {
         }
     }
 
+    private void parseJsonInOrder(){
+        try{
+            this.jsonObject = new JSONObject(json.trim());
+            addToView("Inspection Date");
+            addToView("Crew");
+            addToView("Access");
+            addToView("Water Crossing Name or ID");
+            addToView("Disposition No.");
+            addToView("Latitude");
+            addToView("Longitude");
+            addToView("Stream Classification");
+            addToView("Bankfull Width");
+            addToView("Bankfull Width measured?");
+
+            addToView("Crossing Type");
+            addToView("Culvert Length");
+            addToView("Culvert Diameter 1");
+            addToView("Culvert Diameter 2");
+            addToView("Culvert Diameter 3");
+            addToView("Culvert Substrate");
+            addToView("Culvert Substrate Type");
+            addToView("For what length of culvert?");
+            addToView("What proportion of back water?");
+            addToView("Culvert Slope");
+            addToView("Culvert Outlet Type");
+            addToView("Culvert Pool Depth");
+            addToView("Scour Pool Present");
+            addToView("Culvert Outlet Gap");
+            addToView("Delineators");
+
+            addToView("Bridge Length");
+            addToView("Bridge Hazard Markers");
+            addToView("Bridge Approach Signs");
+            addToView("Bridge Road Surface");
+            addToView("Bridge Road Drainage");
+            addToView("Bridge Signage Comments");
+            addToView("Bridge Wearing Surface");
+            addToView("Bridge Rail & Curb");
+            addToView("Bridge Girders & Bracing");
+            addToView("Bridge Structure Comments");
+            addToView("Bridge Cap Beam");
+            addToView("Bridge Piles");
+            addToView("Bridge Abutment Wall");
+            addToView("Bridge Wing Wall");
+            addToView("Bridge Foundation Comments");
+            addToView("Bridge Bank Stability");
+            addToView("Bridge Slope Protection");
+            addToView("Bridge Channel Opening");
+            addToView("Bridge Obstructions");
+            addToView("Bridge Channel Comments");
+
+
+            addToView("Erosion at Site?");
+            addToView("Location of Erosion");
+            addToView("Source of Erosion");
+            addToView("Source of Erosion 2");
+            addToView("Degree of Erosion");
+            addToView("Area of Erosion");
+
+            addToView("Fish Sampling");
+            addToView("Sampling Method");
+            addToView("Fish Species 1");
+            addToView("Fish Species 2");
+            addToView("Fish Passage");
+            addToView("Fish Passage Concerns");
+
+            addToView("Blockage");
+            addToView("Blockage Material");
+            addToView("Blockage Cause");
+            addToView("Greater than 10% of diameter blocked by debris");
+
+            addToView("Photo Inlet Upstream");
+            addToView("Photo Inlet Downstream");
+            addToView("Photo Outlet Upstream");
+            addToView("Photo Outlet Downstream");
+            addToView("Photo Other 1");
+            addToView("Photo Other 2");
+
+            addToView("Emergency Repairs Req");
+            addToView("Structural Problems");
+            addToView("Outlet Scour");
+            addToView("Sedimentation");
+            addToView("Remarks");
+
+            addToView("Risk");
+
+
+
+
+        }catch(Exception e){
+
+        }
+    }
+
+    private void addToView(String key){
+        try {
+            String value = jsonObject.getString(key);
+            if(value != null && !value.contains("null")) {
+                if (key.toLowerCase().contains("photo") ) {
+                    if(value.length()>10){
+                        value = value.substring(10);
+                        addImageView(key, value);
+                    }
+                } else {
+                    addView(key, value);
+                }
+            }
+        }catch (Exception e){
+
+        }
+    }
+
     private void addView(String key, String value){
-        if(key.toLowerCase().contains("water crossing")){
+        if(key.toLowerCase().contains("water crossing name or id")){
             actionBar.setTitle(value);
         }
 
@@ -151,17 +265,17 @@ public class ViewCrossingDataActivity extends ActionBarActivity {
         ImageView imageView = new ImageView(this);
         imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         imageView.setLayoutParams(textViewParams);
-        if(key.equals("PHOTO_INUP")) {
+        if(key.contains("Inlet Upstream")) {
             imageView.setId(R.id.photo_inup);
-        }else if(key.equals("PHOTO_INDW")) {
+        }else if(key.contains("Inlet Downstream")) {
             imageView.setId(R.id.photo_indw);
-        }else if(key.equals("PHOTO_OTUP")) {
+        }else if(key.contains("Outlet Upstream")) {
             imageView.setId(R.id.photo_otup);
-        }else if(key.equals("PHOTO_OTDW")) {
+        }else if(key.contains("Outlet Downstream")) {
             imageView.setId(R.id.photo_otdw);
-        }else if(key.equals("PHOTO_1")) {
+        }else if(key.contains("Other 1")) {
             imageView.setId(R.id.photo_1);
-        }else if(key.equals("PHOTO_1")) {
+        }else if(key.contains("Other 2")) {
             imageView.setId(R.id.photo_2);
         }
         linearLayout1.addView(titleView);
@@ -169,7 +283,7 @@ public class ViewCrossingDataActivity extends ActionBarActivity {
         linearLayout.addView(linearLayout1);
 
         final int id = imageView.getId();
-        String url = "http://woodlandsnorth.azurewebsites.net/Content/Photos/"+value;
+        String url = "http://scari.azurewebsites.net/Content/Photos/"+value;
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(url, new AsyncHttpResponseHandler() {
             @Override
