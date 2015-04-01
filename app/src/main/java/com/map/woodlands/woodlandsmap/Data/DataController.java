@@ -109,7 +109,7 @@ public class DataController {
                         mActivity.startActivity(intent);
 
                     }catch (Exception e){
-                        e.printStackTrace();
+//                        e.printStackTrace();
                     }
                 }
 
@@ -152,7 +152,7 @@ public class DataController {
 
                 @Override
                 public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-                    Toast.makeText(mActivity.getApplicationContext(), "Fail to get KML", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(mActivity.getApplicationContext(), "Fail to get KML", Toast.LENGTH_SHORT).show();
                 }
             });
 

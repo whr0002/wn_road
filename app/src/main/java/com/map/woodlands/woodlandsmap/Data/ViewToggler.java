@@ -1,5 +1,6 @@
 package com.map.woodlands.woodlandsmap.Data;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
@@ -17,17 +18,24 @@ public class ViewToggler {
     private LinearLayout erosionBlock;
     private LinearLayout fishSamplingBlock;
     private LinearLayout blockageBlock;
+    private LinearLayout culvertD2Block;
+    private LinearLayout culvertD3Block;
+    private LinearLayout fishReasonBlock;
     private View loadingView;
 
     public ViewToggler(AdapterView<?> parent, int position, LinearLayout... blocks){
         this.mParent = parent;
         this.mPosition = position;
-        if(blocks.length>4){
+        if(blocks.length>5){
             this.culvertBlock = blocks[0];
             this.bridgeBlock = blocks[1];
             this.erosionBlock = blocks[2];
             this.fishSamplingBlock = blocks[3];
             this.blockageBlock = blocks[4];
+            this.culvertD2Block = blocks[5];
+            this.culvertD3Block = blocks[6];
+            this.fishReasonBlock = blocks[7];
+
         }
     }
 
@@ -38,6 +46,7 @@ public class ViewToggler {
 
     public void toggleView(){
         String s = mParent.getItemAtPosition(mPosition).toString().toLowerCase();
+        Log.i("debug",s);
         switch (mParent.getId()){
             case R.id.crossingTypeDropdown:
 
@@ -47,9 +56,16 @@ public class ViewToggler {
                 }else if(s.contains("bridge")){
                     culvertBlock.setVisibility(View.GONE);
                     bridgeBlock.setVisibility(View.VISIBLE);
-                }else{
+                }else if(s.contains("culvert") && s.contains("single")){
+                    culvertBlock.setVisibility(View.VISIBLE);
+                    culvertD2Block.setVisibility(View.GONE);
+                    culvertD3Block.setVisibility(View.GONE);
+                }
+                else{
                     culvertBlock.setVisibility(View.VISIBLE);
                     bridgeBlock.setVisibility(View.GONE);
+                    culvertD2Block.setVisibility(View.VISIBLE);
+                    culvertD3Block.setVisibility(View.VISIBLE);
                 }
                 break;
 
@@ -74,6 +90,14 @@ public class ViewToggler {
                     blockageBlock.setVisibility(View.VISIBLE);
                 }else{
                     blockageBlock.setVisibility(View.GONE);
+                }
+                break;
+
+            case R.id.fishPassageConcernsDropdown:
+                if(s.equals("no concerns") || s.equals("")){
+                    fishReasonBlock.setVisibility(View.GONE);
+                }else{
+                    fishReasonBlock.setVisibility(View.VISIBLE);
                 }
                 break;
         }

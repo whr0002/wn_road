@@ -2,6 +2,8 @@ package com.map.woodlands.woodlandsmap.Data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.view.View;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -24,6 +26,7 @@ public class FormController {
     private SharedPreferences.Editor spEditor;
     private Context mContext;
     private FormFragment mFormFragment;
+    private View loadingView;
 
     public FormController(Context context){
         mContext = context;
@@ -34,6 +37,16 @@ public class FormController {
         this.spEditor = sp.edit();
     }
 
+    public FormController(Context context, FormFragment formFragment, View loadingView){
+        mContext = context;
+        this.mType = new TypeToken<ArrayList<Form>>(){}.getType();
+        this.mForms = new ArrayList<Form>();
+        this.gson = new Gson();
+        this.sp = mContext.getSharedPreferences("Data", 0);
+        this.spEditor = sp.edit();
+        this.mFormFragment = formFragment;
+        this.loadingView = loadingView;
+    }
     public FormController(Context context, FormFragment formFragment){
         mContext = context;
         this.mType = new TypeToken<ArrayList<Form>>(){}.getType();
@@ -109,19 +122,29 @@ public class FormController {
 
     public void submitForms() {
 
-        mForms.clear();
-        mForms = getReadyToSubmitForms();
-        if(mForms != null) {
-            for (Form form : mForms) {
-                Uploader uploader = new Uploader(form, mContext, mFormFragment);
-                uploader.execute();
+        UserInfo ui = getUserInfo();
+        if(ui != null) {
+            mForms.clear();
+            mForms = getReadyToSubmitForms();
+            if (mForms != null) {
+                int counter = 1;
+                int total = mForms.size();
+                if(total>0) {
+                    loadingView.setVisibility(View.VISIBLE);
+                    Toast.makeText(mContext, "Uploading", Toast.LENGTH_SHORT).show();
 
+                    for (Form form : mForms) {
+                        Uploader uploader = new Uploader(form, mContext, mFormFragment, loadingView, counter, total);
+                        uploader.execute();
+                        counter++;
+                    }
+                }
             }
-//            Uploader uploader = new Uploader(mForms, mContext);
-//            uploader.execute();
-        }
 
-        mFormFragment.setListView();
+            mFormFragment.setListView();
+        }else{
+            Toast.makeText(mContext, "Please login first", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void saveForm(Form form){
@@ -185,5 +208,16 @@ public class FormController {
 
     }
 
+    private UserInfo getUserInfo(){
+        SharedPreferences sp = mContext.getSharedPreferences("UserInfo", 0);
+        String json = sp.getString("json","");
 
+        if(!json.equals("")){
+            Gson gson = new Gson();
+            UserInfo user;
+            user = gson.fromJson(json, UserInfo.class);
+            return user;
+        }
+        return null;
+    }
 }

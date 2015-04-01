@@ -19,6 +19,16 @@
 
     </string-array>
 
+    <string-array name="streamClassItems2">
+        <item></item>
+        <item>Ephemeral (channel width not defined)</item>
+        <item>Non - fluvial</item>
+        <item>Fluvial - intermittent (channel width &lt; 0.4 m)</item>
+        <item>Fluvial - small permanent (channel width 0.7 - 5 m)</item>
+        <item>Fluvial - large permanent (channel width &gt; 5 m)</item>
+
+    </string-array>
+
     <string-array name="streamMeasuredItems">
         <item></item>
         <item>Estimated</item>
@@ -300,5 +310,12 @@
         <item>Yes</item>
         <item>No</item>
         <item>Pot</item>
+    </string-array>
+
+    <string-array name="fishReasonItems">
+        <item></item>
+        <item>hanging culvert</item>
+        <item>blocked culvert</item>
+        <item>perched culvert</item>
     </string-array>
 </resources>

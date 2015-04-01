@@ -164,7 +164,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         this.map.setMyLocationEnabled(true);
         this.map.setOnMarkerClickListener(this);
 
-        this.mapController = new MapController(this.map, markerToggler, viewToggler);
+        this.mapController = new MapController(this.map, markerToggler, viewToggler, mContext);
         this.popupController = new PopupController(mContext, mapController, markerToggler);
         this.dataController = new DataController(this.getActivity(), mapController, viewToggler);
 

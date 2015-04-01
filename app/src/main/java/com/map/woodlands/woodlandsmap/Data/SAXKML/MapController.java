@@ -1,6 +1,7 @@
 package com.map.woodlands.woodlandsmap.Data.SAXKML;
 
-import android.util.Log;
+import android.content.Context;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -36,15 +37,17 @@ public class MapController {
     ArrayList<Marker> markers;
     private ViewToggler viewToggler;
     private KMLController kmlController;
+    private Context mContext;
 
-    public MapController(GoogleMap gmap, MarkerToggler m, ViewToggler viewToggler){
+    public MapController(GoogleMap gmap, MarkerToggler m, ViewToggler viewToggler, Context context){
         this.map = gmap;
         this.client = new AsyncHttpClient();
         this.coordinatesParser = new CoordinatesParser();
         this.mt = m;
         this.markers = new ArrayList<Marker>();
         this.viewToggler = viewToggler;
-        this.kmlController = new KMLController();
+        this.kmlController = new KMLController(this, context);
+        this.mContext = context;
     }
 
     public void loadKML(final String url, final String fileName){
@@ -54,7 +57,7 @@ public class MapController {
         client.get(url, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int i, Header[] headers, byte[] bytes) {
-                Log.i("debug", "Got KML file");
+//                Log.i("debug", "Got KML file");
 
                 // Save it to local storage
                 String filetype = url.substring(url.length()-3);
@@ -74,9 +77,14 @@ public class MapController {
 
             @Override
             public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-                Log.i("debug", "Fail to get KML file, try to load from local");
+
+                Toast.makeText(mContext
+                        ,"No internet access, try to load KML file from local storage"
+                        ,Toast.LENGTH_SHORT)
+                        .show();
+
                 String fullFilename = fileName + "." + url.substring(url.length()-3);
-                kmlController.loadFile(fullFilename);
+                kmlController.loadLocalKML(fullFilename);
 
                 viewToggler.toggleLoadingView();
             }

@@ -55,8 +55,8 @@ public class FormValidator {
                 messages.add(generateNumericMessage("Longitude"));
             }
 
-            if(mForm.STR_CLASS.length() > 30){
-                messages.add(generateLengthMessage("Stream Classification", 30));
+            if(mForm.STR_CLASS.length() > 50){
+                messages.add(generateLengthMessage("Stream Classification", 50));
             }
 
             if(mForm.STR_WIDTH.length()> 0 && !isNumeric(mForm.STR_WIDTH)){

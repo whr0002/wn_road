@@ -16,4 +16,7 @@
         android:textSize="30sp"
         android:gravity="center"
         android:visibility="gone"/>
+
+    <include layout="@layout/loading"
+        android:id="@+id/loadingView"></include>
 </RelativeLayout>

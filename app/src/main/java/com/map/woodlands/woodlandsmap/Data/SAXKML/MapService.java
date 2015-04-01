@@ -128,7 +128,7 @@ public class MapService {
             navigationDataSet = navSax2Handler.getParsedData();
 
         /* Set the result to be displayed in our GUI. */
-            Log.i("debug", "Data Size: " + navigationDataSet.getPlacemarks().size());
+//            Log.i("debug", "Data Size: " + navigationDataSet.getPlacemarks().size());
 //            Log.i("debug", "navigationDataSet: " + navigationDataSet.toString());
 
         } catch (Exception e) {

@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -92,8 +91,8 @@ public class  LoginFragment extends Fragment implements OnClickListener{
         loginLayout = (RelativeLayout) rootView.findViewById(R.id.LoginLayout);
         loggedInLayout = (RelativeLayout) rootView.findViewById(R.id.LoggedInLayout);
 
-        emailField.setText("whr0002@gmail.com");
-        passwordField.setText("`Nmhwj0002");
+//        emailField.setText("whr0002@gmail.com");
+//        passwordField.setText("`Nmhwj0002");
 
         if(hasUserData()){
             showLoggedInView();
@@ -249,10 +248,15 @@ public class  LoginFragment extends Fragment implements OnClickListener{
 
         String json = sp.getString("json", "");
 
-        if(!json.equals("")){
-            spEditor.putString("json", "");
-            spEditor.commit();
-        }
+
+        spEditor.putString("json", "");
+        spEditor.commit();
+
+
+        sp = this.getActivity().getSharedPreferences("KMLData", 0);
+        spEditor = sp.edit();
+        spEditor.putString("json","");
+        spEditor.commit();
 
     }
 
@@ -281,7 +285,7 @@ public class  LoginFragment extends Fragment implements OnClickListener{
             progressBar.setVisibility(View.GONE);
 
             if(s != null){
-                Log.i("debug", s);
+//                Log.i("debug", s);
                 try{
                     JSONObject reader = new JSONObject(s);
                     if(reader.getString("Status").equals("success")){

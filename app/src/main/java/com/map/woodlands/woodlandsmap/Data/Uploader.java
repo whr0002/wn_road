@@ -3,6 +3,7 @@ package com.map.woodlands.woodlandsmap.Data;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -33,6 +34,10 @@ public class Uploader {
     private FormController mFormController;
     private String baseStorageUrl;
     private HashMap<String,String> mHashMap;
+    private View loadingView;
+    private int current;
+    private int total;
+
 
 
     public Uploader(Form form, Context context){
@@ -47,14 +52,17 @@ public class Uploader {
 //            client.setBasicAuth(user.username, user.password);
 //        }
     }
-    public Uploader(Form form, Context context, FormFragment formFragment){
+    public Uploader(Form form, Context context, FormFragment formFragment, View loadingView, int current, int total){
         this.mForm = form;
         this.mContext = context;
         this.user = getUserInfo();
         this.client = new AsyncHttpClient();
-        this.mFormController = new FormController(mContext, formFragment);
+        this.mFormController = new FormController(mContext, formFragment, loadingView);
         this.baseStorageUrl = mContext.getResources().getString(R.string.storage_url);
         this.mHashMap = new HashMap<String, String>();
+        this.loadingView = loadingView;
+        this.current = current;
+        this.total = total;
 
 //        client.setConnectTimeout(10000);
 
@@ -71,11 +79,8 @@ public class Uploader {
 
     public void execute(){
         if(user != null) {
-            Toast.makeText(mContext, "Uploading", Toast.LENGTH_SHORT).show();
             uploadPhotos();
-            uploadForm();
-        }else{
-            Toast.makeText(mContext,"Please login first", Toast.LENGTH_SHORT).show();
+//            uploadForm();
         }
     }
 
@@ -118,14 +123,24 @@ public class Uploader {
                 try {
                     s = new String(bytes, "UTF-8");
                 }catch (Exception e){}
-                Log.i("debug", s);
-//                Toast.makeText(mContext,s,Toast.LENGTH_SHORT).show();
+                if(s.contains("success")){
+                    uploadForm();
+                }else{
+                    // Uploading failed
+                    if(current == total){
+                        Toast.makeText(mContext,"Photo upload failed, please try later",Toast.LENGTH_SHORT).show();
+                        loadingView.setVisibility(View.GONE);
+                    }
+                }
             }
 
             @Override
             public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-                Log.i("debug", "Photo 40X");
-                Toast.makeText(mContext,"Photo 40X",Toast.LENGTH_SHORT).show();
+
+                if(current == total){
+                    Toast.makeText(mContext,"Network Error when uploading photos",Toast.LENGTH_SHORT).show();
+                    loadingView.setVisibility(View.GONE);
+                }
             }
         });
 
@@ -144,7 +159,7 @@ public class Uploader {
                 fullPath = baseStorageUrl+role.toLowerCase()+"/"+filename;
             }
 
-            Log.i("debug", fullPath);
+//            Log.i("debug", fullPath);
             mHashMap.put(Integer.toString(index), fullPath);
 
         }
@@ -163,7 +178,7 @@ public class Uploader {
             params.put("LAT",mForm.LAT);
             params.put("LONG",mForm.LONG);
             params.put("STR_ID",mForm.STR_ID);
-            params.put("STR_CLASS",mForm.STR_CLASS);
+            params.put("STR_CLASS",streamMapping(mForm.STR_CLASS));
             params.put("STR_WIDTH",mForm.STR_WIDTH);
             params.put("STR_WIDTHM",mForm.STR_WIDTHM);
             params.put("DISPOSITION_ID",mForm.DISPOSITION_ID);
@@ -245,10 +260,15 @@ public class Uploader {
                 try {
                     s = new String(bytes, "UTF-8");
                 }catch (Exception e){}
-                Log.i("debug", s);
-                Toast.makeText(mContext,s,Toast.LENGTH_SHORT).show();
+//                Log.i("debug", s);
+
                 if(s.toLowerCase().equals("form submitted")) {
                     deleteFormIfSuccess();
+                }
+
+                if(current == total){
+                    Toast.makeText(mContext,s,Toast.LENGTH_SHORT).show();
+                    loadingView.setVisibility(View.GONE);
                 }
             }
 
@@ -259,7 +279,12 @@ public class Uploader {
                 try {
                     s = new String(bytes, "UTF-8");
                 }catch (Exception e){}
-                Toast.makeText(mContext,s,Toast.LENGTH_SHORT).show();
+
+
+                if(current == total){
+                    Toast.makeText(mContext,s,Toast.LENGTH_SHORT).show();
+                    loadingView.setVisibility(View.GONE);
+                }
             }
         });
 
@@ -314,10 +339,25 @@ public class Uploader {
             UserInfo user;
             user = gson.fromJson(json, UserInfo.class);
             return user;
-//            this.usernameView.setText("Hello " + user.getUsername());
-//            this.roleView.setText("Your role: " + user.getRole());
         }
         return null;
     }
 
+    private String streamMapping(String s){
+        if(s != null) {
+            s = s.toLowerCase();
+            if (s.contains("ephemeral")) {
+                return "ephemeral";
+            } else if (s.contains("non")) {
+                return "non-fluvial";
+            } else if (s.contains("intermittent")) {
+                return "fluvial - intermittent";
+            } else if (s.contains("small")) {
+                return "fluvial - small permanent";
+            } else if (s.contains("large")) {
+                return "fluvial - large permanent";
+            }
+        }
+        return null;
+    }
 }

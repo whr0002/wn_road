@@ -76,7 +76,8 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
 
     public ImageView photoView1,photoView2,photoView3,photoView4,photoView5,photoView6;
 
-    public LinearLayout culvertBlock,bridgeBlock,erosionBlock,fishSamplingBlock, blockageBlock;
+    public LinearLayout culvertBlock,bridgeBlock,erosionBlock,fishSamplingBlock, blockageBlock,
+            culvertDiameter2Block, culvertDiameter3Block, fishReasonBlock ;
 
 
 
@@ -178,7 +179,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         blockageSpinner = (Spinner)findViewById(R.id.blockageDropdown);
 
         setSpinnerAdapter(accessSpinner, R.array.accessItems);
-        setSpinnerAdapter(streamClassificationSpinner, R.array.streamClassItems);
+        setSpinnerAdapter(streamClassificationSpinner, R.array.streamClassItems2);
         setSpinnerAdapter(streamWidthMeasuredSpinner, R.array.streamMeasuredItems);
         setSpinnerAdapter(crossingTypeSpinner, R.array.crossingTypeItems);
         setSpinnerAdapter(erosionSpinner, R.array.erosionItems);
@@ -225,6 +226,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         erosionSpinner.setOnItemSelectedListener(this);
         fishSamplingSpinner.setOnItemSelectedListener(this);
         blockageSpinner.setOnItemSelectedListener(this);
+        fishPassageConcernsSpinner.setOnItemSelectedListener(this);
     }
 
     public void setSpinnerAdapter(Spinner spinner, int arrayID){
@@ -239,6 +241,10 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         erosionBlock = (LinearLayout)findViewById(R.id.erosionBlock);
         fishSamplingBlock = (LinearLayout)findViewById(R.id.fishSamplingBlock);
         blockageBlock = (LinearLayout)findViewById(R.id.blockageBlock);
+        culvertDiameter2Block = (LinearLayout)findViewById(R.id.culvertD2Layout);
+        culvertDiameter3Block = (LinearLayout)findViewById(R.id.culvertD3Layout);
+        fishReasonBlock = (LinearLayout)findViewById
+                (R.id.fishReasonLayout);
     }
 
 
@@ -566,7 +572,9 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        ViewToggler toggler = new ViewToggler(parent, position, culvertBlock, bridgeBlock, erosionBlock, fishSamplingBlock, blockageBlock);
+        ViewToggler toggler = new ViewToggler(parent, position, culvertBlock, bridgeBlock,
+                erosionBlock, fishSamplingBlock, blockageBlock,culvertDiameter2Block,
+                culvertDiameter3Block,fishReasonBlock);
         toggler.toggleView();
     }
 
