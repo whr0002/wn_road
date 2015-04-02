@@ -1,5 +1,6 @@
 package com.map.woodlands.woodlandsmap.Activities;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -116,6 +117,7 @@ public class EditFormActivity extends FormActivity{
             f.FISH_SPP2 = fishSamplingSpecies2Spinner.getSelectedItem().toString();
             f.FISH_PCONC = fishPassageConcernsSpinner.getSelectedItem().toString();
             f.FISH_PCONCREASON = fishPassageConvernsReasonView.getText().toString();
+            f.FISH_ReasonDropdown = fishReasonSpinner.getSelectedItem().toString();
             f.BLOCKAGE = blockageSpinner.getSelectedItem().toString();
             f.BLOC_MATR = blockageMaterialView.getText().toString();
             f.BLOC_CAUS = blockageCauseView.getText().toString();
@@ -136,7 +138,7 @@ public class EditFormActivity extends FormActivity{
         switch(item.getItemId()){
             case android.R.id.home:
                 // Discard this form, open confirmation box
-                finish();
+                showExitDialog();
                 return true;
 
             case R.id.save:
@@ -234,6 +236,7 @@ public class EditFormActivity extends FormActivity{
             fishSamplingSpecies2Spinner.setSelection(getSpinnerIndex(fishSamplingSpecies2Spinner,f.FISH_SPP2));
             fishPassageConcernsSpinner.setSelection(getSpinnerIndex(fishPassageConcernsSpinner,f.FISH_PCONC));
             fishPassageConvernsReasonView.setText(f.FISH_PCONCREASON);
+            fishReasonSpinner.setSelection(getSpinnerIndex(fishReasonSpinner, f.FISH_ReasonDropdown));
             blockageSpinner.setSelection(getSpinnerIndex(blockageSpinner, f.BLOCKAGE));
             blockageMaterialView.setText(f.BLOC_MATR);
             blockageCauseView.setText(f.BLOC_CAUS);
@@ -280,7 +283,12 @@ public class EditFormActivity extends FormActivity{
 
     @Override
     public void setPhotoView(ImageView photoView, String path) {
-        ImageProcessor imageProcessor = new ImageProcessor(photoView, path, isCompress);
+        ImageProcessor imageProcessor = new ImageProcessor(photoView, path, isCompress, location);
         imageProcessor.setImageView();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        this.location = location;
     }
 }

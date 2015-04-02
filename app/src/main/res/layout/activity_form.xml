@@ -71,9 +71,18 @@
                     android:id="@+id/crewLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
-                    android:layout_weight="0.5"
+                    android:layout_weight="0.4"
                     android:textSize="18sp"
                     android:textColor="@color/black"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="@color/red"
+                    android:textSize="18sp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.1"/>
 
                 <EditText android:textColor="@color/cblue"
                     android:layout_width="0dp"
@@ -322,7 +331,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:id="@+id/streamClassDropdown"
-                    android:entries="@array/streamClassItems2"
+
                     android:layout_weight="0.5"
                     android:layout_gravity="center"/>
 
@@ -381,7 +390,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:id="@+id/streamMeasuredDropdown"
-                    android:entries="@array/streamMeasuredItems"
+
                     android:layout_weight="0.5"
                     android:layout_gravity="center"/>
 
@@ -404,13 +413,21 @@
                     android:id="@+id/crossingTypeLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
-                    android:layout_weight="0.5"/>
+                    android:layout_weight="0.4"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="@color/red"
+                    android:textSize="18sp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.1"/>
 
                 <Spinner
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:id="@+id/crossingTypeDropdown"
-                    android:entries="@array/crossingTypeItems"
+
                     android:layout_weight="0.5"
                     android:layout_gravity="center"/>
 
@@ -570,7 +587,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/culvertSubstrateDropdown"
-                        android:entries="@array/culvertSubstrateItems"
+
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -600,7 +617,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/culvertSubstrateTypeDropdown"
-                        android:entries="@array/culvertSubstrateTypeItems"
+
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -629,7 +646,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/culvertSubstrateProportionDropdown"
-                        android:entries="@array/culvertSubstrateProportionItems"
+
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -658,7 +675,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/culvertBWProportionDropdown"
-                        android:entries="@array/culvertBWProportionItems"
+
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -687,7 +704,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/culvertSlopeDropdown"
-                        android:entries="@array/culvertSlopeItems"
+
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -716,7 +733,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/culvertOutletTypeDropdown"
-                        android:entries="@array/culvertOutletTypeItems"
+
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -745,7 +762,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/scourPoolPresentDropdown"
-                        android:entries="@array/scourPoolPresentItems"
+
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -834,7 +851,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/delineatorDropdown"
-                        android:entries="@array/delineatorItems"
+
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -904,7 +921,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/hazardMarkersDropdown"
-                        android:entries="@array/hazardMarkersItems"
+
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -933,7 +950,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/approachSignageDropdown"
-                        android:entries="@array/hazardMarkersItems"
+
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -962,7 +979,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/roadSurfaceDropdown"
-                        android:entries="@array/hazardMarkersItems"
+
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -991,7 +1008,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/approachRailsDropdown"
-                        android:entries="@array/hazardMarkersItems"
+
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1020,7 +1037,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/roadDrainageDropdown"
-                        android:entries="@array/hazardMarkersItems"
+
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1049,7 +1066,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/visibilityDropdown"
-                        android:entries="@array/hazardMarkersItems"
+
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1078,7 +1095,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/wearingSurfaceDropdown"
-                        android:entries="@array/hazardMarkersItems"
+
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1107,7 +1124,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/railCurbDropdown"
-                        android:entries="@array/hazardMarkersItems"
+
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1136,7 +1153,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/girdersBracingDropdown"
-                        android:entries="@array/hazardMarkersItems"
+
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1165,7 +1182,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/capBeamDropdown"
-                        android:entries="@array/hazardMarkersItems"
+
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1194,7 +1211,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/pilesDropdown"
-                        android:entries="@array/hazardMarkersItems"
+
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1223,7 +1240,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/abutmentWallDropdown"
-                        android:entries="@array/hazardMarkersItems"
+
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1252,7 +1269,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/wingWallDropdown"
-                        android:entries="@array/hazardMarkersItems"
+
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1281,7 +1298,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/bankStabilityDropdown"
-                        android:entries="@array/hazardMarkersItems"
+
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1310,7 +1327,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/slopeProtectionDropdown"
-                        android:entries="@array/hazardMarkersItems"
+
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1339,7 +1356,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/channelOpeningDropdown"
-                        android:entries="@array/hazardMarkersItems"
+
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1368,7 +1385,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/obstructionsDropdown"
-                        android:entries="@array/hazardMarkersItems"
+
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1393,13 +1410,21 @@
                     android:id="@+id/erosionLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
-                    android:layout_weight="0.5"/>
+                    android:layout_weight="0.4"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="@color/red"
+                    android:textSize="18sp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.1"/>
 
                 <Spinner
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:id="@+id/erosionDropdown"
-                    android:entries="@array/erosionItems"
+
                     android:layout_weight="0.5"
                     android:layout_gravity="center"/>
 
@@ -1438,7 +1463,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/erosionType1Dropdown"
-                        android:entries="@array/erosionType1Items"
+
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1468,7 +1493,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/erosionType2Dropdown"
-                        android:entries="@array/erosionType2Items"
+
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1497,7 +1522,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/erosionSourceDropdown"
-                        android:entries="@array/erosionSourceItems"
+
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1526,7 +1551,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/erosionDegreeDropdown"
-                        android:entries="@array/erosionDegreeItems"
+
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1587,7 +1612,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:id="@+id/fishSamplingDropdown"
-                    android:entries="@array/fishSamplingItems"
+
                     android:layout_weight="0.5"
                     android:layout_gravity="center"/>
 
@@ -1626,7 +1651,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/fishSamplingMethodDropdown"
-                        android:entries="@array/fishSamplingMethodItems"
+
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1656,7 +1681,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/fishSamplingSpecies1Dropdown"
-                        android:entries="@array/fishSamplingSpecies1Items"
+
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1686,7 +1711,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:id="@+id/fishSamplingSpecies2Dropdown"
-                        android:entries="@array/fishSamplingSpecies1Items"
+
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
@@ -1714,13 +1739,21 @@
                     android:id="@+id/fishPassageConcernsLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
-                    android:layout_weight="0.5"/>
+                    android:layout_weight="0.4"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="@color/red"
+                    android:textSize="18sp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.1"/>
 
                 <Spinner
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:id="@+id/fishPassageConcernsDropdown"
-                    android:entries="@array/fishPassageConcernsItems"
+
                     android:layout_weight="0.5"
                     android:layout_gravity="center"/>
 
@@ -1756,7 +1789,7 @@
                     <Spinner
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:entries="@array/fishReasonItems"
+
                         android:id="@+id/fishReasonDropdown" />
 
                     <EditText android:textColor="@color/cblue"
@@ -1791,13 +1824,22 @@
                     android:id="@+id/blockageLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
-                    android:layout_weight="0.5"/>
+                    android:layout_weight="0.4"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="@color/red"
+                    android:textSize="18sp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.1"/>
 
                 <Spinner
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:id="@+id/blockageDropdown"
-                    android:entries="@array/emergencyRepairRequiredItems"
+
                     android:layout_weight="0.5"
                     android:layout_gravity="center"/>
 
@@ -1892,13 +1934,22 @@
                     android:id="@+id/emergencyRepairRequiredLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
-                    android:layout_weight="0.5"/>
+                    android:layout_weight="0.4"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="@color/red"
+                    android:textSize="18sp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.1"/>
 
                 <Spinner
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:id="@+id/emergencyRepairRequiredDropdown"
-                    android:entries="@array/emergencyRepairRequiredItems"
+
                     android:layout_weight="0.5"
                     android:layout_gravity="center"/>
 
@@ -1921,13 +1972,22 @@
                     android:id="@+id/structuralProblemsLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
-                    android:layout_weight="0.5"/>
+                    android:layout_weight="0.4"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="@color/red"
+                    android:textSize="18sp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.1"/>
 
                 <Spinner
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:id="@+id/structuralProblemsDropdown"
-                    android:entries="@array/structuralProblemsItems"
+
                     android:layout_weight="0.5"
                     android:layout_gravity="center"/>
 
@@ -1956,7 +2016,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:id="@+id/sedimentationDropdown"
-                    android:entries="@array/sedimentationItems"
+
                     android:layout_weight="0.5"
                     android:layout_gravity="center"/>
 
@@ -1968,7 +2028,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
                 android:weightSum="1"
                 >
 
@@ -1987,7 +2046,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/remarksText"
                     android:layout_weight="0.5"
-                    android:imeOptions="actionNext"
+                    android:imeOptions="actionDone"
                     android:layout_gravity="center"/>
 
             </LinearLayout>
@@ -1997,33 +2056,66 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="30dp"
                 android:weightSum="1">
 
+
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:textSize="18sp" android:textColor="@color/black" android:text="Inlet"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="0.2"/>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="150dp"
-                    android:id="@+id/inlet1"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/file_image"
-                    android:layout_gravity="center"
-                    android:layout_weight="0.4"/>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="150dp"
-                    android:id="@+id/inlet2"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/file_image"
-                    android:layout_gravity="center"
-                    android:layout_weight="0.4"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Upstream"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"/>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/inlet1"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/file_image"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Downstream"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"/>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/inlet2"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/file_image"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+
+
 
 
                 </LinearLayout>
@@ -2034,33 +2126,64 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:weightSum="1">
+                android:weightSum="1"
+                android:layout_marginTop="20dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:textSize="18sp" android:textColor="@color/black" android:text="Outlet"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="0.2"/>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="150dp"
-                    android:id="@+id/outlet1"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/file_image"
-                    android:layout_gravity="center"
-                    android:layout_weight="0.4"/>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="150dp"
-                    android:id="@+id/outlet2"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/file_image"
-                    android:layout_gravity="center"
-                    android:layout_weight="0.4"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Upstream"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"/>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/outlet1"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/file_image"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Downstream"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"/>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/outlet2"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/file_image"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
 
 
             </LinearLayout>
@@ -2071,10 +2194,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:weightSum="1">
+                android:weightSum="1"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="10dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:textSize="18sp" android:textColor="@color/black" android:text="Others"
                     android:layout_gravity="center"
@@ -2082,8 +2207,8 @@
                     android:layout_weight="0.2"/>
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="150dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:id="@+id/other1"
                     android:scaleType="fitCenter"
                     android:src="@drawable/file_image"
@@ -2091,8 +2216,8 @@
                     android:layout_weight="0.4"/>
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="150dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:id="@+id/other2"
                     android:scaleType="fitCenter"
                     android:src="@drawable/file_image"

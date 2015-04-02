@@ -132,15 +132,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.add(0,0,0,"Add")
+        menu.add(0,0,0,"Layers")
                 .setIcon(R.drawable.file_add)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS
-                        | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+                        | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
-        menu.add(0,1,1,"Control")
+        menu.add(0,1,1,"Markers")
                 .setIcon(R.drawable.file_search)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS
-                        | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+                        | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
     }
 
 

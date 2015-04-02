@@ -143,10 +143,10 @@ public class FormFragment  extends Fragment{
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.add(0,0,0,"Add")
+        menu.add(0,0,0,"Create")
                 .setIcon(R.drawable.file_add)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS
-                        | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+                        | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
 //        menu.add(0,1,1,"Filter")
 //                .setIcon(R.drawable.file_search)
@@ -161,7 +161,7 @@ public class FormFragment  extends Fragment{
         menu.add(0,3,3,"Submit")
                 .setIcon(R.drawable.file_submit)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS
-                        | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+                        | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
     }
 
 }

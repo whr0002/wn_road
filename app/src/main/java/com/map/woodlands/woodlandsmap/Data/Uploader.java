@@ -201,7 +201,8 @@ public class Uploader {
             params.put("FISH_SPP",mForm.FISH_SPP);
             params.put("FISH_PCONC",mForm.FISH_PCONC);
             params.put("FISH_SPP2",mForm.FISH_SPP2);
-            params.put("FISH_PCONCREASON",mForm.FISH_PCONCREASON);
+            params.put("FISH_PCONCREASON",combineFishReasons
+                    (mForm.FISH_ReasonDropdown,mForm.FISH_PCONCREASON));
             params.put("REMARKS",mForm.REMARKS);
 //            params.put("PHOTO_INUP",mForm.PHOTO_INUP);
 //            params.put("PHOTO_INDW",mForm.PHOTO_INDW);
@@ -359,5 +360,21 @@ public class Uploader {
             }
         }
         return null;
+    }
+
+    private String combineFishReasons(String s1, String s2){
+        if(s1 != null){
+            if(s2 != null){
+                return s1+" "+s2;
+            }else{
+                return s1;
+            }
+        }else{
+            if(s2 != null){
+                return s2;
+            }else{
+                return "";
+            }
+        }
     }
 }

@@ -1,6 +1,5 @@
 package com.map.woodlands.woodlandsmap.Data;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
@@ -46,7 +45,7 @@ public class ViewToggler {
 
     public void toggleView(){
         String s = mParent.getItemAtPosition(mPosition).toString().toLowerCase();
-        Log.i("debug",s);
+//        Log.i("debug",s);
         switch (mParent.getId()){
             case R.id.crossingTypeDropdown:
 

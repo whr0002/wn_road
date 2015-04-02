@@ -27,6 +27,10 @@ public class FormValidator {
                 messages.add(generateLengthMessage("Inspection Crew", 40));
             }
 
+            if(mForm.INSP_CREW.trim().length()>0 && !mForm.INSP_CREW.matches("^[[a-zA-Z]+\\s*]+$")){
+                messages.add("Inspection Crew must contain letters only");
+            }
+
             if(mForm.ACCESS.length() > 10){
                 messages.add(generateLengthMessage("Access", 10));
             }
@@ -63,6 +67,11 @@ public class FormValidator {
                 messages.add(generateNumericMessage("Stream Width"));
             }
 
+            String s = generateRangeMessage("Stream Width", mForm.STR_WIDTH, 0, 100);
+            if(s != null){
+                messages.add(s);
+            }
+
             if(mForm.CROSS_TYPE.length() == 0){
                 messages.add("Crossing Type is required");
             }
@@ -75,8 +84,19 @@ public class FormValidator {
                 messages.add(generateNumericMessage("Erosion Area"));
             }
 
+            s = generateRangeMessage("Erosion Area", mForm.EROSION_AR, 0, 1000);
+            if(s != null){
+                messages.add(s);
+            }
+
+
             if(mForm.CULV_LEN.length()> 0 && !isNumeric(mForm.CULV_LEN)){
                 messages.add(generateNumericMessage("Culvert Length"));
+            }
+
+            s = generateRangeMessage("Culvert Length", mForm.CULV_LEN, 0, 100);
+            if(s != null){
+                messages.add(s);
             }
 
             if(mForm.CULV_DIA_1.length()> 0 && !isNumeric(mForm.CULV_DIA_1)){
@@ -91,16 +111,45 @@ public class FormValidator {
                 messages.add(generateNumericMessage("Culvert Diameter 3"));
             }
 
+            s = generateRangeMessage("Culvert Diameter 1", mForm.CULV_DIA_1, 0, 5);
+            if(s != null){
+                messages.add(s);
+            }
+
+            s = generateRangeMessage("Culvert Diameter 2", mForm.CULV_DIA_2, 0, 5);
+            if(s != null){
+                messages.add(s);
+            }
+
+            s = generateRangeMessage("Culvert Diameter 3", mForm.CULV_DIA_3, 0, 5);
+            if(s != null){
+                messages.add(s);
+            }
+
             if(mForm.CULV_OPOOD.length()> 0 && !isNumeric(mForm.CULV_OPOOD)){
                 messages.add(generateNumericMessage("Culvert Pool Depth"));
             }
+            s = generateRangeMessage("Culvert Pool Depth", mForm.CULV_OPOOD, 0, 10);
+            if(s != null){
+                messages.add(s);
+            }
+
 
             if(mForm.CULV_OPGAP.length()> 0 && !isNumeric(mForm.CULV_OPGAP)){
                 messages.add(generateNumericMessage("Culvert Outlet Gap"));
             }
 
+            s = generateRangeMessage("Culvert Outlet Gap", mForm.CULV_OPGAP, 0, 10);
+            if(s != null){
+                messages.add(s);
+            }
+
             if(mForm.BRDG_LEN.length()> 0 && !isNumeric(mForm.BRDG_LEN)){
                 messages.add(generateNumericMessage("Bridge Length"));
+            }
+            s = generateRangeMessage("Bridge Length", mForm.BRDG_LEN, 0, 100);
+            if(s != null){
+                messages.add(s);
             }
 
             if(mForm.FISH_PCONC.length() == 0){
@@ -125,6 +174,14 @@ public class FormValidator {
 
             if(mForm.BLOC_CAUS.length() > 50){
                 messages.add(generateLengthMessage("Blockage Cause", 50));
+            }
+
+            if(mForm.EMG_REP_RE.length() == 0){
+                messages.add("Emergency Repair Required");
+            }
+
+            if(mForm.STU_PROBS.length() == 0){
+                messages.add("Structural Problems");
             }
 
             if(mForm.REMARKS.length() > 120){
@@ -155,5 +212,15 @@ public class FormValidator {
     private String generateNumericMessage(String fieldName){
         String s = fieldName +" must be a numeric value";
         return s;
+    }
+
+    private String generateRangeMessage(String fieldName, String value, int start, int end){
+        if(value != null && value.length()>0 && isNumeric(value)){
+            double d = Double.parseDouble(value);
+            if(d < start || d > end){
+                return fieldName+" must be in range "+start+"-"+end;
+            }
+        }
+        return null;
     }
 }

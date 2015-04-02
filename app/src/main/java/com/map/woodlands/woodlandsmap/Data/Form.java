@@ -48,6 +48,7 @@ public class Form {
     public String FISH_PCONC;
     public String FISH_SPP2;
     public String FISH_PCONCREASON;
+    public String FISH_ReasonDropdown;
     public String REMARKS;
 
     public String PHOTO_INUP;

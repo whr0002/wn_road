@@ -245,7 +245,7 @@ public class ViewCrossingDataActivity extends ActionBarActivity {
     private void addImageView(String key, String value){
         LinearLayout linearLayout1 = new LinearLayout(this);
         LinearLayout.LayoutParams linearParams = new LinearLayout
-                .LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 300);
+                .LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         linearLayout1.setWeightSum(1.0f);
         linearLayout1.setOrientation(LinearLayout.HORIZONTAL);
         linearLayout1.setLayoutParams(linearParams);
@@ -258,6 +258,7 @@ public class ViewCrossingDataActivity extends ActionBarActivity {
         LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT);
         textViewParams.weight = 0.5f;
         textViewParams.leftMargin = 10;
+        textViewParams.rightMargin = 10;
         textViewParams.gravity = Gravity.CENTER_VERTICAL;
         titleView.setGravity(Gravity.LEFT);
         titleView.setLayoutParams(textViewParams);

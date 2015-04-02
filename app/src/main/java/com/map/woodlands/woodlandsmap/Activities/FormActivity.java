@@ -1,8 +1,11 @@
 package com.map.woodlands.woodlandsmap.Activities;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -23,10 +26,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.map.woodlands.woodlandsmap.Data.Form;
 import com.map.woodlands.woodlandsmap.Data.FormController;
 import com.map.woodlands.woodlandsmap.Data.FormValidator;
-import com.map.woodlands.woodlandsmap.Data.GPSTracker;
 import com.map.woodlands.woodlandsmap.Data.ImageProcessor;
 import com.map.woodlands.woodlandsmap.Data.ViewToggler;
 import com.map.woodlands.woodlandsmap.R;
@@ -41,8 +48,19 @@ import java.util.HashMap;
 /**
  * Created by Jimmy on 3/11/2015.
  */
-public class FormActivity extends ActionBarActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class FormActivity extends ActionBarActivity implements View.OnClickListener,
+        AdapterView.OnItemSelectedListener,
+        GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener,
+        LocationListener {
     static final int DATE_DIALOG_ID = 999;
+
+    public GoogleApiClient mGoogleApiClient;
+    public Location location;
+    protected static final LocationRequest REQUEST = LocationRequest.create()
+            .setInterval(5000)
+            .setFastestInterval(16)
+            .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
     public int year;
     public int month;
@@ -72,7 +90,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
             capBeamSpinner,pilesSpinner,abutmentWallSpinner,wingWallSpinner,bankStabilitySpinner,slopeProtectionSpinner,
             channelOpeningSpinner,obstructionsSpinner,fishSamplingSpinner,fishSamplingMethod,fishSamplingSpecies1Spinner,
             fishSamplingSpecies2Spinner,fishPassageConcernsSpinner,emergencyRepairRequiredSpinner,structuralProblemsSpinner,
-            sedimentationSpinner, blockageSpinner;
+            sedimentationSpinner, blockageSpinner, fishReasonSpinner;
 
     public ImageView photoView1,photoView2,photoView3,photoView4,photoView5,photoView6;
 
@@ -92,6 +110,12 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         this.mPhotoMap = new HashMap<Integer, String>();
         setView();
 
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(LocationServices.API)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
+
     }
 
     protected void setView() {
@@ -105,9 +129,9 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
     }
 
     protected void setLatLong() {
-        GPSTracker gpsTracker = new GPSTracker(this.getApplicationContext());
-        latitudeView.setText(""+gpsTracker.getLatitude());
-        longitudeView.setText(""+gpsTracker.getLongitude());
+//        GPSTracker gpsTracker = new GPSTracker(this.getApplicationContext());
+//        latitudeView.setText(""+gpsTracker.getLatitude());
+//        longitudeView.setText(""+gpsTracker.getLongitude());
     }
 
     public void setTextViews() {
@@ -177,6 +201,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         structuralProblemsSpinner = (Spinner)findViewById(R.id.structuralProblemsDropdown);
         sedimentationSpinner = (Spinner)findViewById(R.id.sedimentationDropdown);
         blockageSpinner = (Spinner)findViewById(R.id.blockageDropdown);
+        fishReasonSpinner = (Spinner)findViewById(R.id.fishReasonDropdown);
 
         setSpinnerAdapter(accessSpinner, R.array.accessItems);
         setSpinnerAdapter(streamClassificationSpinner, R.array.streamClassItems2);
@@ -220,7 +245,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         setSpinnerAdapter(structuralProblemsSpinner, R.array.structuralProblemsItems);
         setSpinnerAdapter(sedimentationSpinner, R.array.sedimentationItems);
         setSpinnerAdapter(blockageSpinner, R.array.emergencyRepairRequiredItems);
-
+        setSpinnerAdapter(fishReasonSpinner, R.array.fishReasonItems);
 
         crossingTypeSpinner.setOnItemSelectedListener(this);
         erosionSpinner.setOnItemSelectedListener(this);
@@ -320,7 +345,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         switch(item.getItemId()){
             case android.R.id.home:
                 // Discard this form, open confirmation box
-                finish();
+                showExitDialog();
                 return true;
 
             case R.id.save:
@@ -404,6 +429,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         theForm.FISH_SPP2 = fishSamplingSpecies2Spinner.getSelectedItem().toString();
         theForm.FISH_PCONC = fishPassageConcernsSpinner.getSelectedItem().toString();
         theForm.FISH_PCONCREASON = fishPassageConvernsReasonView.getText().toString();
+        theForm.FISH_ReasonDropdown = fishReasonSpinner.getSelectedItem().toString();
         theForm.BLOCKAGE = blockageSpinner.getSelectedItem().toString();
         theForm.BLOC_MATR = blockageMaterialView.getText().toString();
         theForm.BLOC_CAUS = blockageCauseView.getText().toString();
@@ -445,7 +471,8 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
     }
 
     public void setPhotoView(ImageView photoView, String path){
-        ImageProcessor imageProcessor = new ImageProcessor(photoView, path, true);
+        ImageProcessor imageProcessor = new ImageProcessor(photoView, path, true, location);
+
         imageProcessor.setImageView();
 
     }
@@ -581,5 +608,69 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    protected void showExitDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Discard");
+        builder.setMessage("This form is not saved, are you sure you want to discard it?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        showExitDialog();
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        LocationServices.FusedLocationApi.requestLocationUpdates(
+                mGoogleApiClient,
+                REQUEST,
+                this);  // LocationListener
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        latitudeView.setText(""+location.getLatitude());
+        longitudeView.setText(""+location.getLongitude());
+        this.location = location;
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mGoogleApiClient.disconnect();
     }
 }
