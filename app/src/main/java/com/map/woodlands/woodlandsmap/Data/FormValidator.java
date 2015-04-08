@@ -177,11 +177,11 @@ public class FormValidator {
             }
 
             if(mForm.EMG_REP_RE.length() == 0){
-                messages.add("Emergency Repair Required");
+                messages.add("Emergency Repair Required is required");
             }
 
             if(mForm.STU_PROBS.length() == 0){
-                messages.add("Structural Problems");
+                messages.add("Structural Problems is required");
             }
 
             if(mForm.REMARKS.length() > 120){

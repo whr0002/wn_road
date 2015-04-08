@@ -201,6 +201,9 @@ public class ViewCrossingDataActivity extends ActionBarActivity {
         if(key.toLowerCase().contains("water crossing name or id")){
             actionBar.setTitle(value);
         }
+        if(key.toLowerCase().contains("date")){
+            value = value.substring(0,value.indexOf("T"));
+        }
 
         // Wrapper
         LinearLayout linearLayout1 = new LinearLayout(this);

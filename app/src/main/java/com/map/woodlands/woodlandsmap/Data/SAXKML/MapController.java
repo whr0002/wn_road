@@ -178,6 +178,9 @@ public class MapController {
                 }else if(riskS.contains("no")){
                     mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_grey));
                     m = map.addMarker(mo);
+                }else{
+                    mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_blue));
+                    m = map.addMarker(mo);
                 }
 
 

@@ -50,7 +50,7 @@ public class DataController {
         rowUri = resources.getString(R.string.row_url);
         kmlUri = resources.getString(R.string.kml_url);
     }
-    public void loadCoords(){
+    public void loadCoords(String dataUrl){
         UserInfo ui = getUserRole();
 
         if(ui != null) {
@@ -59,7 +59,7 @@ public class DataController {
             params.put("Password", ui.password);
             params.put("RememberMe", "false");
             params.put("Role", ui.role);
-            client.post(coordsUri, params, new AsyncHttpResponseHandler() {
+            client.post(dataUrl, params, new AsyncHttpResponseHandler() {
                 @Override
                 public void onSuccess(int i, Header[] headers, byte[] bytes) {
                     try{
@@ -78,13 +78,15 @@ public class DataController {
 
                 @Override
                 public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-
+//                    Log.i("debug", "failed");
                 }
             });
 
         }
 
     }
+
+
 
     public void loadRow(LatLng ll){
         UserInfo ui = getUserRole();

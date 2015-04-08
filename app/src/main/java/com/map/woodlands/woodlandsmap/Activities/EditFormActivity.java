@@ -33,6 +33,7 @@ public class EditFormActivity extends FormActivity{
         setSpinners();
         setLayouts();
         setImageViews();
+        setImageButtons();
 
 
     }
@@ -125,6 +126,7 @@ public class EditFormActivity extends FormActivity{
             f.STU_PROBS = structuralProblemsSpinner.getSelectedItem().toString();
             f.SEDEMENTAT = sedimentationSpinner.getSelectedItem().toString();
             f.REMARKS = remarksView.getText().toString();
+            f.AttachmentPath1 = m_chosenDir;
             setPhotoPath(f);
 
             return f;
@@ -244,6 +246,11 @@ public class EditFormActivity extends FormActivity{
             structuralProblemsSpinner.setSelection(getSpinnerIndex(structuralProblemsSpinner,f.STU_PROBS));
             sedimentationSpinner.setSelection(getSpinnerIndex(sedimentationSpinner,f.SEDEMENTAT));
             remarksView.setText(f.REMARKS);
+            String s = f.AttachmentPath1;
+            if(s != null && !s.equals("")) {
+                m_chosenDir = s;
+                attachmentName.setText(f.AttachmentPath1.substring(f.AttachmentPath1.lastIndexOf("/")+1));
+            }
 //            setPhotoFromPath();
         }
     }

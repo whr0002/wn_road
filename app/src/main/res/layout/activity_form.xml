@@ -1768,6 +1768,7 @@
                 android:layout_gravity="center"
                 android:weightSum="1"
                 android:id="@+id/fishReasonLayout"
+                android:background="@color/lightBlue"
                 >
 
                 <TextView
@@ -2050,6 +2051,43 @@
                     android:layout_gravity="center"/>
 
             </LinearLayout>
+            <!-- Attachments -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:weightSum="1"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp" android:textColor="@color/black" android:text="Attachments"
+                    android:id="@+id/attachmentsLabel"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp" android:textColor="@color/cblue"
+                    android:id="@+id/attachmentName"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.3"/>
+                <ImageButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:src="@drawable/file_attachment"
+                    android:scaleType="fitCenter"
+                    android:id="@+id/attachmentButton"/>
+
+
+            </LinearLayout>
+
             <!-- Inlet Photos -->
             <LinearLayout
                 android:orientation="horizontal"

@@ -92,6 +92,12 @@ public class Uploader {
         photoPathes.add(mForm.PHOTO_OTDW);
         photoPathes.add(mForm.PHOTO_1);
         photoPathes.add(mForm.PHOTO_2);
+        String s = mForm.AttachmentPath1;
+        if(s != null && !s.equals("")){
+//            Log.i("debug","added: "+s);
+            photoPathes.add(s);
+        }
+
 
         RequestParams params = new RequestParams();
         UserInfo ui = getUserInfo();

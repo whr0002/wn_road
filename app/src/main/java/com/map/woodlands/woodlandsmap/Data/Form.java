@@ -98,6 +98,7 @@ public class Form {
     public ArrayList<String> messages;
     public String displayDate;
 
+    public String AttachmentPath1;
 //    public String photo_inup_url;
 //    public String photo_indw_url;
 //    public String photo_otup_url;

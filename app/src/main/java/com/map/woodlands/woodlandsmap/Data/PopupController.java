@@ -28,12 +28,14 @@ public class PopupController {
     private final MapController mapController;
     private MarkerToggler mt;
     private HashMap hm;
+    private DataController dataController;
 
-    public PopupController(Context c, final MapController m, MarkerToggler mt){
+    public PopupController(Context c, final MapController m, MarkerToggler mt, DataController d){
         mContext = c;
         this.mapController = m;
         this.mt = mt;
         hm = new HashMap();
+        this.dataController = d;
     }
 
     public void showKMLPopup(View v){
@@ -52,12 +54,22 @@ public class PopupController {
 
             counter++;
         }
+        menu.add(1, counter, counter, "Raw Data");
 
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                mapController.loadKML(""+hm.get(item.getTitle()), ""+item.getTitle());
+                if(!item.getTitle().equals("Raw Data")){
+                    mapController.loadKML(""+hm.get(item.getTitle()), ""+item.getTitle());
+                }else{
+                    // Get raw data
+                    String url = mContext.getString(R.string.raw_data_url);
+                    if(url != null) {
+                        dataController.loadCoords(url);
+                    }
+                }
                 return true;
+
             }
         });
 

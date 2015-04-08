@@ -1,5 +1,6 @@
 package com.map.woodlands.woodlandsmap;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.map.woodlands.woodlandsmap.Activities.SettingsActivity;
 import com.map.woodlands.woodlandsmap.Adapters.TabPagerAdapter;
 
 
@@ -99,6 +101,8 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
             return true;
         }
 

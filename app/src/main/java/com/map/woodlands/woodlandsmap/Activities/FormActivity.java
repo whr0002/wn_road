@@ -31,6 +31,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.map.woodlands.woodlandsmap.Data.DirectoryChooserDialog;
 import com.map.woodlands.woodlandsmap.Data.Form;
 import com.map.woodlands.woodlandsmap.Data.FormController;
 import com.map.woodlands.woodlandsmap.Data.FormValidator;
@@ -72,7 +73,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
 
     public ImageButton dateButton;
 
-    public TextView dateView,latitudeView,longitudeView;
+    public TextView dateView,latitudeView,longitudeView,attachmentName;
 
     public EditText inspectionCrewView,crossingNumberView,crossingIDView,streamIDView,dispositionIDView,
             streamWidthView,erosionAreaView,culvertLengthView,culvertDiameter1View,
@@ -97,7 +98,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
     public LinearLayout culvertBlock,bridgeBlock,erosionBlock,fishSamplingBlock, blockageBlock,
             culvertDiameter2Block, culvertDiameter3Block, fishReasonBlock ;
 
-
+    public ImageButton attachmentButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,6 +127,12 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         setLayouts();
         setImageViews();
         setLatLong();
+        setImageButtons();
+    }
+
+    protected void setImageButtons() {
+        this.attachmentButton = (ImageButton) findViewById(R.id.attachmentButton);
+        attachmentButton.setOnClickListener(this);
     }
 
     protected void setLatLong() {
@@ -137,6 +144,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
     public void setTextViews() {
         latitudeView = (TextView)findViewById(R.id.latText);
         longitudeView = (TextView)findViewById(R.id.longText);
+        attachmentName = (TextView)findViewById(R.id.attachmentName);
 
         inspectionCrewView = (EditText)findViewById(R.id.crewText);
         crossingNumberView = (EditText)findViewById(R.id.crossingNumberText);
@@ -437,6 +445,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         theForm.STU_PROBS = structuralProblemsSpinner.getSelectedItem().toString();
         theForm.SEDEMENTAT = sedimentationSpinner.getSelectedItem().toString();
         theForm.REMARKS = remarksView.getText().toString();
+        theForm.AttachmentPath1 = m_chosenDir;
 
         setPhotoPath(theForm);
 
@@ -545,9 +554,32 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
                 dispatchTakePictureIntent(6);
                 break;
 
+            case R.id.attachmentButton:
+                openFileChooser();
+                break;
             default:
                 break;
         }
+    }
+
+    protected String m_chosenDir = "";
+    protected void openFileChooser() {
+        DirectoryChooserDialog directoryChooserDialog =
+                new DirectoryChooserDialog(FormActivity.this,
+                        new DirectoryChooserDialog.ChosenDirectoryListener(){
+                            @Override
+                            public void onChosenDir(String chosenDir) {
+                                m_chosenDir = chosenDir;
+                                Toast.makeText(FormActivity.this, "Choosen directory: "
+                                        + m_chosenDir, Toast.LENGTH_SHORT).show();
+                                String fileName = m_chosenDir
+                                        .substring(m_chosenDir
+                                                .lastIndexOf("/")+1);
+                                attachmentName.setText(fileName);
+                            }
+                        });
+        directoryChooserDialog.setNewFolderEnabled(false);
+        directoryChooserDialog.chooseDirectory(m_chosenDir);
     }
 
     /* Create a camera intent */
@@ -590,11 +622,21 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         File image = new File(storageDir + "/" + imageFileName + ".jpg");
 
         // Save a file: path for use with ACTION_VIEW intents
+        deleteTempImageIfExist();
         mCurrentPhotoPath = image.getAbsolutePath();
 //        Log.i("debug", "Image path: " + mCurrentPhotoPath);
         mPhotoMap.put(mCurrentRequestCode, mCurrentPhotoPath);
 
         return image;
+    }
+    private void deleteTempImageIfExist(){
+        if(mPhotoMap.containsKey(mCurrentRequestCode)){
+            String p = mPhotoMap.get(mCurrentRequestCode);
+            File f = new File(p);
+            if(f.exists()){
+                f.delete();
+            }
+        }
     }
 
     @Override

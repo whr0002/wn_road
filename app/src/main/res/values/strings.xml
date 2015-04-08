@@ -7,6 +7,7 @@
     <string name="row_url">http://scari.azurewebsites.net/androiddata/onerow</string>
     <string name="kml_url">http://scari.azurewebsites.net/androiddata/KMLs</string>
     <string name="storage_url">https://scari.blob.core.windows.net/</string>
+    <string name="raw_data_url">http://scari.azurewebsites.net/androiddata/rawdata</string>
 
     <string name="app_name">SCARI</string>
     <string name="main_activity_name">Stream Crossing &amp; Aquatic Resource Inventory</string>
@@ -33,7 +34,14 @@
     <string name="terrain">Terrain</string>
     <string name="none_map">None</string>
     <string name="none_form">None</string>
+    <string name="icon_disclaimer_text">
+        Images and icons used in this app are under  Creative Commons (Attribution-Share Alike 3.0 Unported).
+        Thanks for the icons creater "Neurovit".
 
+    </string>
+    <string name="general_category">General</string>
+    <string name="about_company">&#169; 2015 - Woodlands North Inc.</string>
+    <string name="title_activity_settings">Settings</string>
     <string-array name="layers_array">
         <item>@string/normal</item>
         <item>@string/hybrid</item>

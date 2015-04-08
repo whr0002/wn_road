@@ -78,6 +78,7 @@ public class ImageProcessor {
 
     public void compressImage(Bitmap b){
         File file = new File(mPath);
+
         if(!file.exists()){
             try {
                 file.createNewFile();
@@ -86,6 +87,7 @@ public class ImageProcessor {
 //                e.printStackTrace();
             }
         }else{
+
             file.delete();
             try {
                 file.createNewFile();
@@ -99,7 +101,7 @@ public class ImageProcessor {
         try {
             fos = new FileOutputStream(file);
             if (fos != null) {
-                b.compress(Bitmap.CompressFormat.JPEG, 80, fos);
+                b.compress(Bitmap.CompressFormat.JPEG, 100, fos);
                 fos.close();
             }
         } catch (Exception e) {
