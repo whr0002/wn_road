@@ -45,6 +45,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Created by Jimmy on 3/11/2015.
@@ -69,6 +71,8 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
     public String mCurrentPhotoPath;
     public int mCurrentRequestCode;
     public HashMap<Integer, String> mPhotoMap;
+    public HashMap<Integer, String> mTempPhotoMap;
+
     public FormController mFormController;
 
     public ImageButton dateButton;
@@ -109,6 +113,8 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         actionBar.setDisplayHomeAsUpEnabled(true);
         this.mFormController = new FormController(this.getApplicationContext());
         this.mPhotoMap = new HashMap<Integer, String>();
+        this.mTempPhotoMap = new HashMap<Integer, String>();
+
         setView();
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -453,6 +459,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
     }
 
     public void setPhotoPath(Form f) {
+        saveTempImage();
         f.PHOTO_INUP = mPhotoMap.get(1);
         f.PHOTO_INDW = mPhotoMap.get(2);
         f.PHOTO_OTUP = mPhotoMap.get(3);
@@ -569,13 +576,24 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
                         new DirectoryChooserDialog.ChosenDirectoryListener(){
                             @Override
                             public void onChosenDir(String chosenDir) {
-                                m_chosenDir = chosenDir;
-                                Toast.makeText(FormActivity.this, "Choosen directory: "
-                                        + m_chosenDir, Toast.LENGTH_SHORT).show();
-                                String fileName = m_chosenDir
-                                        .substring(m_chosenDir
-                                                .lastIndexOf("/")+1);
-                                attachmentName.setText(fileName);
+                                File file = new File(chosenDir);
+                                if(file.exists()){
+                                    long fileSizeInBytes = file.length();
+                                    if(fileSizeInBytes > 10000000){
+                                        Toast.makeText(FormActivity.this,
+                                                "File size must be less than 10MB",
+                                                Toast.LENGTH_SHORT).show();
+                                    }else{
+                                        m_chosenDir = chosenDir;
+                                        Toast.makeText(FormActivity.this, "Choosen file: "
+                                                + m_chosenDir, Toast.LENGTH_SHORT).show();
+                                        String fileName = m_chosenDir
+                                                .substring(m_chosenDir
+                                                        .lastIndexOf("/")+1);
+                                        attachmentName.setText(fileName);
+                                    }
+                                }
+
                             }
                         });
         directoryChooserDialog.setNewFolderEnabled(false);
@@ -624,17 +642,55 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         // Save a file: path for use with ACTION_VIEW intents
         deleteTempImageIfExist();
         mCurrentPhotoPath = image.getAbsolutePath();
+
 //        Log.i("debug", "Image path: " + mCurrentPhotoPath);
-        mPhotoMap.put(mCurrentRequestCode, mCurrentPhotoPath);
+        mTempPhotoMap.put(mCurrentRequestCode, mCurrentPhotoPath);
+//        mPhotoMap.put(mCurrentRequestCode, mCurrentPhotoPath);
 
         return image;
     }
-    private void deleteTempImageIfExist(){
-        if(mPhotoMap.containsKey(mCurrentRequestCode)){
-            String p = mPhotoMap.get(mCurrentRequestCode);
+    protected void deleteTempImageIfExist(){
+        if(mTempPhotoMap.containsKey(mCurrentRequestCode)){
+            String p = mTempPhotoMap.get(mCurrentRequestCode);
             File f = new File(p);
             if(f.exists()){
                 f.delete();
+            }
+        }
+    }
+
+    protected void deleteTempImageIfExist2(){
+        if(mTempPhotoMap != null && mTempPhotoMap.size()>0) {
+            Iterator iterator = mTempPhotoMap.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry<Integer, String> me = (Map.Entry<Integer, String>) iterator.next();
+                File f = new File(me.getValue());
+                if (f.exists()) {
+                    f.delete();
+                }
+                iterator.remove();
+            }
+        }
+    }
+
+    protected void saveTempImage(){
+        if(mTempPhotoMap != null && mTempPhotoMap.size()>0) {
+            Iterator iterator = mTempPhotoMap.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry<Integer, String> me = (Map.Entry<Integer, String>) iterator.next();
+                if(mPhotoMap.get(me.getKey()) != null){
+                    // Photo get replaced, delete old photo
+                    File temp = new File(mPhotoMap.get(me.getKey()));
+                    if(temp.exists()){
+                        temp.delete();
+                    }
+
+                }
+
+                // Add/Update new photo
+                mPhotoMap.put(me.getKey(),me.getValue());
+
+                iterator.remove();
             }
         }
     }
@@ -659,6 +715,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                deleteTempImageIfExist2();
                 finish();
             }
         });

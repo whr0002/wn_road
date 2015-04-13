@@ -1,6 +1,7 @@
 package com.map.woodlands.woodlandsmap.Fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.map.woodlands.woodlandsmap.Activities.ContactActivity;
 import com.map.woodlands.woodlandsmap.Data.UserInfo;
 import com.map.woodlands.woodlandsmap.R;
 
@@ -46,6 +48,7 @@ public class  LoginFragment extends Fragment implements OnClickListener{
     private EditText passwordField;
     private Button loginBtn;
     private Button logoutBtn;
+    private Button contactusBtn;
     private TextView messageView;
     private ProgressBar progressBar;
 
@@ -81,6 +84,9 @@ public class  LoginFragment extends Fragment implements OnClickListener{
 
         logoutBtn = (Button) rootView.findViewById(R.id.Logout);
         logoutBtn.setOnClickListener(this);
+
+        contactusBtn = (Button) rootView.findViewById(R.id.contactus);
+        contactusBtn.setOnClickListener(this);
 
         progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
@@ -124,10 +130,19 @@ public class  LoginFragment extends Fragment implements OnClickListener{
                 showLoginView();
                 break;
 
+            case R.id.contactus:
+                startEmailIntent();
+                break;
+
             default:
 
                 break;
         }
+    }
+
+    private void startEmailIntent() {
+        Intent i = new Intent(mActivity, ContactActivity.class);
+        startActivity(i);
     }
 
     /*

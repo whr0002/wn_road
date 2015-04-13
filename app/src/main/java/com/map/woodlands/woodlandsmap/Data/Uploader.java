@@ -256,8 +256,11 @@ public class Uploader {
             params.put("CHANNELOPEN",mForm.CHANNELOPEN);
             params.put("OBSTRUCTIO",mForm.OBSTRUCTIO);
 
+            // Put attachment Url
+            params.put("FUTURE1",mHashMap.get("7"));
+
         }catch (Exception e){
-            e.printStackTrace();
+//            e.printStackTrace();
         }
         client.post(mContext.getResources().getString(R.string.form_post_url), params, new AsyncHttpResponseHandler() {
             @Override

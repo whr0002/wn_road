@@ -7,20 +7,15 @@ package com.map.woodlands.woodlandsmap.Data;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnKeyListener;
 import android.os.Environment;
-import android.text.Editable;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.map.woodlands.woodlandsmap.R;
 
@@ -144,34 +139,34 @@ public class DirectoryChooserDialog
 
         dirsDialog = dialogBuilder.create();
 
-        dirsDialog.setOnKeyListener(new OnKeyListener()
-        {
-            @Override
-            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event)
-            {
-                if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN)
-                {
-                    // Back button pressed
-                    if ( m_dir.equals(m_sdcardDirectory) )
-                    {
-                        // The very top level directory, do nothing
-                        return false;
-                    }
-                    else
-                    {
-                        // Navigate back to an upper directory
-                        m_dir = new File(m_dir).getParent();
-                        updateDirectory();
-                    }
-
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        });
+//        dirsDialog.setOnKeyListener(new OnKeyListener()
+//        {
+//            @Override
+//            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event)
+//            {
+//                if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN)
+//                {
+//                    // Back button pressed
+//                    if ( m_dir.equals(m_sdcardDirectory) )
+//                    {
+//                        // The very top level directory, do nothing
+//                        return false;
+//                    }
+//                    else
+//                    {
+//                        // Navigate back to an upper directory
+//                        m_dir = new File(m_dir).getParent();
+//                        updateDirectory();
+//                    }
+//
+//                    return true;
+//                }
+//                else
+//                {
+//                    return false;
+//                }
+//            }
+//        });
 
         // Show directory chooser dialog
         dirsDialog.show();
@@ -211,7 +206,53 @@ public class DirectoryChooserDialog
 //                {
 //                    dirs.add( file.getName() );
 //                }
-                dirs.add( file.getName() );
+                String fileName = file.getName();
+                if(file.isFile()){
+                    // Filter files
+                    int dotIndex = fileName.lastIndexOf(".");
+                    if(dotIndex > -1){
+                        String ext = fileName.substring(dotIndex).toLowerCase();
+                        if(ext.contains("doc")
+                                || ext.contains("docx")
+                                || ext.contains("pdf")
+                                || ext.contains("jpg")
+                                || ext.contains("jpeg")
+                                || ext.contains("png")
+                                || ext.contains("xlsx")
+                                || ext.contains("pst")
+                                || ext.contains("flv")
+                                || ext.contains("wmv")
+                                || ext.contains("webm")
+                                || ext.contains("mkv")
+                                || ext.contains("vob")
+                                || ext.contains("ogv")
+                                || ext.contains("ogg")
+                                || ext.contains("drc")
+                                || ext.contains("mng")
+                                || ext.contains("avi")
+                                || ext.contains("mov")
+                                || ext.contains("yuv")
+                                || ext.contains("rm")
+                                || ext.contains("rmvb")
+                                || ext.contains("asf")
+                                || ext.contains("mp4")
+                                || ext.contains("m4p")
+                                || ext.contains("m4v")
+                                || ext.contains("mpg")
+                                || ext.contains("mp2")
+                                || ext.contains("mpeg")
+                                || ext.contains("mpe")
+                                || ext.contains("mpv")
+                                || ext.contains("m2v")
+                                || ext.contains("svi"))
+                        {
+                            dirs.add(fileName);
+                        }
+                    }
+
+                }else if(file.isDirectory()) {
+                    dirs.add(fileName);
+                }
             }
         }
         catch (Exception e)
@@ -240,65 +281,98 @@ public class DirectoryChooserDialog
         LinearLayout titleLayout = new LinearLayout(m_context);
         titleLayout.setOrientation(LinearLayout.VERTICAL);
 
+        LinearLayout topLayout = new LinearLayout(m_context);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout
+                .LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT
+                            , LayoutParams.WRAP_CONTENT);
+        topLayout.setWeightSum(1.0f);
+        topLayout.setLayoutParams(layoutParams);
+        topLayout.setOrientation(LinearLayout.HORIZONTAL);
+//        topLayout.setBackgroundColor(m_context.getResources().getColor(R.color.blue));
+
+
+
         m_titleView = new TextView(m_context);
-        m_titleView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+        LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT);
+        textViewParams.weight = 0.8f;
+        m_titleView.setLayoutParams(textViewParams);
         m_titleView.setTextAppearance(m_context, android.R.style.TextAppearance_Large);
         m_titleView.setTextColor( m_context.getResources().getColor(R.color.cblue) );
         m_titleView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
         m_titleView.setText(title);
 
-
-        Button newDirButton = new Button(m_context);
-        newDirButton.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-        newDirButton.setText("New folder");
-        newDirButton.setOnClickListener(new View.OnClickListener()
-        {
+        Button backBtn = new Button(m_context);
+        LinearLayout.LayoutParams btnParams = new LinearLayout.LayoutParams(0,LayoutParams.WRAP_CONTENT);
+        btnParams.weight = 0.2f;
+        backBtn.setLayoutParams(btnParams);
+        backBtn.setText("Back");
+        backBtn.setBackgroundColor(m_context.getResources().getColor(R.color.blue));
+        backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                final EditText input = new EditText(m_context);
-
-                // Show new folder name input dialog
-                new AlertDialog.Builder(m_context).
-                        setTitle("New folder name").
-                        setView(input).setPositiveButton("OK", new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int whichButton)
-                    {
-                        Editable newDir = input.getText();
-                        String newDirName = newDir.toString();
-                        // Create new directory
-                        if ( createSubDir(m_dir + "/" + newDirName) )
-                        {
-                            // Navigate into the new directory
-                            m_dir += "/" + newDirName;
-                            updateDirectory();
-                        }
-                        else
-                        {
-                            Toast.makeText(
-                                    m_context, "Failed to create '" + newDirName +
-                                            "' folder", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }).setNegativeButton("Cancel", null).show();
+            public void onClick(View v) {
+                // Navigate back to an upper directory
+                m_dir = new File(m_dir).getParent();
+                updateDirectory();
             }
         });
 
-        if (! m_isNewFolderEnabled)
-        {
-            newDirButton.setVisibility(View.GONE);
-        }
 
-        titleLayout.addView(m_titleView);
-        titleLayout.addView(newDirButton);
+
+
+//        Button newDirButton = new Button(m_context);
+//        newDirButton.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+//        newDirButton.setText("New folder");
+//        newDirButton.setOnClickListener(new View.OnClickListener()
+//        {
+//            @Override
+//            public void onClick(View v)
+//            {
+//                final EditText input = new EditText(m_context);
+//
+//                // Show new folder name input dialog
+//                new AlertDialog.Builder(m_context).
+//                        setTitle("New folder name").
+//                        setView(input).setPositiveButton("OK", new DialogInterface.OnClickListener()
+//                {
+//                    public void onClick(DialogInterface dialog, int whichButton)
+//                    {
+//                        Editable newDir = input.getText();
+//                        String newDirName = newDir.toString();
+//                        // Create new directory
+//                        if ( createSubDir(m_dir + "/" + newDirName) )
+//                        {
+//                            // Navigate into the new directory
+//                            m_dir += "/" + newDirName;
+//                            updateDirectory();
+//                        }
+//                        else
+//                        {
+//                            Toast.makeText(
+//                                    m_context, "Failed to create '" + newDirName +
+//                                            "' folder", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                }).setNegativeButton("Cancel", null).show();
+//            }
+//        });
+//
+//        if (! m_isNewFolderEnabled)
+//        {
+//            newDirButton.setVisibility(View.GONE);
+//        }
+
+        topLayout.addView(m_titleView);
+        topLayout.addView(backBtn);
+        titleLayout.addView(topLayout);
+//        titleLayout.addView(m_titleView);
+//        titleLayout.addView(newDirButton);
 
         dialogBuilder.setCustomTitle(titleLayout);
 
         m_listAdapter = createListAdapter(listItems);
 
         dialogBuilder.setSingleChoiceItems(m_listAdapter, -1, onClickListener);
-        dialogBuilder.setCancelable(false);
+//        dialogBuilder.setCancelable(false);
 
         return dialogBuilder;
     }

@@ -48,6 +48,11 @@
             android:name=".Activities.SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
+        <activity
+            android:name=".Activities.ContactActivity"
+            android:label="Contact" >
+        </activity>
+
     </application>
 
 </manifest>
