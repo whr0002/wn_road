@@ -11,8 +11,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.map.woodlands.woodlandsmap.Data.MyApplication;
 import com.map.woodlands.woodlandsmap.R;
 
 import org.apache.http.Header;
@@ -35,6 +37,8 @@ public class ViewCrossingDataActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crossing);
+
+        ((MyApplication) getApplication()).getTracker(MyApplication.TrackerName.APP_TRACKER);
 
         this.linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
         this.actionBar = this.getSupportActionBar();
@@ -319,4 +323,15 @@ public class ViewCrossingDataActivity extends ActionBarActivity {
     }
 
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        GoogleAnalytics.getInstance(this).reportActivityStart(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        GoogleAnalytics.getInstance(this).reportActivityStop(this);
+    }
 }

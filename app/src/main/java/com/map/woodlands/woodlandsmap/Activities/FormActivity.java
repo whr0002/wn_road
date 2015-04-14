@@ -26,6 +26,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -36,6 +37,7 @@ import com.map.woodlands.woodlandsmap.Data.Form;
 import com.map.woodlands.woodlandsmap.Data.FormController;
 import com.map.woodlands.woodlandsmap.Data.FormValidator;
 import com.map.woodlands.woodlandsmap.Data.ImageProcessor;
+import com.map.woodlands.woodlandsmap.Data.MyApplication;
 import com.map.woodlands.woodlandsmap.Data.ViewToggler;
 import com.map.woodlands.woodlandsmap.R;
 
@@ -108,6 +110,8 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form);
+
+        ((MyApplication) getApplication()).getTracker(MyApplication.TrackerName.APP_TRACKER);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -379,6 +383,8 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         }
 
     }
+
+
 
     /* Generate a new form */
     public Form generateForm(){
@@ -771,5 +777,17 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
     protected void onPause() {
         super.onPause();
         mGoogleApiClient.disconnect();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        GoogleAnalytics.getInstance(this).reportActivityStart(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        GoogleAnalytics.getInstance(this).reportActivityStop(this);
     }
 }

@@ -26,6 +26,9 @@
     <string name="action_settings">Settings</string>
     <string name="prompt">Choose...</string>
     <string name="contact_email">info@woodlandsnorth.co</string>
+    <string name="contact_phone">(780)706-2188</string>
+    <string name="contact_address">18136 - 102 Ave, Edmonton, Alberta, T6S 1S7</string>
+    <string name="contact_website"></string>
 
     <string name="inspection_date">Inspection Date</string>
 

@@ -2063,7 +2063,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp" android:textColor="@color/black" android:text="Attachments"
+                    android:textSize="18sp" android:textColor="@color/black" android:text="Attachment"
                     android:id="@+id/attachmentsLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"

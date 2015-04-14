@@ -15,8 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
 import com.map.woodlands.woodlandsmap.Activities.SettingsActivity;
 import com.map.woodlands.woodlandsmap.Adapters.TabPagerAdapter;
+import com.map.woodlands.woodlandsmap.Data.MyApplication;
 
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener {
@@ -43,6 +45,12 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Start Google Analytics Tracker
+        ((MyApplication) getApplication())
+                .getTracker(MyApplication.TrackerName.APP_TRACKER);
+//        t.setScreenName("S Main Activity");
+//        t.send(new HitBuilders.ScreenViewBuilder().build());
 
         // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();
@@ -160,4 +168,18 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         }
     }
 
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // Get an Analytics tracker to report app starts & uncaught exceptions etc.
+        GoogleAnalytics.getInstance(this).reportActivityStart(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        GoogleAnalytics.getInstance(this).reportActivityStop(this);
+    }
 }
