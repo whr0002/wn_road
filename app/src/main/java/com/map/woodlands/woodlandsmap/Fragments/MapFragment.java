@@ -75,16 +75,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         viewToggler = new ViewToggler(loadingView);
 
         this.markerToggler = new MarkerToggler();
-        mContext = this.getActivity().getApplicationContext();
+        mContext = this.getActivity();
 
         mMapView = (MapView) v.findViewById(R.id.map);
         mMapView.onCreate(savedInstanceState);
 
         // Needs to call MapsInitializer before doing any CameraUpdateFactory calls
         try {
-            MapsInitializer.initialize(this.getActivity());
+            MapsInitializer.initialize(mContext);
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
 
         // Updates the location and zoom of the MapView
@@ -164,8 +164,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         this.map.setMyLocationEnabled(true);
         this.map.setOnMarkerClickListener(this);
 
+
         this.mapController = new MapController(this.map, markerToggler, viewToggler, mContext);
-        this.dataController = new DataController(this.getActivity(), mapController, viewToggler);
+        this.dataController = new DataController(mContext, mapController, viewToggler);
         this.popupController = new PopupController(mContext, mapController, markerToggler, dataController);
 
 

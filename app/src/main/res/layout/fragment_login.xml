@@ -140,8 +140,8 @@
             android:text="Contact us"
             android:id="@+id/contactus"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"/>
 
     </RelativeLayout>
 

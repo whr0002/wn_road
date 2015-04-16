@@ -124,26 +124,32 @@ public class FormController {
 
         UserInfo ui = getUserInfo();
         if(ui != null) {
-            mForms.clear();
-            mForms = getReadyToSubmitForms();
-            if (mForms != null) {
-                int counter = 1;
-                int total = mForms.size();
-                if(total>0) {
-                    loadingView.setVisibility(View.VISIBLE);
-                    Toast.makeText(mContext, "Uploading", Toast.LENGTH_SHORT).show();
+            if(ui.getRole() != null && !ui.getRole().equals("null")) {
+                mForms.clear();
+                mForms = getReadyToSubmitForms();
+                if (mForms != null) {
+                    int counter = 1;
+                    int total = mForms.size();
+                    if (total > 0) {
+                        loadingView.setVisibility(View.VISIBLE);
+                        Toast.makeText(mContext, "Uploading", Toast.LENGTH_SHORT).show();
 
-                    for (Form form : mForms) {
-                        Uploader uploader = new Uploader(form, mContext, mFormFragment, loadingView, counter, total);
-                        uploader.execute();
-                        counter++;
+                        for (Form form : mForms) {
+                            Uploader uploader = new Uploader(form, mContext, mFormFragment, loadingView, counter, total);
+                            uploader.execute();
+                            counter++;
+                        }
                     }
                 }
-            }
 
-            mFormFragment.setListView();
+                mFormFragment.setListView();
+            }else{
+                Toast.makeText(mContext,
+                        "You are not authorized to upload any forms",
+                        Toast.LENGTH_LONG).show();
+            }
         }else{
-            Toast.makeText(mContext, "Please login first", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Please login first", Toast.LENGTH_LONG).show();
         }
     }
 

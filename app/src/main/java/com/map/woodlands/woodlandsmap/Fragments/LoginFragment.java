@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -109,6 +110,13 @@ public class  LoginFragment extends Fragment implements OnClickListener{
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+//        Log.i("debug", "sign in start");
+        signInAtStart();
+    }
+
+    @Override
     public void onClick(View v) {
         // Login button clicked, do sign in
         switch(v.getId()){
@@ -169,34 +177,6 @@ public class  LoginFragment extends Fragment implements OnClickListener{
         loggedInLayout.setVisibility(View.VISIBLE);
     }
 
-    public String signIn(String email, String password){
-        HttpClient httpClient = new DefaultHttpClient();
-        HttpPost httpPost = new HttpPost(getResources().getString(R.string.login_url));
-
-        try{
-            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
-            nameValuePairs.add(new BasicNameValuePair("Email", email));
-            nameValuePairs.add(new BasicNameValuePair("Password", password));
-            nameValuePairs.add(new BasicNameValuePair("RememberMe", "false"));
-
-            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-
-            // Execute HTTP POST Request
-            HttpResponse response = httpClient.execute(httpPost);
-            String responseContent = null;
-
-            if(response.getStatusLine().toString().contains("200")){
-                // Successful Connection
-                responseContent = getStringFromInputStream(response.getEntity().getContent());
-            }
-
-            return responseContent;
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     public void setLoggedInView(){
         SharedPreferences sp = this.getActivity().getSharedPreferences("UserInfo", 0);
@@ -275,6 +255,53 @@ public class  LoginFragment extends Fragment implements OnClickListener{
 
     }
 
+    public String signIn(String email, String password){
+//        Log.i("debug", "in sign in");
+        HttpClient httpClient = new DefaultHttpClient();
+        HttpPost httpPost = new HttpPost(getResources().getString(R.string.login_url));
+
+        try{
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
+            nameValuePairs.add(new BasicNameValuePair("Email", email));
+            nameValuePairs.add(new BasicNameValuePair("Password", password));
+            nameValuePairs.add(new BasicNameValuePair("RememberMe", "false"));
+
+            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+            // Execute HTTP POST Request
+            HttpResponse response = httpClient.execute(httpPost);
+            String responseContent = null;
+
+            if(response.getStatusLine().toString().contains("200")){
+//                Log.i("debug", "success");
+                // Successful Connection
+                responseContent = getStringFromInputStream(response.getEntity().getContent());
+            }
+
+            return responseContent;
+
+        }catch (Exception e){
+//            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
+    /*
+     * Sign in at start if has credentials
+     * */
+    public void signInAtStart(){
+        SharedPreferences sp = mActivity.getSharedPreferences("UserInfo", 0);
+        String json = sp.getString("json", "");
+        if(!json.equals("")){
+            // Has User Info, Start signing in
+            Gson gson = new Gson();
+            UserInfo ui = gson.fromJson(json, UserInfo.class);
+            new LoginAsyncTask(ui.getUsername(), ui.getPassword()).execute();
+        }
+    }
+
     /*
     * Sign in to the server
     * */
@@ -301,24 +328,31 @@ public class  LoginFragment extends Fragment implements OnClickListener{
 
             if(s != null){
 //                Log.i("debug", s);
-                try{
-                    JSONObject reader = new JSONObject(s);
-                    if(reader.getString("Status").equals("success")){
-                        // Login Success
-                        usernameView.setText("Hello " + reader.getString("Email"));
-                        roleView.setText("Your role: " + reader.getString("Role"));
-                        showLoggedInView();
-                        saveUserData(this.mEmail, this.mPassword, reader.getString("Role"));
+                if(s.contains("success")) {
+                    try {
+                        JSONObject reader = new JSONObject(s);
+                        if (reader.getString("Status").equals("success")) {
+                            // Login Success
+                            usernameView.setText("Hello " + reader.getString("Email"));
+                            roleView.setText("Your role: " + reader.getString("Role"));
+                            showLoggedInView();
+                            saveUserData(this.mEmail, this.mPassword, reader.getString("Role"));
 
-                        mapFragment.getMapData();
-                    }else{
-                        // Login failed, show message
-                        messageView.setText(reader.getString("Message"));
+                            mapFragment.getMapData();
+                        } else {
+                            // Login failed, show message
+                            messageView.setText(reader.getString("Message"));
 
+                        }
+                        enableViews();
+                    } catch (Exception e) {
+//                        e.printStackTrace();
                     }
+                }else{
+                    deleteUserData();
+                    showLoginView();
+                    Toast.makeText(mActivity,"Login failed",Toast.LENGTH_SHORT).show();
                     enableViews();
-                }catch (Exception e){
-                    e.printStackTrace();
                 }
             } else{
                 Toast.makeText(mActivity,"Login failed",Toast.LENGTH_SHORT).show();

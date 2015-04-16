@@ -36,13 +36,14 @@ public class FormArrayAdapter extends ArrayAdapter<Form>{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Form form = getItem(position);
+        Form form = mForms.get(position);
 
         if(convertView == null){
             convertView = inflater.inflate(R.layout.in_listview,parent,false);
 
             holder = new ViewHolder();
             holder.dateView = (TextView) convertView.findViewById(R.id.dateView);
+            holder.timestampView = (TextView) convertView.findViewById(R.id.timestamp);
             holder.statusView = (TextView) convertView.findViewById(R.id.statusView);
             holder.warningIcon = (ImageView) convertView.findViewById(R.id.warningIcon);
             holder.deleteIcon = (ImageView) convertView.findViewById(R.id.deleteIcon);
@@ -51,27 +52,30 @@ public class FormArrayAdapter extends ArrayAdapter<Form>{
             holder = (ViewHolder) convertView.getTag();
         }
 
-        if(mForms.get(position).messages == null){
+        if(form.messages == null){
             holder.warningIcon.setVisibility(View.GONE);
         }else{
-            if(mForms.get(position).messages.size() != 0) {
+            if(form.messages.size() != 0) {
                 holder.warningIcon.setVisibility(View.VISIBLE);
             }else{
                 holder.warningIcon.setVisibility(View.GONE);
             }
         }
 
-        holder.dateView.setText(mForms.get(position).INSP_DATE);
-        holder.statusView.setText(mForms.get(position).STATUS);
-        holder.warningIcon.setOnClickListener(new WarningView(mContext,mForms.get(position)));
-        holder.deleteIcon.setOnClickListener(new DeleteView(mContext,mForms.get(position),mFormFragment));
+        holder.dateView.setText(form.INSP_DATE);
+        holder.timestampView.setText(form.timestamp);
+        holder.statusView.setText(form.STATUS);
+        holder.warningIcon.setOnClickListener(new WarningView(mContext,form));
+        holder.deleteIcon.setOnClickListener(new DeleteView(mContext,form,mFormFragment));
         return convertView;
     }
 
     static class ViewHolder{
         TextView dateView;
+        TextView timestampView;
         TextView statusView;
         ImageView warningIcon;
         ImageView deleteIcon;
+
     }
 }

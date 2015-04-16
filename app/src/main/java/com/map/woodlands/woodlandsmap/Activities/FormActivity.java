@@ -70,6 +70,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
     public int year;
     public int month;
     public int day;
+    public String formCreatedTime;
     public String mCurrentPhotoPath;
     public int mCurrentRequestCode;
     public HashMap<Integer, String> mPhotoMap;
@@ -329,7 +330,8 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
                 .append("/").append(year));
 
 
-
+        // Get timestamp
+        formCreatedTime = new SimpleDateFormat("HH:mm:ss").format(new Date());
     }
 
     @Override
@@ -458,6 +460,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         theForm.SEDEMENTAT = sedimentationSpinner.getSelectedItem().toString();
         theForm.REMARKS = remarksView.getText().toString();
         theForm.AttachmentPath1 = m_chosenDir;
+        theForm.timestamp = formCreatedTime;
 
         setPhotoPath(theForm);
 
@@ -493,6 +496,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
     }
 
     public void setPhotoView(ImageView photoView, String path){
+//        Log.i("debug", "out: "+ path);
         ImageProcessor imageProcessor = new ImageProcessor(photoView, path, true, location);
 
         imageProcessor.setImageView();

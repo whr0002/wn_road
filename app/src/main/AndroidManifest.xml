@@ -34,7 +34,8 @@
 
         <activity
             android:name=".MainActivity"
-            android:uiOptions="splitActionBarWhenNarrow" >
+            android:uiOptions="splitActionBarWhenNarrow"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -43,11 +44,13 @@
         </activity>
         <activity
             android:name=".Activities.FormActivity"
-            android:label="@string/form_detail" >
+            android:label="@string/form_detail"
+            android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
             android:name=".Activities.EditFormActivity"
-            android:label="View a form" >
+            android:label="View a form"
+            android:windowSoftInputMode="stateHidden">
         </activity>
         <activity android:name=".Activities.ViewCrossingDataActivity" >
         </activity>
@@ -57,7 +60,8 @@
         </activity>
         <activity
             android:name=".Activities.ContactActivity"
-            android:label="Contact Us" >
+            android:label="Contact Us"
+            android:windowSoftInputMode="stateHidden">
         </activity>
 
     </application>

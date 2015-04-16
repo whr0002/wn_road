@@ -311,7 +311,7 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="65dp"
                 android:layout_gravity="center"
                 android:weightSum="1"
                 android:layout_marginTop="5dp"
@@ -325,11 +325,20 @@
                     android:id="@+id/streamClassLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
-                    android:layout_weight="0.5"/>
+                    android:layout_weight="0.4"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="@color/red"
+                    android:textSize="18sp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.1"/>
 
                 <Spinner
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:id="@+id/streamClassDropdown"
 
                     android:layout_weight="0.5"
@@ -489,7 +498,16 @@
                         android:id="@+id/culvertDiameter1Label"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
-                        android:layout_weight="0.5"/>
+                        android:layout_weight="0.4"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="*"
+                        android:textColor="@color/red"
+                        android:textSize="18sp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.1"/>
 
                     <EditText android:textColor="@color/cblue"
                         android:layout_width="0dp"
@@ -1457,7 +1475,16 @@
                         android:id="@+id/erosionType1Label"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
-                        android:layout_weight="0.5"/>
+                        android:layout_weight="0.4"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="*"
+                        android:textColor="@color/red"
+                        android:textSize="18sp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.1"/>
 
                     <Spinner
                         android:layout_width="0dp"
@@ -1545,7 +1572,16 @@
                         android:id="@+id/erosionDegreeLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
-                        android:layout_weight="0.5"/>
+                        android:layout_weight="0.4"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="*"
+                        android:textColor="@color/red"
+                        android:textSize="18sp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.1"/>
 
                     <Spinner
                         android:layout_width="0dp"

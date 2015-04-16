@@ -58,7 +58,7 @@ public class ImageProcessor {
         mImageView.setImageBitmap(bitmap);
         // Indicate whether to compress the image
         if(mIsCompress) {
-            bmOptions.inSampleSize = 10;
+            bmOptions.inSampleSize = 8;
             Bitmap b = BitmapFactory.decodeFile(mPath, bmOptions);
             compressImage(b);
 
@@ -77,35 +77,32 @@ public class ImageProcessor {
     }
 
     public void compressImage(Bitmap b){
-        File file = new File(mPath);
+        try{
+            if(mPath != null) {
+//                Log.i("debug", "in: " + mPath);
+                File file = new File(mPath);
 
-        if(!file.exists()){
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-//                e.printStackTrace();
-            }
-        }else{
+                if (!file.exists()) {
 
-            file.delete();
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-//                e.printStackTrace();
-            }
-        }
+                    file.createNewFile();
 
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(file);
-            if (fos != null) {
-                b.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-                fos.close();
+                } else {
+
+                    file.delete();
+                    file.createNewFile();
+                }
+
+                FileOutputStream fos = null;
+
+                fos = new FileOutputStream(file);
+                if (fos != null) {
+                    b.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                    fos.close();
+                }
             }
-        } catch (Exception e) {
-//            e.printStackTrace();
+
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -146,7 +143,7 @@ public class ImageProcessor {
                 exif.saveAttributes();
 
             } catch (IOException e) {
-                e.printStackTrace();
+//                e.printStackTrace();
                 return false;
             }
         } else {

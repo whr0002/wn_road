@@ -59,8 +59,12 @@ public class FormValidator {
                 messages.add(generateNumericMessage("Longitude"));
             }
 
-            if(mForm.STR_CLASS.length() > 50){
-                messages.add(generateLengthMessage("Stream Classification", 50));
+            if(mForm.STR_CLASS.length() == 0){
+                messages.add("Stream Classification is required");
+            }
+
+            if(mForm.STR_CLASS.length() > 100){
+                messages.add(generateLengthMessage("Stream Classification", 100));
             }
 
             if(mForm.STR_WIDTH.length()> 0 && !isNumeric(mForm.STR_WIDTH)){
@@ -74,10 +78,27 @@ public class FormValidator {
 
             if(mForm.CROSS_TYPE.length() == 0){
                 messages.add("Crossing Type is required");
+            }else{
+                if(!mForm.CROSS_TYPE.contains("bridge")){
+                    // It's culvert type, make Culvert Diameter 1 required
+                    if(mForm.CULV_DIA_1.length() == 0){
+                        messages.add("Culvert Diameter 1 is required");
+                    }
+                }
             }
 
             if(mForm.EROSION.length() == 0){
                 messages.add("Erosion is required");
+            }else{
+                if(!mForm.EROSION.contains("No")){
+                    // Erosion is Yes or Pot, validate Erosion Type and Degree
+                    if(mForm.EROSION_TY1.length() == 0){
+                        messages.add("Erosion Type is required");
+                    }
+                    if(mForm.EROSION_DE.length() == 0){
+                        messages.add("Erosion Degree is required");
+                    }
+                }
             }
 
             if(mForm.EROSION_AR.length()> 0 && !isNumeric(mForm.EROSION_AR)){

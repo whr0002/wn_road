@@ -190,6 +190,7 @@ public class ContactActivity extends ActionBarActivity implements View.OnClickLi
             phoneEdit.setText("");
             messageEdit.setText("");
             Toast.makeText(context, "Message sent", Toast.LENGTH_LONG).show();
+            finish();
 
         }
     }

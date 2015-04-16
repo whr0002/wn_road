@@ -57,6 +57,7 @@ public class ViewToggler {
                     bridgeBlock.setVisibility(View.VISIBLE);
                 }else if(s.contains("culvert") && s.contains("single")){
                     culvertBlock.setVisibility(View.VISIBLE);
+                    bridgeBlock.setVisibility(View.GONE);
                     culvertD2Block.setVisibility(View.GONE);
                     culvertD3Block.setVisibility(View.GONE);
                 }

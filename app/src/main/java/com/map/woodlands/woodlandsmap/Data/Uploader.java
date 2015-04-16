@@ -101,55 +101,63 @@ public class Uploader {
 
         RequestParams params = new RequestParams();
         UserInfo ui = getUserInfo();
-        if(ui.role != null){
-            params.put("Role", ui.role);
-        }
 
-        for(int i=0;i<photoPathes.size();i++){
-            String path = photoPathes.get(i);
-            int j = i+1;
-            String paramName = "image"+j;
-            if(path != null){
-                File mFile = new File(path);
-                setRealPhotoUrl(mFile, ui.role, j);
-                try{
-                    params.put(paramName, mFile);
-                }catch (FileNotFoundException e){
-                    Toast.makeText(mContext, "Image file not found", Toast.LENGTH_SHORT).show();
+        if(ui != null){
+            params.put("Email", ui.getUsername());
+            params.put("Password", ui.getPassword());
+            params.put("Role", ui.role);
+
+
+            for(int i=0;i<photoPathes.size();i++){
+                String path = photoPathes.get(i);
+                int j = i+1;
+                String paramName = "image"+j;
+                if(path != null){
+                    File mFile = new File(path);
+                    setRealPhotoUrl(mFile, ui.role, j);
+                    try{
+                        params.put(paramName, mFile);
+                    }catch (FileNotFoundException e){
+                        Toast.makeText(mContext, "Image file not found", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                }
+            }
+
+            client.post(mContext.getResources()
+                    .getString(R.string.image_post_url)
+                    , params,
+                    new AsyncHttpResponseHandler() {
+                @Override
+                public void onSuccess(int i, Header[] headers, byte[] bytes) {
+                    String s = "";
+                    try {
+                        s = new String(bytes, "UTF-8");
+                    }catch (Exception e){}
+                    if(s.contains("success")){
+                        uploadForm();
+                    }else{
+                        // Uploading failed
+                        if(current == total){
+                            Toast.makeText(mContext,"Photo upload failed, please try later",Toast.LENGTH_SHORT).show();
+                            loadingView.setVisibility(View.GONE);
+                        }
+                    }
                 }
 
+                @Override
+                public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
 
-            }
-        }
-
-        client.post(mContext.getResources().getString(R.string.image_post_url), params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int i, Header[] headers, byte[] bytes) {
-                String s = "";
-                try {
-                    s = new String(bytes, "UTF-8");
-                }catch (Exception e){}
-                if(s.contains("success")){
-                    uploadForm();
-                }else{
-                    // Uploading failed
                     if(current == total){
-                        Toast.makeText(mContext,"Photo upload failed, please try later",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext,"Network Error when uploading photos",Toast.LENGTH_SHORT).show();
                         loadingView.setVisibility(View.GONE);
                     }
                 }
-            }
-
-            @Override
-            public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-
-                if(current == total){
-                    Toast.makeText(mContext,"Network Error when uploading photos",Toast.LENGTH_SHORT).show();
-                    loadingView.setVisibility(View.GONE);
-                }
-            }
-        });
-
+            });
+        }else{
+            Toast.makeText(mContext, "Do not have User Information when uploading forms", Toast.LENGTH_SHORT).show();
+        }
 
     }
 

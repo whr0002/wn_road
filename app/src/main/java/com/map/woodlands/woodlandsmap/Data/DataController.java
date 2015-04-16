@@ -1,9 +1,8 @@
 package com.map.woodlands.woodlandsmap.Data;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -14,7 +13,6 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.map.woodlands.woodlandsmap.Activities.ViewCrossingDataActivity;
 import com.map.woodlands.woodlandsmap.Data.SAXKML.MapController;
-import com.map.woodlands.woodlandsmap.R;
 
 import org.apache.http.Header;
 
@@ -26,7 +24,7 @@ import java.util.ArrayList;
  */
 public class DataController {
 
-    private Activity mActivity;
+    private Context context;
     private AsyncHttpClient client;
     private String coordsUri;
     private String rowUri;
@@ -37,19 +35,24 @@ public class DataController {
     private MapController mapController;
     private ViewToggler mViewToggler;
 
-    public DataController(Activity a, MapController mapController, ViewToggler viewToggler){
-        this.mActivity = a;
+    public DataController(Context c, MapController mapController, ViewToggler viewToggler){
+        this.context = c;
         this.client = new AsyncHttpClient();
         this.listType = new TypeToken<ArrayList<Coordinate>>(){}.getType();
         this.gson = new Gson();
         this.mapController = mapController;
         this.mViewToggler = viewToggler;
 
-        Resources resources = a.getResources();
-        coordsUri = resources.getString(R.string.coords_url);
-        rowUri = resources.getString(R.string.row_url);
-        kmlUri = resources.getString(R.string.kml_url);
+
+//        Resources resources = context.getResources();
+//        coordsUri = resources.getString(R.string.coords_url);
+//        rowUri = resources.getString(R.string.row_url);
+//        kmlUri = resources.getString(R.string.kml_url);
+        coordsUri = "http://scari.azurewebsites.net/androiddata/coordinates";
+        rowUri = "http://scari.azurewebsites.net/androiddata/onerow";
+        kmlUri = "http://scari.azurewebsites.net/androiddata/KMLs";
     }
+
     public void loadCoords(String dataUrl){
         UserInfo ui = getUserRole();
 
@@ -106,9 +109,9 @@ public class DataController {
                         mViewToggler.toggleLoadingView();
                         String json = new String(bytes);
 //                        Log.i("debug", json);
-                        Intent intent = new Intent(mActivity.getApplicationContext(), ViewCrossingDataActivity.class);
+                        Intent intent = new Intent(context, ViewCrossingDataActivity.class);
                         intent.putExtra("json", json);
-                        mActivity.startActivity(intent);
+                        context.startActivity(intent);
 
                     }catch (Exception e){
 //                        e.printStackTrace();
@@ -118,7 +121,7 @@ public class DataController {
                 @Override
                 public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
                     mViewToggler.toggleLoadingView();
-                    Toast.makeText(mActivity.getApplicationContext(), "Fail to get data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Fail to get data", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -141,7 +144,7 @@ public class DataController {
                         String json = new String(bytes);
 //                        Log.i("debug", json);
                         // Parse JSON and Save it
-                        SharedPreferences sp = mActivity.getSharedPreferences("KMLData", 0);
+                        SharedPreferences sp = context.getSharedPreferences("KMLData", 0);
                         SharedPreferences.Editor spEditor = sp.edit();
                         spEditor.putString("json", json);
                         spEditor.commit();
@@ -162,7 +165,7 @@ public class DataController {
     }
 
     private UserInfo getUserRole(){
-        SharedPreferences sp = mActivity.getSharedPreferences("UserInfo",0);
+        SharedPreferences sp = context.getSharedPreferences("UserInfo",0);
         String json = sp.getString("json", "");
         Gson gson = new Gson();
         UserInfo ui = null;
