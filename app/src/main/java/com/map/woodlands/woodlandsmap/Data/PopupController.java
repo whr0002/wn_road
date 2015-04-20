@@ -54,19 +54,34 @@ public class PopupController {
 
             counter++;
         }
+
+        menu.add(1, counter, counter, "Processed Data");
+        counter++;
         menu.add(1, counter, counter, "Raw Data");
+        counter++;
+        menu.add(1, counter, counter, "Clear");
 
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if(!item.getTitle().equals("Raw Data")){
-                    mapController.loadKML(""+hm.get(item.getTitle()), ""+item.getTitle());
-                }else{
+                String title = item.getTitle().toString();
+                if(title.equals("Processed Data")){
+                    // Get processed data
+                    String url = mContext.getString(R.string.coords_url);
+                    if(url != null){
+                        dataController.loadCoords(url, 0);
+                    }
+                }else if(title.equals("Raw Data")){
                     // Get raw data
                     String url = mContext.getString(R.string.raw_data_url);
                     if(url != null) {
-                        dataController.loadCoords(url);
+                        dataController.loadCoords(url, 1);
                     }
+                }else if(title.equals("Clear")){
+                    mapController.clear();
+                }
+                else{
+                    mapController.loadKML(""+hm.get(item.getTitle()), ""+item.getTitle());
                 }
                 return true;
 

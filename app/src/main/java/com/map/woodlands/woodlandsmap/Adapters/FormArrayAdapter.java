@@ -42,6 +42,7 @@ public class FormArrayAdapter extends ArrayAdapter<Form>{
             convertView = inflater.inflate(R.layout.in_listview,parent,false);
 
             holder = new ViewHolder();
+            holder.positionView = (TextView) convertView.findViewById(R.id.position);
             holder.dateView = (TextView) convertView.findViewById(R.id.dateView);
             holder.timestampView = (TextView) convertView.findViewById(R.id.timestamp);
             holder.statusView = (TextView) convertView.findViewById(R.id.statusView);
@@ -54,14 +55,18 @@ public class FormArrayAdapter extends ArrayAdapter<Form>{
 
         if(form.messages == null){
             holder.warningIcon.setVisibility(View.GONE);
+            holder.statusView.setTextColor(mContext.getResources().getColor(R.color.green));
         }else{
             if(form.messages.size() != 0) {
                 holder.warningIcon.setVisibility(View.VISIBLE);
+                holder.statusView.setTextColor(mContext.getResources().getColor(R.color.red));
             }else{
                 holder.warningIcon.setVisibility(View.GONE);
+                holder.statusView.setTextColor(mContext.getResources().getColor(R.color.green));
             }
         }
 
+        holder.positionView.setText(position+1+".");
         holder.dateView.setText(form.INSP_DATE);
         holder.timestampView.setText(form.timestamp);
         holder.statusView.setText(form.STATUS);
@@ -71,6 +76,7 @@ public class FormArrayAdapter extends ArrayAdapter<Form>{
     }
 
     static class ViewHolder{
+        TextView positionView;
         TextView dateView;
         TextView timestampView;
         TextView statusView;

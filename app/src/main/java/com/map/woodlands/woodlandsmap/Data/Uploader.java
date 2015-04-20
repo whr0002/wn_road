@@ -365,15 +365,15 @@ public class Uploader {
         if(s != null) {
             s = s.toLowerCase();
             if (s.contains("ephemeral")) {
-                return "ephemeral";
+                return "Ephemeral";
             } else if (s.contains("non")) {
-                return "non-fluvial";
+                return "Non-fluvial";
             } else if (s.contains("intermittent")) {
-                return "fluvial - intermittent";
+                return "Fluvial - intermittent";
             } else if (s.contains("small")) {
-                return "fluvial - small permanent";
+                return "Fluvial - small permanent";
             } else if (s.contains("large")) {
-                return "fluvial - large permanent";
+                return "Fluvial - large permanent";
             }
         }
         return null;

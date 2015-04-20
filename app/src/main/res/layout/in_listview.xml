@@ -22,6 +22,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/position"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/dgreen"
+                    android:textStyle="bold"
+                    android:text=""/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="Large Text"
                     android:id="@+id/dateView"
@@ -33,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/timestamp"
                     android:layout_below="@+id/dateView"
-                    android:text="123"
+                    android:text=""
                     android:layout_centerInParent="true"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
 
@@ -71,7 +85,8 @@
                         android:layout_gravity="center"
                         android:layout_marginRight="20dp"
                         android:id="@+id/warningIcon"
-                        android:visibility="gone"/>
+                        android:visibility="gone"
+                        android:background="@drawable/item_background"/>
 
                     <ImageView
                         android:layout_width="50dp"
@@ -79,7 +94,8 @@
                         android:scaleType="fitCenter"
                         android:src="@drawable/file_delete"
                         android:layout_gravity="center"
-                        android:id="@+id/deleteIcon"/>
+                        android:id="@+id/deleteIcon"
+                        android:background="@drawable/item_background"/>
 
                 </LinearLayout>
 

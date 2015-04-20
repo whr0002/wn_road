@@ -43,8 +43,10 @@ import com.map.woodlands.woodlandsmap.R;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -275,6 +277,16 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
 
     public void setSpinnerAdapter(Spinner spinner, int arrayID){
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, arrayID, R.layout.spinner_item);
+        if(arrayID == R.array.fishSamplingSpecies1Items){
+            adapter.sort(new Comparator<CharSequence>() {
+                @Override
+                public int compare(CharSequence lhs, CharSequence rhs) {
+
+                    return lhs.toString().compareTo(rhs.toString());
+                }
+            });
+        }
+
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
     }
@@ -331,7 +343,8 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
 
 
         // Get timestamp
-        formCreatedTime = new SimpleDateFormat("HH:mm:ss").format(new Date());
+//        formCreatedTime = new SimpleDateFormat("HH:mm:ss").format(new Date());
+        formCreatedTime = DateFormat.getTimeInstance().format(new Date());
     }
 
     @Override
@@ -640,14 +653,15 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_"+timeStamp;
-        String storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)+"/picupload";
-        File dir = new File(storageDir);
+//        String storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)+"/picupload";
+        File dir = new File(this.getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "picupload");
+//        File dir = new File(storageDir);
 
         if(!dir.exists()){
             dir.mkdir();
         }
 
-        File image = new File(storageDir + "/" + imageFileName + ".jpg");
+        File image = new File(dir.getAbsolutePath() + "/" + imageFileName + ".jpg");
 
         // Save a file: path for use with ACTION_VIEW intents
         deleteTempImageIfExist();

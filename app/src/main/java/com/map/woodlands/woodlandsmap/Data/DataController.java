@@ -53,7 +53,7 @@ public class DataController {
         kmlUri = "http://scari.azurewebsites.net/androiddata/KMLs";
     }
 
-    public void loadCoords(String dataUrl){
+    public void loadCoords(String dataUrl, final int type){
         UserInfo ui = getUserRole();
 
         if(ui != null) {
@@ -67,6 +67,7 @@ public class DataController {
                 public void onSuccess(int i, Header[] headers, byte[] bytes) {
                     try{
                         String json = new String(bytes);
+                        saveCoords(json, type);
                         ArrayList<Coordinate> coords = new ArrayList<Coordinate>();
 
 //                        Log.i("debug", json);
@@ -82,11 +83,54 @@ public class DataController {
                 @Override
                 public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
 //                    Log.i("debug", "failed");
+                    Toast.makeText(context
+                            , "Loading markers from local storage"
+                            , Toast.LENGTH_SHORT).show();
+
+                    String json = getCoordsFromLocal(type);
+                    if(!json.equals("")){
+                        ArrayList<Coordinate> coords = new ArrayList<Coordinate>();
+                        coords = gson.fromJson(json, listType);
+                        mapController.loadAllMarkers(coords);
+                    }else{
+                        Toast.makeText(context
+                                , "No available data in local storage"
+                                ,Toast.LENGTH_SHORT).show();
+                    }
+
                 }
             });
 
         }
 
+    }
+
+    private void saveCoords(String json, int type){
+        SharedPreferences sp = context.getSharedPreferences("Markers", 0);
+        SharedPreferences.Editor spEditor = sp.edit();
+        if(type == 0){
+            spEditor.putString("processed", json);
+            spEditor.commit();
+
+        }else if(type == 1){
+            spEditor.putString("raw", json);
+            spEditor.commit();
+        }
+    }
+
+    private String getCoordsFromLocal(int type){
+        SharedPreferences sp = context.getSharedPreferences("Markers", 0);
+        SharedPreferences.Editor spEditor = sp.edit();
+        String json = "";
+        if(type == 0){
+            // get processed data
+            json = sp.getString("processed", "");
+
+        }else if(type == 1){
+            // get raw data
+            json = sp.getString("raw", "");
+        }
+        return json;
     }
 
 

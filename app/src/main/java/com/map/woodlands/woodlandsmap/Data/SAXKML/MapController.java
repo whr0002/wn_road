@@ -1,6 +1,7 @@
 package com.map.woodlands.woodlandsmap.Data.SAXKML;
 
 import android.content.Context;
+import android.location.Location;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -79,7 +80,7 @@ public class MapController {
             public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
 
                 Toast.makeText(mContext
-                        ,"No internet access, try to load KML file from local storage"
+                        ,"Network error, try to load KML file from local storage"
                         ,Toast.LENGTH_SHORT)
                         .show();
 
@@ -205,6 +206,28 @@ public class MapController {
             }
             autocenterPoint(markers);
         }
+    }
+
+    public void findMyLocation(){
+//        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        map.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
+            @Override
+            public void onMyLocationChange(Location location) {
+                if(location != null) {
+                    LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15.0f));
+                    map.setOnMyLocationChangeListener(null);
+
+                }
+            }
+        });
+
+
+    }
+
+    public void clear(){
+        markers.clear();
+        map.clear();
     }
 
 

@@ -79,7 +79,7 @@ public class FormValidator {
             if(mForm.CROSS_TYPE.length() == 0){
                 messages.add("Crossing Type is required");
             }else{
-                if(!mForm.CROSS_TYPE.contains("bridge")){
+                if(!mForm.CROSS_TYPE.toLowerCase().contains("bridge")){
                     // It's culvert type, make Culvert Diameter 1 required
                     if(mForm.CULV_DIA_1.length() == 0){
                         messages.add("Culvert Diameter 1 is required");

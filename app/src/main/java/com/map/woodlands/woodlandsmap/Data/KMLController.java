@@ -35,26 +35,39 @@ public class KMLController {
 
     public void loadLocalKML(String filename){
         if(filename != null){
-            String filePath = Environment
-                    .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                    +"/kmls/"+filename;
-            File file = new File(filePath);
-            if(file.exists()){
-                int size = (int) file.length();
-                byte[] bytes = new byte[size];
+//            String filePath = Environment
+//                    .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+//                    +"/kmls/"+filename;
 
-                try{
-                    BufferedInputStream buf = new BufferedInputStream(new FileInputStream(file));
-                    buf.read(bytes, 0, bytes.length);
-                    buf.close();
-                    mapController.addDataToMap(MapService.getNavigationDataSet(bytes));
-                }catch (Exception e){
+            File dir = new File(mContext
+                    .getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)
+                    , "kmls");
+
+            if(dir.exists()) {
+                File file = new File(dir.getAbsolutePath() + "/" + filename);
+
+                if (file.exists()) {
+                    int size = (int) file.length();
+                    byte[] bytes = new byte[size];
+
+                    try {
+                        BufferedInputStream buf = new BufferedInputStream(new FileInputStream(file));
+                        buf.read(bytes, 0, bytes.length);
+                        buf.close();
+                        mapController.addDataToMap(MapService.getNavigationDataSet(bytes));
+                    } catch (Exception e) {
+                        Toast.makeText(mContext
+                                , "Exceptions when loading KML from local storage"
+                                , Toast.LENGTH_SHORT)
+                                .show();
+                    }
+
+                } else {
                     Toast.makeText(mContext
-                            , "Exceptions when loading KML from local storage"
+                            , "KML file does not exist in local storage"
                             , Toast.LENGTH_SHORT)
                             .show();
                 }
-
             }else{
                 Toast.makeText(mContext
                         , "KML file does not exist in local storage"
@@ -67,15 +80,15 @@ public class KMLController {
     public void saveFile(byte[] bytes, String filename){
 //        Log.i("debug", filename);
 
-        String storagePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/kmls";
-        File dir = new File(storagePath);
+//        String storagePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/kmls";
+        File dir = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),"kmls");
 
         if(!dir.exists()){
             dir.mkdir();
         }
 
 
-        File kmlz = new File(storagePath + "/" + filename);
+        File kmlz = new File(dir.getAbsolutePath() + "/" + filename);
 
         if(kmlz.exists()){
             kmlz.delete();

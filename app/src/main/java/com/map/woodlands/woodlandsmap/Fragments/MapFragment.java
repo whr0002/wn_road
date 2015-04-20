@@ -145,7 +145,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 
 
     public void getMapData(){
-        dataController.loadCoords(getResources().getString(R.string.coords_url));
+//        dataController.loadCoords(getResources().getString(R.string.coords_url),0);
+        mapController.findMyLocation();
         dataController.getKML();
     }
 
@@ -168,6 +169,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         this.mapController = new MapController(this.map, markerToggler, viewToggler, mContext);
         this.dataController = new DataController(mContext, mapController, viewToggler);
         this.popupController = new PopupController(mContext, mapController, markerToggler, dataController);
+
 
 
         getMapData();

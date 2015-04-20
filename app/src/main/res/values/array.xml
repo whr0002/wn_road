@@ -38,16 +38,16 @@
 
     <string-array name="crossingTypeItems">
         <item></item>
-        <item>bridge - permanent</item>
-        <item>bridge - temporary</item>
-        <item>culvert - single</item>
-        <item>culvert - multiple</item>
-        <item>culvert - open bottom</item>
-        <item>log - fill</item>
-        <item>snow - fill</item>
-        <item>ford</item>
-        <item>suspended</item>
-        <item>reclaimed</item>
+        <item>Bridge - permanent</item>
+        <item>Bridge - temporary</item>
+        <item>Culvert - single</item>
+        <item>Culvert - multiple</item>
+        <item>Culvert - open bottom</item>
+        <item>Log - fill</item>
+        <item>Snow - fill</item>
+        <item>Ford</item>
+        <item>Suspended</item>
+        <item>Reclaimed</item>
 
     </string-array>
 
@@ -66,11 +66,11 @@
 
     <string-array name="culvertSubstrateTypeItems">
         <item></item>
-        <item>sand</item>
-        <item>gravel</item>
-        <item>cobble</item>
-        <item>boulder</item>
-        <item>other</item>
+        <item>Sand</item>
+        <item>Gravel</item>
+        <item>Cobble</item>
+        <item>Boulder</item>
+        <item>Other</item>
 
     </string-array>
 
@@ -94,16 +94,16 @@
 
     <string-array name="culvertSlopeItems">
         <item></item>
-        <item>level, uniform</item>
-        <item>&gt;2%, bent</item>
+        <item>Level, Uniform</item>
+        <item>&gt;2%, Bent</item>
 
     </string-array>
 
     <string-array name="culvertOutletTypeItems">
         <item></item>
-        <item>embedded</item>
-        <item>level</item>
-        <item>hanging</item>
+        <item>Embedded</item>
+        <item>Level</item>
+        <item>Hanging</item>
 
     </string-array>
 
@@ -116,9 +116,9 @@
 
     <string-array name="delineatorItems">
         <item></item>
-        <item>no</item>
-        <item>yes, ok</item>
-        <item>yes, needs repair</item>
+        <item>No</item>
+        <item>Yes, ok</item>
+        <item>Yes, Needs repairs</item>
 
     </string-array>
 
@@ -186,19 +186,19 @@
 
     <string-array name="erosionSourceItems">
         <item></item>
-        <item>ditch</item>
-        <item>bank slump</item>
-        <item>fill slope</item>
-        <item>road surface</item>
-        <item>bridge deck</item>
-        <item>other</item>
+        <item>Ditch</item>
+        <item>Bank slump</item>
+        <item>Fill slope</item>
+        <item>Road surface</item>
+        <item>Bridge deck</item>
+        <item>Other</item>
     </string-array>
 
     <string-array name="erosionDegreeItems">
         <item></item>
-        <item>low</item>
-        <item>moderate</item>
-        <item>high</item>
+        <item>Low</item>
+        <item>Moderate</item>
+        <item>High</item>
     </string-array>
 
     <string-array name="fishSamplingItems">
@@ -209,16 +209,18 @@
 
     <string-array name="fishSamplingMethodItems">
         <item></item>
-        <item>angling</item>
-        <item>netting</item>
-        <item>baited traps</item>
-        <item>electroshocking</item>
-        <item>observation</item>
+        <item>Angling</item>
+        <item>Netting</item>
+        <item>Baited traps</item>
+        <item>Electroshocking</item>
+        <item>Observation</item>
     </string-array>
 
     <string-array name="fishSamplingSpecies1Items">
         <item></item>
         <item>Arctic lamprey</item>
+        <item>Cutthroat trout</item>
+        <item>Dace</item>
         <item>Stonecat</item>
         <item>Lake sturgeon</item>
         <item>Burbot</item>
@@ -272,15 +274,6 @@
         <item>Spoonhead sculpin</item>
         <item>Eastslope sculpin</item>
         <item>Deepwater sculpin</item>
-        <item>burbot</item>
-        <item>white sucker</item>
-        <item>longnose sucker</item>
-        <item>dace</item>
-        <item>slimy sculpin</item>
-        <item>spoonhead sculpin</item>
-        <item>rainbow trout</item>
-        <item>bull trout</item>
-        <item>cutthroat trout</item>
         <item>UNKNOWN</item>
 
     </string-array>
