@@ -12,6 +12,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -427,9 +428,15 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         theForm.EROSION_DE = erosionDegreeSpinner.getSelectedItem().toString();
         theForm.EROSION_AR = erosionAreaView.getText().toString();
         theForm.CULV_LEN = culvertLengthView.getText().toString();
+
         theForm.CULV_DIA_1 = culvertDiameter1View.getText().toString();
         theForm.CULV_DIA_2 = culvertDiameter2View.getText().toString();
         theForm.CULV_DIA_3 = culvertDiameter3View.getText().toString();
+
+        theForm.CULV_DIA_1_M = convertMMToM(theForm.CULV_DIA_1, 100);
+        theForm.CULV_DIA_2_M = convertMMToM(theForm.CULV_DIA_2, 100);
+        theForm.CULV_DIA_3_M = convertMMToM(theForm.CULV_DIA_3, 100);
+
         theForm.CULV_SUBS = culvertSubstrateSpinner.getSelectedItem().toString();
         theForm.CULV_SUBSTYPE = culvertSubstrateTypeSpinner.getSelectedItem().toString();
         theForm.CULV_SUBSPROPORTION = culvertSubstrateProportionSpinner.getSelectedItem().toString();
@@ -479,6 +486,21 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
 
         return theForm;
     }
+
+    public String convertMMToM(String s, int factor){
+        if(s != null && factor != 0){
+            if(s.matches("-?\\d+(\\.\\d+)?")){
+                double d = Double.parseDouble(s);
+                d /= factor; // Convert mm to m
+//                Log.i("debug", "Diameter in m: "+ d);
+                return Double.toString(d);
+            }
+        }
+
+        return null;
+    }
+
+
 
     public void setPhotoPath(Form f) {
         saveTempImage();
@@ -667,7 +689,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         deleteTempImageIfExist();
         mCurrentPhotoPath = image.getAbsolutePath();
 
-//        Log.i("debug", "Image path: " + mCurrentPhotoPath);
+        Log.i("debug", "Image path: " + mCurrentPhotoPath);
         mTempPhotoMap.put(mCurrentRequestCode, mCurrentPhotoPath);
 //        mPhotoMap.put(mCurrentRequestCode, mCurrentPhotoPath);
 

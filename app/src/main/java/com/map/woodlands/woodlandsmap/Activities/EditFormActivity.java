@@ -84,6 +84,10 @@ public class EditFormActivity extends FormActivity{
             f.CULV_DIA_1 = culvertDiameter1View.getText().toString();
             f.CULV_DIA_2 = culvertDiameter2View.getText().toString();
             f.CULV_DIA_3 = culvertDiameter3View.getText().toString();
+            f.CULV_DIA_1_M = convertMMToM(f.CULV_DIA_1, 100);
+            f.CULV_DIA_2_M = convertMMToM(f.CULV_DIA_2, 100);
+            f.CULV_DIA_3_M = convertMMToM(f.CULV_DIA_3, 100);
+
             f.CULV_SUBS = culvertSubstrateSpinner.getSelectedItem().toString();
             f.CULV_SUBSTYPE = culvertSubstrateTypeSpinner.getSelectedItem().toString();
             f.CULV_SUBSPROPORTION = culvertSubstrateProportionSpinner.getSelectedItem().toString();

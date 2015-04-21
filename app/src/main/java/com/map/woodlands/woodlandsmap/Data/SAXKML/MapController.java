@@ -180,6 +180,7 @@ public class MapController {
                     mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_grey));
                     m = map.addMarker(mo);
                 }else{
+                    mo.title("raw");
                     mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_blue));
                     m = map.addMarker(mo);
                 }

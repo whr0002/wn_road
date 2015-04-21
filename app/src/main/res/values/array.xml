@@ -55,7 +55,7 @@
         <item></item>
         <item>Yes</item>
         <item>No</item>
-        <item>Pot</item>
+        <item>Potential</item>
     </string-array>
 
     <string-array name="culvertSubstratePItems">
@@ -167,7 +167,7 @@
         <item></item>
         <item>Yes</item>
         <item>No</item>
-        <item>Pot</item>
+        <item>Potential</item>
     </string-array>
 
     <string-array name="erosionType1Items">
@@ -295,14 +295,14 @@
         <item></item>
         <item>Yes</item>
         <item>No</item>
-        <item>Pot</item>
+        <item>Potential</item>
     </string-array>
 
     <string-array name="sedimentationItems">
         <item></item>
         <item>Yes</item>
         <item>No</item>
-        <item>Pot</item>
+        <item>Potential</item>
     </string-array>
 
     <string-array name="fishReasonItems">

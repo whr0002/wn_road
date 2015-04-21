@@ -121,28 +121,28 @@ public class FormValidator {
             }
 
             if(mForm.CULV_DIA_1.length()> 0 && !isNumeric(mForm.CULV_DIA_1)){
-                messages.add(generateNumericMessage("Culvert Diameter 1"));
+                messages.add(generateNumericMessage("Culvert Diameter 1-Primary"));
             }
 
             if(mForm.CULV_DIA_2.length()> 0 && !isNumeric(mForm.CULV_DIA_2)){
-                messages.add(generateNumericMessage("Culvert Diameter 2"));
+                messages.add(generateNumericMessage("Culvert Diameter 2-Secondary"));
             }
 
             if(mForm.CULV_DIA_3.length()> 0 && !isNumeric(mForm.CULV_DIA_3)){
-                messages.add(generateNumericMessage("Culvert Diameter 3"));
+                messages.add(generateNumericMessage("Culvert Diameter 3-Tertiary"));
             }
 
-            s = generateRangeMessage("Culvert Diameter 1", mForm.CULV_DIA_1, 0, 5);
+            s = generateRangeMessage("Culvert Diameter 1-Primary", mForm.CULV_DIA_1, 0, 500);
             if(s != null){
                 messages.add(s);
             }
 
-            s = generateRangeMessage("Culvert Diameter 2", mForm.CULV_DIA_2, 0, 5);
+            s = generateRangeMessage("Culvert Diameter 2-Secondary", mForm.CULV_DIA_2, 0, 500);
             if(s != null){
                 messages.add(s);
             }
 
-            s = generateRangeMessage("Culvert Diameter 3", mForm.CULV_DIA_3, 0, 5);
+            s = generateRangeMessage("Culvert Diameter 3-Tertiary", mForm.CULV_DIA_3, 0, 500);
             if(s != null){
                 messages.add(s);
             }

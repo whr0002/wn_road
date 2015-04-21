@@ -33,10 +33,12 @@ public class FormFragment  extends Fragment{
 
     private ListView listView;
     private TextView noneView;
-    private View loadingView;
+//    private View loadingView;
     private ArrayList<Form> forms;
 
+
     public FormController formController;
+
 
     public static FormFragment newInstance(){
         FormFragment f = new FormFragment();
@@ -47,10 +49,12 @@ public class FormFragment  extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_form, container, false);
-        loadingView = v.findViewById(R.id.loadingView);
-        loadingView.setVisibility(View.GONE);
+//        loadingView = v.findViewById(R.id.loadingView);
+//        loadingView.setVisibility(View.GONE);
         aba = (ActionBarActivity) this.getActivity();
-        formController = new FormController(aba.getApplicationContext(), this,loadingView);
+
+        formController = new FormController(aba, this);
+        formController.addTestData();
         setHasOptionsMenu(true);
 
         return v;

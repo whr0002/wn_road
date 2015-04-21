@@ -68,6 +68,10 @@ public class Form {
     public String CULV_DIA_2;
     public String CULV_DIA_3;
 
+    public String CULV_DIA_1_M;
+    public String CULV_DIA_2_M;
+    public String CULV_DIA_3_M;
+
     public String BRDG_LEN;
     public String EMG_REP_RE;
     public String STU_PROBS;
@@ -101,6 +105,8 @@ public class Form {
     public String AttachmentPath1;
 
     public String timestamp;
+
+
 //    public String photo_inup_url;
 //    public String photo_indw_url;
 //    public String photo_otup_url;

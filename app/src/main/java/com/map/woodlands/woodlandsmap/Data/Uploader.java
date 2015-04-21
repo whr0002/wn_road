@@ -1,9 +1,9 @@
 package com.map.woodlands.woodlandsmap.Data;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -17,7 +17,6 @@ import org.apache.http.Header;
 import org.apache.http.entity.StringEntity;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,9 +33,10 @@ public class Uploader {
     private FormController mFormController;
     private String baseStorageUrl;
     private HashMap<String,String> mHashMap;
-    private View loadingView;
+//    private View loadingView;
     private int current;
     private int total;
+    private ProgressDialog progressDialog = null;
 
 
 
@@ -52,18 +52,18 @@ public class Uploader {
 //            client.setBasicAuth(user.username, user.password);
 //        }
     }
-    public Uploader(Form form, Context context, FormFragment formFragment, View loadingView, int current, int total){
+    public Uploader(Form form, Context context, FormFragment formFragment, ProgressDialog p, int current, int total){
         this.mForm = form;
         this.mContext = context;
         this.user = getUserInfo();
         this.client = new AsyncHttpClient();
-        this.mFormController = new FormController(mContext, formFragment, loadingView);
+        this.mFormController = new FormController(mContext, formFragment);
         this.baseStorageUrl = mContext.getResources().getString(R.string.storage_url);
         this.mHashMap = new HashMap<String, String>();
-        this.loadingView = loadingView;
+//        this.loadingView = loadingView;
         this.current = current;
         this.total = total;
-
+        this.progressDialog = p;
 //        client.setConnectTimeout(10000);
 
 //        if(user != null){
@@ -108,53 +108,62 @@ public class Uploader {
             params.put("Role", ui.role);
 
 
+            boolean hasFile = true;
             for(int i=0;i<photoPathes.size();i++){
                 String path = photoPathes.get(i);
                 int j = i+1;
                 String paramName = "image"+j;
                 if(path != null){
-                    File mFile = new File(path);
-                    setRealPhotoUrl(mFile, ui.role, j);
                     try{
+                        File mFile = new File(path);
+                        setRealPhotoUrl(mFile, ui.role, j);
                         params.put(paramName, mFile);
-                    }catch (FileNotFoundException e){
-                        Toast.makeText(mContext, "Image file not found", Toast.LENGTH_SHORT).show();
+                    }catch (Exception e){
+                        hasFile = false;
+
                     }
 
 
                 }
             }
+            if(!hasFile){
+                progressDialog.dismiss();
+                Toast.makeText(mContext, "Image file not found", Toast.LENGTH_SHORT).show();
+            }else{
+                client.post(mContext.getResources()
+                                .getString(R.string.image_post_url)
+                        , params,
+                        new AsyncHttpResponseHandler() {
+                            @Override
+                            public void onSuccess(int i, Header[] headers, byte[] bytes) {
+                                String s = "";
+                                try {
+                                    s = new String(bytes, "UTF-8");
+                                }catch (Exception e){}
+                                if(s.contains("success")){
+                                    uploadForm();
+                                }else{
+                                    // Uploading failed
+                                    if(current == total){
+                                        Toast.makeText(mContext,"Photo upload failed, please try later",Toast.LENGTH_SHORT).show();
+//                            loadingView.setVisibility(View.GONE);
+                                        progressDialog.dismiss();
+                                    }
+                                }
+                            }
 
-            client.post(mContext.getResources()
-                    .getString(R.string.image_post_url)
-                    , params,
-                    new AsyncHttpResponseHandler() {
-                @Override
-                public void onSuccess(int i, Header[] headers, byte[] bytes) {
-                    String s = "";
-                    try {
-                        s = new String(bytes, "UTF-8");
-                    }catch (Exception e){}
-                    if(s.contains("success")){
-                        uploadForm();
-                    }else{
-                        // Uploading failed
-                        if(current == total){
-                            Toast.makeText(mContext,"Photo upload failed, please try later",Toast.LENGTH_SHORT).show();
-                            loadingView.setVisibility(View.GONE);
-                        }
-                    }
-                }
+                            @Override
+                            public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
 
-                @Override
-                public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
+                                if(current == total){
+                                    Toast.makeText(mContext,"Network Error when uploading photos",Toast.LENGTH_SHORT).show();
+//                        loadingView.setVisibility(View.GONE);
+                                    progressDialog.dismiss();
+                                }
+                            }
+                        });
+            }
 
-                    if(current == total){
-                        Toast.makeText(mContext,"Network Error when uploading photos",Toast.LENGTH_SHORT).show();
-                        loadingView.setVisibility(View.GONE);
-                    }
-                }
-            });
         }else{
             Toast.makeText(mContext, "Do not have User Information when uploading forms", Toast.LENGTH_SHORT).show();
         }
@@ -237,9 +246,9 @@ public class Uploader {
             params.put("CULV_SUBSPROPORTION",mForm.CULV_SUBSPROPORTION);
             params.put("CULV_BACKWATERPROPORTION",mForm.CULV_BACKWATERPROPORTION);
             params.put("CULV_OUTLETTYPE",mForm.CULV_OUTLETTYPE);
-            params.put("CULV_DIA_1",mForm.CULV_DIA_1);
-            params.put("CULV_DIA_2",mForm.CULV_DIA_2);
-            params.put("CULV_DIA_3",mForm.CULV_DIA_3);
+            params.put("CULV_DIA_1",mForm.CULV_DIA_1_M);
+            params.put("CULV_DIA_2",mForm.CULV_DIA_2_M);
+            params.put("CULV_DIA_3",mForm.CULV_DIA_3_M);
             params.put("BRDG_LEN",mForm.BRDG_LEN);
             params.put("EMG_REP_RE",mForm.EMG_REP_RE);
             params.put("STU_PROBS",mForm.STU_PROBS);
@@ -286,8 +295,10 @@ public class Uploader {
 
                 if(current == total){
                     Toast.makeText(mContext,s,Toast.LENGTH_SHORT).show();
-                    loadingView.setVisibility(View.GONE);
+//                    loadingView.setVisibility(View.GONE);
+                    progressDialog.dismiss();
                 }
+
             }
 
             @Override
@@ -301,7 +312,8 @@ public class Uploader {
 
                 if(current == total){
                     Toast.makeText(mContext,s,Toast.LENGTH_SHORT).show();
-                    loadingView.setVisibility(View.GONE);
+//                    loadingView.setVisibility(View.GONE);
+                    progressDialog.dismiss();
                 }
             }
         });

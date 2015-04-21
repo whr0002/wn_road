@@ -69,6 +69,11 @@ public class PopupController {
                     // Get processed data
                     String url = mContext.getString(R.string.coords_url);
                     if(url != null){
+                        mt.isAll = true;
+                        mt.isHigh = true;
+                        mt.isMod = true;
+                        mt.isLow = true;
+                        mt.isNo = true;
                         dataController.loadCoords(url, 0);
                     }
                 }else if(title.equals("Raw Data")){
@@ -96,11 +101,12 @@ public class PopupController {
         PopupMenu popupMenu = new PopupMenu(mContext, v);
         popupMenu.getMenuInflater().inflate(R.menu.menu_layers, popupMenu.getMenu());
         Menu menu = popupMenu.getMenu();
-        menu.add(1,0,0,"Show All");
-        menu.add(1,1,1,"High Risk");
-        menu.add(1,2,2,"Moderate Risk");
-        menu.add(1,3,3,"Low Risk");
-        menu.add(1,4,4,"No Risk");
+        menu.add(1,0,0,"Show All").setCheckable(true).setChecked(mt.isAll);
+        menu.add(1,1,1,"High Risk").setCheckable(true).setChecked(mt.isHigh);
+        menu.add(1,2,2,"Moderate Risk").setCheckable(true).setChecked(mt.isMod);
+        menu.add(1,3,3,"Low Risk").setCheckable(true).setChecked(mt.isLow);
+        menu.add(1,4,4,"No Risk").setCheckable(true).setChecked(mt.isNo);
+//        menu.add(1,5,5,"Raw Data").setCheckable(true);
 
 
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -114,12 +120,15 @@ public class PopupController {
                             mt.isLow = false;
                             mt.isMod = false;
                             mt.isNo = false;
+
                         }else{
                             mt.isHigh = true;
                             mt.isLow = true;
                             mt.isMod = true;
                             mt.isNo = true;
+
                         }
+
                         mapController.toggleMarkers(mt.isAll, " ");
                         return true;
 
@@ -143,6 +152,7 @@ public class PopupController {
                         mt.isNo = !mt.isNo;
                         mapController.toggleMarkers(mt.isNo, "no");
                         return true;
+
                 }
                 return true;
             }

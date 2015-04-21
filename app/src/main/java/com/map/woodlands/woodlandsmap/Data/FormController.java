@@ -1,5 +1,6 @@
 package com.map.woodlands.woodlandsmap.Data;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.View;
@@ -27,6 +28,7 @@ public class FormController {
     private Context mContext;
     private FormFragment mFormFragment;
     private View loadingView;
+    private ProgressDialog progressDialog = null;
 
     public FormController(Context context){
         mContext = context;
@@ -37,16 +39,16 @@ public class FormController {
         this.spEditor = sp.edit();
     }
 
-    public FormController(Context context, FormFragment formFragment, View loadingView){
-        mContext = context;
-        this.mType = new TypeToken<ArrayList<Form>>(){}.getType();
-        this.mForms = new ArrayList<Form>();
-        this.gson = new Gson();
-        this.sp = mContext.getSharedPreferences("Data", 0);
-        this.spEditor = sp.edit();
-        this.mFormFragment = formFragment;
-        this.loadingView = loadingView;
-    }
+//    public FormController(Context context, FormFragment formFragment, View loadingView){
+//        mContext = context;
+//        this.mType = new TypeToken<ArrayList<Form>>(){}.getType();
+//        this.mForms = new ArrayList<Form>();
+//        this.gson = new Gson();
+//        this.sp = mContext.getSharedPreferences("Data", 0);
+//        this.spEditor = sp.edit();
+//        this.mFormFragment = formFragment;
+//        this.loadingView = loadingView;
+//    }
     public FormController(Context context, FormFragment formFragment){
         mContext = context;
         this.mType = new TypeToken<ArrayList<Form>>(){}.getType();
@@ -131,11 +133,13 @@ public class FormController {
                     int counter = 1;
                     int total = mForms.size();
                     if (total > 0) {
-                        loadingView.setVisibility(View.VISIBLE);
-                        Toast.makeText(mContext, "Uploading", Toast.LENGTH_SHORT).show();
+//                        loadingView.setVisibility(View.VISIBLE);
+                        progressDialog = ProgressDialog.show(mContext,"","Uploading...", true);
+//                        Toast.makeText(mContext, "Uploading", Toast.LENGTH_SHORT).show();
 
                         for (Form form : mForms) {
-                            Uploader uploader = new Uploader(form, mContext, mFormFragment, loadingView, counter, total);
+                            Uploader uploader = new Uploader(form,
+                                    mContext, mFormFragment, progressDialog, counter, total);
                             uploader.execute();
                             counter++;
                         }
@@ -225,5 +229,35 @@ public class FormController {
             return user;
         }
         return null;
+    }
+
+    public void addTestData(){
+        ArrayList<Form> forms = new ArrayList<Form>();
+        for(int i=0;i<1;i++){
+            Form f = new Form();
+            f.INSP_DATE = "4/21/2015";
+            f.INSP_CREW = "Tester";
+            f.STR_CLASS = "Non - fluvial";
+            f.CROSS_TYPE = "Bridge - permanent";
+            f.EROSION = "No";
+            f.FISH_PCONC = "No Concerns";
+            f.BLOCKAGE = "No";
+            f.EMG_REP_RE = "No";
+            f.STU_PROBS = "No";
+            f.STATUS = "Ready to summit";
+//            f.PHOTO_INUP = "/storage/emulated/0/Android/data/com.map.woodlands.woodlandsmap/files/Pictures/picupload/JPEG_20150421_122128.jpg";
+//            f.PHOTO_INDW = "/storage/emulated/0/Android/data/com.map.woodlands.woodlandsmap/files/Pictures/picupload/JPEG_20150421_122128.jpg";
+//            f.PHOTO_OTUP = "/storage/emulated/0/Android/data/com.map.woodlands.woodlandsmap/files/Pictures/picupload/JPEG_20150421_122128.jpg";
+//            f.PHOTO_OTDW = "/storage/emulated/0/Android/data/com.map.woodlands.woodlandsmap/files/Pictures/picupload/JPEG_20150421_122128.jpg";
+//            f.PHOTO_1 = "/storage/emulated/0/Android/data/com.map.woodlands.woodlandsmap/files/Pictures/picupload/JPEG_20150421_122128.jpg";
+//            f.PHOTO_2 = "/storage/emulated/0/Android/data/com.map.woodlands.woodlandsmap/files/Pictures/picupload/JPEG_20150421_122128.jpg";
+
+            f.CULV_DIA_1 = "600";
+            f.CULV_DIA_1_M = "6";
+            forms.add(f);
+        }
+        String json = gson.toJson(forms);
+        spEditor.putString("FormData", json);
+        spEditor.commit();
     }
 }

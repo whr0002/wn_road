@@ -134,16 +134,33 @@
                 android:weightSum="1"
                 >
 
-                <TextView
+                <RelativeLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="Crossing Number"
-                    android:id="@+id/crossingNumberLabel"
-                    android:layout_marginLeft="10dp"
-                    android:layout_gravity="center"
+                    android:layout_height="match_parent"
                     android:layout_weight="0.5"
-                    android:textSize="18sp"
-                    android:textColor="@color/black" />
+                    android:layout_marginLeft="10dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Crossing Number"
+                        android:id="@+id/crossingNumberLabel"
+                        android:layout_gravity="center"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        android:layout_centerInParent="true"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/crossingNumberLabel"
+                        android:text="(optional)"
+                        android:textSize="12sp"
+                        />
+
+
+                </RelativeLayout>
+
 
                 <EditText android:textColor="@color/cblue"
                     android:layout_width="0dp"
@@ -165,16 +182,30 @@
                 android:weightSum="1"
                 >
 
-                <TextView
+                <RelativeLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="Crossing ID"
-                    android:id="@+id/crossingIDLabel"
-                    android:layout_marginLeft="10dp"
-                    android:layout_gravity="center"
+                    android:layout_height="match_parent"
                     android:layout_weight="0.5"
-                    android:textSize="18sp"
-                    android:textColor="@color/black"/>
+                    android:layout_marginLeft="10dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Crossing ID"
+                        android:id="@+id/crossingIDLabel"
+                        android:layout_gravity="center"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        android:layout_centerInParent="true"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/crossingIDLabel"
+                        android:text="(optional)"
+                        android:textSize="12sp"/>
+
+                </RelativeLayout>
 
                 <EditText android:textColor="@color/cblue"
                     android:layout_width="0dp"
@@ -195,16 +226,31 @@
                 android:weightSum="1"
                 >
 
-                <TextView
+
+                <RelativeLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="Stream ID"
-                    android:id="@+id/streamIDLabel"
-                    android:layout_marginLeft="10dp"
-                    android:layout_gravity="center"
+                    android:layout_height="match_parent"
                     android:layout_weight="0.5"
-                    android:textSize="18sp"
-                    android:textColor="@color/black"/>
+                    android:layout_marginLeft="10dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Stream ID"
+                        android:id="@+id/streamIDLabel"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        android:layout_centerInParent="true"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/streamIDLabel"
+                        android:text="(optional)"
+                        android:textSize="12sp"/>
+
+                </RelativeLayout>
 
                 <EditText android:textColor="@color/cblue"
                     android:layout_width="0dp"
@@ -225,15 +271,29 @@
                 android:weightSum="1"
                 >
 
-                <TextView
+                <RelativeLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:layout_marginLeft="10dp">
 
-                    android:textSize="18sp" android:textColor="@color/black" android:text="Disposition ID"
-                    android:id="@+id/dispositionIDLabel"
-                    android:layout_marginLeft="10dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="0.5"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Disposition ID"
+                        android:id="@+id/dispositionIDLabel"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"
+                        android:layout_centerInParent="true"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/dispositionIDLabel"
+                        android:text="(optional)"
+                        android:textSize="12sp"/>
+
+                </RelativeLayout>
 
                 <EditText android:textColor="@color/cblue"
                     android:layout_width="0dp"
@@ -359,7 +419,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
 
-                    android:textSize="18sp" android:textColor="@color/black" android:text="Stream Width(m)"
+                    android:textSize="18sp" android:textColor="@color/black" android:text="Bankfull Width(m)"
                     android:id="@+id/streamWidthLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
@@ -389,7 +449,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
 
-                    android:textSize="18sp" android:textColor="@color/black" android:text="Stream Width measured?"
+                    android:textSize="18sp" android:textColor="@color/black" android:text="Bankfull Width measured?"
                     android:id="@+id/streamMeasuredLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
@@ -494,7 +554,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
 
-                        android:textSize="18sp" android:textColor="@color/black" android:text="Culvert Diameter 1(m)"
+                        android:textSize="18sp" android:textColor="@color/black"
+                        android:text="Culvert Diameter 1-Primary(mm)"
                         android:id="@+id/culvertDiameter1Label"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -534,7 +595,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
 
-                        android:textSize="18sp" android:textColor="@color/black" android:text="Culvert Diameter 2(m)"
+                        android:textSize="18sp" android:textColor="@color/black"
+                        android:text="Culvert Diameter 2-Secondary(mm)"
                         android:id="@+id/culvertDiameter2Label"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -565,7 +627,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
 
-                        android:textSize="18sp" android:textColor="@color/black" android:text="Culvert Diameter 3(m)"
+                        android:textSize="18sp" android:textColor="@color/black"
+                        android:text="Culvert Diameter 3-Tertiary(mm)"
                         android:id="@+id/culvertDiameter3Label"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -609,6 +672,112 @@
                         android:layout_weight="0.5"
                         android:layout_gravity="center"/>
 
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:orientation="horizontal"
+                        android:weightSum="12">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:text="Type"/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:text="Proportion"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:orientation="horizontal"
+                        android:weightSum="12">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:text="Primary"/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:text=""/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:text=""/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:orientation="horizontal"
+                        android:weightSum="12">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:text="Secondary"/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:text=""/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:text=""/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:orientation="horizontal"
+                        android:weightSum="12">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:text="Tertiary"/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:text=""/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:text=""/>
+                    </LinearLayout>
 
                 </LinearLayout>
 
