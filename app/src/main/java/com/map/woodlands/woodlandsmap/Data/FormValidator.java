@@ -96,7 +96,7 @@ public class FormValidator {
                         messages.add("Erosion Type is required");
                     }
                     if(mForm.EROSION_DE.length() == 0){
-                        messages.add("Erosion Degree is required");
+                        messages.add("Erosion Extent is required");
                     }
                 }
             }
@@ -132,17 +132,17 @@ public class FormValidator {
                 messages.add(generateNumericMessage("Culvert Diameter 3-Tertiary"));
             }
 
-            s = generateRangeMessage("Culvert Diameter 1-Primary", mForm.CULV_DIA_1, 0, 500);
+            s = generateRangeMessage("Culvert Diameter 1-Primary", mForm.CULV_DIA_1, 0, 5000);
             if(s != null){
                 messages.add(s);
             }
 
-            s = generateRangeMessage("Culvert Diameter 2-Secondary", mForm.CULV_DIA_2, 0, 500);
+            s = generateRangeMessage("Culvert Diameter 2-Secondary", mForm.CULV_DIA_2, 0, 5000);
             if(s != null){
                 messages.add(s);
             }
 
-            s = generateRangeMessage("Culvert Diameter 3-Tertiary", mForm.CULV_DIA_3, 0, 500);
+            s = generateRangeMessage("Culvert Diameter 3-Tertiary", mForm.CULV_DIA_3, 0, 5000);
             if(s != null){
                 messages.add(s);
             }
@@ -150,7 +150,7 @@ public class FormValidator {
             if(mForm.CULV_OPOOD.length()> 0 && !isNumeric(mForm.CULV_OPOOD)){
                 messages.add(generateNumericMessage("Culvert Pool Depth"));
             }
-            s = generateRangeMessage("Culvert Pool Depth", mForm.CULV_OPOOD, 0, 10);
+            s = generateRangeMessage("Culvert Pool Depth", mForm.CULV_OPOOD, 0, 1000);
             if(s != null){
                 messages.add(s);
             }
@@ -160,7 +160,7 @@ public class FormValidator {
                 messages.add(generateNumericMessage("Culvert Outlet Gap"));
             }
 
-            s = generateRangeMessage("Culvert Outlet Gap", mForm.CULV_OPGAP, 0, 10);
+            s = generateRangeMessage("Culvert Outlet Gap", mForm.CULV_OPGAP, 0, 1000);
             if(s != null){
                 messages.add(s);
             }
@@ -205,8 +205,8 @@ public class FormValidator {
                 messages.add("Structural Problems is required");
             }
 
-            if(mForm.REMARKS.length() > 120){
-                messages.add(generateLengthMessage("Remarks", 120));
+            if(mForm.REMARKS.length() > 200){
+                messages.add(generateLengthMessage("Remarks", 200));
             }
 
         }else{

@@ -157,7 +157,6 @@ public class Uploader {
 
                                 if(current == total){
                                     Toast.makeText(mContext,"Network Error when uploading photos",Toast.LENGTH_SHORT).show();
-//                        loadingView.setVisibility(View.GONE);
                                     progressDialog.dismiss();
                                 }
                             }
@@ -241,9 +240,9 @@ public class Uploader {
             params.put("PHOTO_1",mHashMap.get("5"));
             params.put("PHOTO_2",mHashMap.get("6"));
             params.put("CULV_LEN",mForm.CULV_LEN);
-            params.put("CULV_SUBSP",mForm.CULV_SUBSP);
-            params.put("CULV_SUBSTYPE",mForm.CULV_SUBSTYPE);
-            params.put("CULV_SUBSPROPORTION",mForm.CULV_SUBSPROPORTION);
+//            params.put("CULV_SUBSP",mForm.CULV_SUBSP);
+//            params.put("CULV_SUBSTYPE",mForm.CULV_SUBSTYPE);
+//            params.put("CULV_SUBSPROPORTION",mForm.CULV_SUBSPROPORTION);
             params.put("CULV_BACKWATERPROPORTION",mForm.CULV_BACKWATERPROPORTION);
             params.put("CULV_OUTLETTYPE",mForm.CULV_OUTLETTYPE);
             params.put("CULV_DIA_1",mForm.CULV_DIA_1_M);
@@ -273,8 +272,20 @@ public class Uploader {
             params.put("CHANNELOPEN",mForm.CHANNELOPEN);
             params.put("OBSTRUCTIO",mForm.OBSTRUCTIO);
 
+
+            // addition 7 fields cst 1-3, csp 1-3, outlet score
+            params.put("CULV_SUBSTYPE1", mForm.CULV_SUBSTYPE1);
+            params.put("CULV_SUBSTYPE2", mForm.CULV_SUBSTYPE2);
+            params.put("CULV_SUBSTYPE3", mForm.CULV_SUBSTYPE3);
+            params.put("CULV_SUBSPROPORTION1", mForm.CULV_SUBSPROPORTION1);
+            params.put("CULV_SUBSPROPORTION2", mForm.CULV_SUBSPROPORTION2);
+            params.put("CULV_SUBSPROPORTION3", mForm.CULV_SUBSPROPORTION3);
+            params.put("OUTLET_SCORE", mForm.outlet_score);
+
+
+
             // Put attachment Url
-            params.put("FUTURE1",mHashMap.get("7"));
+            params.put("ATTACHMENT",mHashMap.get("7"));
 
         }catch (Exception e){
 //            e.printStackTrace();
@@ -328,7 +339,7 @@ public class Uploader {
         Gson gson = new Gson();
         JsonModel jm= new JsonModel(mForms);
         String json = gson.toJson(jm);
-        Log.i("debug", json);
+        Log.i("debug", "Before: "+ json);
         StringEntity entity = null;
         try {
             entity = new StringEntity(json);

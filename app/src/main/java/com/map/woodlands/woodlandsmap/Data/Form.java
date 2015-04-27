@@ -58,9 +58,18 @@ public class Form {
     public String PHOTO_1;
     public String PHOTO_2;
     public String CULV_LEN;
-    public String CULV_SUBSP;
-    public String CULV_SUBSTYPE;
-    public String CULV_SUBSPROPORTION;
+
+
+
+    public String CULV_SUBSTYPE1;
+    public String CULV_SUBSPROPORTION1;
+    public String CULV_SUBSTYPE2;
+    public String CULV_SUBSPROPORTION2;
+    public String CULV_SUBSTYPE3;
+    public String CULV_SUBSPROPORTION3;
+
+
+
     public String CULV_BACKWATERPROPORTION;
     public String CULV_OUTLETTYPE;
 
@@ -106,7 +115,7 @@ public class Form {
 
     public String timestamp;
 
-
+    public String outlet_score;
 //    public String photo_inup_url;
 //    public String photo_indw_url;
 //    public String photo_otup_url;

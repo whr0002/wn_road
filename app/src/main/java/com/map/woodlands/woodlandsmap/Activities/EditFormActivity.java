@@ -84,13 +84,20 @@ public class EditFormActivity extends FormActivity{
             f.CULV_DIA_1 = culvertDiameter1View.getText().toString();
             f.CULV_DIA_2 = culvertDiameter2View.getText().toString();
             f.CULV_DIA_3 = culvertDiameter3View.getText().toString();
-            f.CULV_DIA_1_M = convertMMToM(f.CULV_DIA_1, 100);
-            f.CULV_DIA_2_M = convertMMToM(f.CULV_DIA_2, 100);
-            f.CULV_DIA_3_M = convertMMToM(f.CULV_DIA_3, 100);
+            f.CULV_DIA_1_M = convertMMToM(f.CULV_DIA_1);
+            f.CULV_DIA_2_M = convertMMToM(f.CULV_DIA_2);
+            f.CULV_DIA_3_M = convertMMToM(f.CULV_DIA_3);
 
             f.CULV_SUBS = culvertSubstrateSpinner.getSelectedItem().toString();
-            f.CULV_SUBSTYPE = culvertSubstrateTypeSpinner.getSelectedItem().toString();
-            f.CULV_SUBSPROPORTION = culvertSubstrateProportionSpinner.getSelectedItem().toString();
+
+            f.CULV_SUBSTYPE1 = cst1Spinner.getSelectedItem().toString();
+            f.CULV_SUBSTYPE2 = cst2Spinner.getSelectedItem().toString();
+            f.CULV_SUBSTYPE3 = cst3Spinner.getSelectedItem().toString();
+
+            f.CULV_SUBSPROPORTION1 = csp1Spinner.getSelectedItem().toString();
+            f.CULV_SUBSPROPORTION2 = csp2Spinner.getSelectedItem().toString();
+            f.CULV_SUBSPROPORTION3 = csp3Spinner.getSelectedItem().toString();
+
             f.CULV_BACKWATERPROPORTION = culvertBackWaterProportionSpinner.getSelectedItem().toString();
             f.CULV_SLOPE = culvertSlopeSpinner.getSelectedItem().toString();
             f.CULV_OUTLETTYPE = culvertOutletTypeSpinner.getSelectedItem().toString();
@@ -130,6 +137,7 @@ public class EditFormActivity extends FormActivity{
             f.STU_PROBS = structuralProblemsSpinner.getSelectedItem().toString();
             f.SEDEMENTAT = sedimentationSpinner.getSelectedItem().toString();
             f.REMARKS = remarksView.getText().toString();
+            f.outlet_score = getOutletScore(f.CULV_OPOOD, f.CULV_OPGAP);
             f.AttachmentPath1 = m_chosenDir;
             setPhotoPath(f);
 
@@ -201,16 +209,23 @@ public class EditFormActivity extends FormActivity{
             crossingTypeSpinner.setSelection(getSpinnerIndex(crossingTypeSpinner,f.CROSS_TYPE));
             erosionSpinner.setSelection(getSpinnerIndex(erosionSpinner,f.EROSION));
             erosionType1Spinner.setSelection(getSpinnerIndex(erosionType1Spinner,f.EROSION_TY1));
-            erosionSourceSpinner.setSelection(getSpinnerIndex(erosionSourceSpinner,f.EROSION_SO));
-            erosionDegreeSpinner.setSelection(getSpinnerIndex(erosionDegreeSpinner,f.EROSION_DE));
+            erosionSourceSpinner.setSelection(getSpinnerIndex(erosionSourceSpinner, f.EROSION_SO));
+            erosionDegreeSpinner.setSelection(getSpinnerIndex(erosionDegreeSpinner, f.EROSION_DE));
             erosionAreaView.setText(f.EROSION_AR);
             culvertLengthView.setText(f.CULV_LEN);
             culvertDiameter1View.setText(f.CULV_DIA_1);
             culvertDiameter2View.setText(f.CULV_DIA_2);
             culvertDiameter3View.setText(f.CULV_DIA_3);
             culvertSubstrateSpinner.setSelection(getSpinnerIndex(culvertSubstrateSpinner,f.CULV_SUBS));
-            culvertSubstrateTypeSpinner.setSelection(getSpinnerIndex(culvertSubstrateTypeSpinner,f.CULV_SUBSTYPE));
-            culvertSubstrateProportionSpinner.setSelection(getSpinnerIndex(culvertSubstrateProportionSpinner,f.CULV_SUBSPROPORTION));
+
+            cst1Spinner.setSelection(getSpinnerIndex(cst1Spinner, f.CULV_SUBSTYPE1));
+            cst2Spinner.setSelection(getSpinnerIndex(cst2Spinner, f.CULV_SUBSTYPE2));
+            cst3Spinner.setSelection(getSpinnerIndex(cst3Spinner, f.CULV_SUBSTYPE3));
+
+            csp1Spinner.setSelection(getSpinnerIndex(csp1Spinner, f.CULV_SUBSPROPORTION1));
+            csp2Spinner.setSelection(getSpinnerIndex(csp2Spinner, f.CULV_SUBSPROPORTION2));
+            csp3Spinner.setSelection(getSpinnerIndex(csp3Spinner, f.CULV_SUBSPROPORTION3));
+
             culvertBackWaterProportionSpinner.setSelection(getSpinnerIndex(culvertBackWaterProportionSpinner,f.CULV_BACKWATERPROPORTION));
             culvertSlopeSpinner.setSelection(getSpinnerIndex(culvertSlopeSpinner,f.CULV_SLOPE));
             culvertOutletTypeSpinner.setSelection(getSpinnerIndex(culvertOutletTypeSpinner,f.CULV_OUTLETTYPE));

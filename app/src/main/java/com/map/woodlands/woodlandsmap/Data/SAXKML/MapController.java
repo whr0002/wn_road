@@ -1,5 +1,6 @@
 package com.map.woodlands.woodlandsmap.Data.SAXKML;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.location.Location;
 import android.widget.Toast;
@@ -19,7 +20,6 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.map.woodlands.woodlandsmap.Data.Coordinate;
 import com.map.woodlands.woodlandsmap.Data.KMLController;
 import com.map.woodlands.woodlandsmap.Data.MarkerToggler;
-import com.map.woodlands.woodlandsmap.Data.ViewToggler;
 import com.map.woodlands.woodlandsmap.R;
 
 import org.apache.http.Header;
@@ -36,24 +36,24 @@ public class MapController {
     private CoordinatesParser coordinatesParser;
     private MarkerToggler mt;
     ArrayList<Marker> markers;
-    private ViewToggler viewToggler;
+
     private KMLController kmlController;
     private Context mContext;
+    private ProgressDialog progressDialog;
 
-    public MapController(GoogleMap gmap, MarkerToggler m, ViewToggler viewToggler, Context context){
+    public MapController(GoogleMap gmap, MarkerToggler m, Context context){
         this.map = gmap;
         this.client = new AsyncHttpClient();
         this.coordinatesParser = new CoordinatesParser();
         this.mt = m;
         this.markers = new ArrayList<Marker>();
-        this.viewToggler = viewToggler;
+
         this.kmlController = new KMLController(this, context);
         this.mContext = context;
     }
 
     public void loadKML(final String url, final String fileName){
-
-        viewToggler.toggleLoadingView();
+        progressDialog = ProgressDialog.show(mContext, "", "Loading...", true);
         NavigationDataSet navigationDataSet = null;
         client.get(url, new AsyncHttpResponseHandler() {
             @Override
@@ -73,7 +73,8 @@ public class MapController {
                     addDataToMap(MapService.getNavigationDataSet(kmlController.getKMLFromKMZ(bytes)));
 
                 }
-                viewToggler.toggleLoadingView();
+
+                progressDialog.dismiss();
             }
 
             @Override
@@ -87,7 +88,7 @@ public class MapController {
                 String fullFilename = fileName + "." + url.substring(url.length()-3);
                 kmlController.loadLocalKML(fullFilename);
 
-                viewToggler.toggleLoadingView();
+                progressDialog.dismiss();
             }
         });
 

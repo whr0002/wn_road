@@ -1,5 +1,6 @@
 package com.map.woodlands.woodlandsmap.Adapters;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -26,7 +27,7 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
         this.mCtx = ctx;
 
         this.mFormFragment = FormFragment.newInstance();
-        this.mMapFragment = new MapFragment();
+        this.mMapFragment = MapFragment.newInstance();
         this.mLoginFragment = LoginFragment.newInstance(mMapFragment);
     }
 

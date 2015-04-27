@@ -133,20 +133,34 @@ public class FormController {
                     int counter = 1;
                     int total = mForms.size();
                     if (total > 0) {
-//                        loadingView.setVisibility(View.VISIBLE);
-                        progressDialog = ProgressDialog.show(mContext,"","Uploading...", true);
-//                        Toast.makeText(mContext, "Uploading", Toast.LENGTH_SHORT).show();
 
-                        for (Form form : mForms) {
-                            Uploader uploader = new Uploader(form,
-                                    mContext, mFormFragment, progressDialog, counter, total);
-                            uploader.execute();
-                            counter++;
+                        progressDialog = ProgressDialog.show(mContext,"","Uploading...", true);
+
+                        if(total < 10) {
+                            for (Form form : mForms) {
+                                Uploader uploader = new Uploader(form,
+                                        mContext, mFormFragment, progressDialog, counter, total);
+                                uploader.execute();
+
+
+                                counter++;
+                            }
+                        }else{
+                            for(int i = 0;i<10;i++){
+                                Form form = mForms.get(i);
+                                Uploader uploader = new Uploader(form,
+                                        mContext, mFormFragment, progressDialog, counter, 10);
+                                uploader.execute();
+
+
+                                counter++;
+                            }
                         }
+
                     }
                 }
 
-                mFormFragment.setListView();
+//                mFormFragment.setListView();
             }else{
                 Toast.makeText(mContext,
                         "You are not authorized to upload any forms",
@@ -233,12 +247,13 @@ public class FormController {
 
     public void addTestData(){
         ArrayList<Form> forms = new ArrayList<Form>();
-        for(int i=0;i<1;i++){
+        for(int i=0;i<20;i++){
             Form f = new Form();
-            f.INSP_DATE = "4/21/2015";
+            f.ID = i;
+            f.INSP_DATE = "4/22/2015";
             f.INSP_CREW = "Tester";
             f.STR_CLASS = "Non - fluvial";
-            f.CROSS_TYPE = "Bridge - permanent";
+            f.CROSS_TYPE = "Culvert - multiple";
             f.EROSION = "No";
             f.FISH_PCONC = "No Concerns";
             f.BLOCKAGE = "No";
@@ -252,8 +267,24 @@ public class FormController {
 //            f.PHOTO_1 = "/storage/emulated/0/Android/data/com.map.woodlands.woodlandsmap/files/Pictures/picupload/JPEG_20150421_122128.jpg";
 //            f.PHOTO_2 = "/storage/emulated/0/Android/data/com.map.woodlands.woodlandsmap/files/Pictures/picupload/JPEG_20150421_122128.jpg";
 
-            f.CULV_DIA_1 = "600";
-            f.CULV_DIA_1_M = "6";
+            f.CULV_DIA_1 = "300";
+            f.CULV_DIA_1_M = "3";
+
+            f.CULV_OPOOD = "300";
+            f.CULV_OPGAP = "20";
+            f.LAT = "0";
+            f.LONG = "0";
+
+            f.CULV_SUBSTYPE1 = "Sand";
+            f.CULV_SUBSPROPORTION1 = "0 - 25";
+
+            f.CULV_SUBSTYPE2 = "Gravel";
+            f.CULV_SUBSPROPORTION2 = "26 - 50";
+
+            f.CULV_SUBSTYPE3 = "Cobble";
+            f.CULV_SUBSPROPORTION3 = "51 - 75";
+
+
             forms.add(f);
         }
         String json = gson.toJson(forms);

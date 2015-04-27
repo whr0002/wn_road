@@ -29,7 +29,6 @@ import com.map.woodlands.woodlandsmap.Data.DataController;
 import com.map.woodlands.woodlandsmap.Data.MarkerToggler;
 import com.map.woodlands.woodlandsmap.Data.PopupController;
 import com.map.woodlands.woodlandsmap.Data.SAXKML.MapController;
-import com.map.woodlands.woodlandsmap.Data.ViewToggler;
 import com.map.woodlands.woodlandsmap.R;
 
 import static com.google.android.gms.maps.GoogleMap.MAP_TYPE_HYBRID;
@@ -57,13 +56,18 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     private PopupController popupController;
     private DataController dataController;
     private MarkerToggler markerToggler;
-    private ViewToggler viewToggler;
+//    private ViewToggler viewToggler;
+
     private static final LocationRequest REQUEST = LocationRequest.create()
             .setInterval(5000)          // 5 seconds
             .setFastestInterval(16)     // 16ms = 60 fps
             .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
 
+    public static MapFragment newInstance(){
+        MapFragment mapFragment = new MapFragment();
+        return mapFragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -72,7 +76,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 
         View loadingView = v.findViewById(R.id.loadingView);
         loadingView.setVisibility(View.GONE);
-        viewToggler = new ViewToggler(loadingView);
+
 
         this.markerToggler = new MarkerToggler();
         mContext = this.getActivity();
@@ -166,8 +170,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         this.map.setOnMarkerClickListener(this);
 
 
-        this.mapController = new MapController(this.map, markerToggler, viewToggler, mContext);
-        this.dataController = new DataController(mContext, mapController, viewToggler);
+        this.mapController = new MapController(this.map, markerToggler, mContext);
+        this.dataController = new DataController(mContext, mapController);
         this.popupController = new PopupController(mContext, mapController, markerToggler, dataController);
 
 
@@ -204,7 +208,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        viewToggler.toggleLoadingView();
         dataController.loadRow(marker.getPosition());
         return false;
     }

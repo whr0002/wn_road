@@ -1,5 +1,6 @@
 package com.map.woodlands.woodlandsmap.Data;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -33,15 +34,16 @@ public class DataController {
 
     private Gson gson;
     private MapController mapController;
-    private ViewToggler mViewToggler;
 
-    public DataController(Context c, MapController mapController, ViewToggler viewToggler){
+
+    private ProgressDialog progressDialog;
+
+    public DataController(Context c, MapController mapController){
         this.context = c;
         this.client = new AsyncHttpClient();
         this.listType = new TypeToken<ArrayList<Coordinate>>(){}.getType();
         this.gson = new Gson();
         this.mapController = mapController;
-        this.mViewToggler = viewToggler;
 
 
 //        Resources resources = context.getResources();
@@ -55,8 +57,9 @@ public class DataController {
 
     public void loadCoords(String dataUrl, final int type){
         UserInfo ui = getUserRole();
-
+        progressDialog = ProgressDialog.show(context, "", "Loading...", true);
         if(ui != null) {
+            progressDialog.show();
             RequestParams params = new RequestParams();
             params.put("Email", ui.username);
             params.put("Password", ui.password);
@@ -78,6 +81,7 @@ public class DataController {
                     }catch (Exception e){
 //                        e.printStackTrace();
                     }
+                    progressDialog.dismiss();
                 }
 
                 @Override
@@ -97,6 +101,7 @@ public class DataController {
                                 , "No available data in local storage"
                                 ,Toast.LENGTH_SHORT).show();
                     }
+                    progressDialog.dismiss();
 
                 }
             });
@@ -139,6 +144,7 @@ public class DataController {
         UserInfo ui = getUserRole();
 
         if(ui != null) {
+            progressDialog = ProgressDialog.show(context, "", "Loading...", true);
             RequestParams params = new RequestParams();
             params.put("Email", ui.username);
             params.put("Password", ui.password);
@@ -150,7 +156,6 @@ public class DataController {
                 @Override
                 public void onSuccess(int i, Header[] headers, byte[] bytes) {
                     try{
-                        mViewToggler.toggleLoadingView();
                         String json = new String(bytes);
 //                        Log.i("debug", json);
                         Intent intent = new Intent(context, ViewCrossingDataActivity.class);
@@ -160,12 +165,15 @@ public class DataController {
                     }catch (Exception e){
 //                        e.printStackTrace();
                     }
+
+                    progressDialog.dismiss();
                 }
 
                 @Override
                 public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-                    mViewToggler.toggleLoadingView();
+                    progressDialog.dismiss();
                     Toast.makeText(context, "Fail to get data", Toast.LENGTH_SHORT).show();
+
                 }
             });
 
@@ -176,6 +184,7 @@ public class DataController {
         UserInfo ui = getUserRole();
 
         if(ui != null) {
+//            progressDialog = ProgressDialog.show(context, "", "Loading...", true);
             RequestParams params = new RequestParams();
             params.put("Email", ui.username);
             params.put("Password", ui.password);
@@ -197,11 +206,13 @@ public class DataController {
                     }catch (Exception e){
                         e.printStackTrace();
                     }
+//                    progressDialog.dismiss();
                 }
 
                 @Override
                 public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-//                    Toast.makeText(mActivity.getApplicationContext(), "Fail to get KML", Toast.LENGTH_SHORT).show();
+//                    progressDialog.dismiss();
+//                    Toast.makeText(context, "Fail to get KML", Toast.LENGTH_SHORT).show();
                 }
             });
 

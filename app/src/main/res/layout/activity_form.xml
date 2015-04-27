@@ -678,7 +678,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_gravity="center">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -695,13 +696,17 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="4"
-                            android:text="Type"/>
+                            android:text="Type"
+                            android:textSize="18sp" android:textColor="@color/black"
+                            android:gravity="center_horizontal"/>
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="4"
-                            android:text="Proportion"/>
+                            android:text="Proportion"
+                            android:textSize="18sp" android:textColor="@color/black"
+                            android:gravity="center"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -712,21 +717,27 @@
 
                         <TextView
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_weight="4"
-                            android:text="Primary"/>
+                            android:text="Primary"
+                            android:textSize="18sp" android:textColor="@color/black"
+                            android:gravity="center"
+                            />
 
-                        <TextView
+                        <Spinner
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_weight="4"
-                            android:text=""/>
+                            android:gravity="center"
+                            android:id="@+id/cst1Dropdown"
+                            />
 
-                        <TextView
+                        <Spinner
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_weight="4"
-                            android:text=""/>
+                            android:gravity="center"
+                            android:id="@+id/csp1Dropdown"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -737,21 +748,27 @@
 
                         <TextView
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_weight="4"
-                            android:text="Secondary"/>
+                            android:text="Secondary"
+                            android:textSize="18sp" android:textColor="@color/black"
+                            android:gravity="center"
+                            />
 
-                        <TextView
+                        <Spinner
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_weight="4"
-                            android:text=""/>
+                            android:gravity="center"
+                            android:id="@+id/cst2Dropdown"
+                            />
 
-                        <TextView
+                        <Spinner
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_weight="4"
-                            android:text=""/>
+                            android:gravity="center"
+                            android:id="@+id/csp2Dropdown"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -762,83 +779,31 @@
 
                         <TextView
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_weight="4"
-                            android:text="Tertiary"/>
+                            android:text="Tertiary"
+                            android:textSize="18sp" android:textColor="@color/black"
+                            android:gravity="center"
+                            />
 
-                        <TextView
+                        <Spinner
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_weight="4"
-                            android:text=""/>
+                            android:gravity="center"
+                            android:id="@+id/cst3Dropdown"
+                            />
 
-                        <TextView
+                        <Spinner
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_weight="4"
-                            android:text=""/>
+                            android:gravity="center"
+                            android:id="@+id/csp3Dropdown"/>
                     </LinearLayout>
 
                 </LinearLayout>
 
-                <!-- Culvert Substrate Type -->
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_gravity="center"
-                    android:weightSum="1"
-                    >
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-
-                        android:textSize="18sp" android:textColor="@color/black" android:text="Culvert Substrate Type"
-                        android:id="@+id/culvertSubstrateTypeLabel"
-                        android:layout_marginLeft="10dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="0.5"/>
-
-                    <Spinner
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:id="@+id/culvertSubstrateTypeDropdown"
-
-                        android:layout_weight="0.5"
-                        android:layout_gravity="center"/>
-
-
-                </LinearLayout>
-                <!-- Culvert Substrate Proportion -->
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_gravity="center"
-                    android:weightSum="1"
-                    >
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-
-                        android:textSize="18sp" android:textColor="@color/black" android:text="Culvert Substrate Proportion"
-                        android:id="@+id/culvertSubstrateProportionLabel"
-                        android:layout_marginLeft="10dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="0.5"/>
-
-                    <Spinner
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:id="@+id/culvertSubstrateProportionDropdown"
-
-                        android:layout_weight="0.5"
-                        android:layout_gravity="center"/>
-
-
-                </LinearLayout>
                 <!-- Culvert Back Water Proportion -->
                 <LinearLayout
                     android:orientation="horizontal"
@@ -968,7 +933,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
 
-                        android:textSize="18sp" android:textColor="@color/black" android:text="Culvert Pool Depth(m)"
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Culvert Pool Depth(cm)"
                         android:id="@+id/culvertPoolDepthLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -998,7 +963,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
 
-                        android:textSize="18sp" android:textColor="@color/black" android:text="Culvert Outlet Gap(m)"
+                        android:textSize="18sp" android:textColor="@color/black" android:text="Culvert Outlet Gap(cm)"
                         android:id="@+id/culvertOutletGapLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
@@ -1737,7 +1702,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
 
-                        android:textSize="18sp" android:textColor="@color/black" android:text="Erosion Degree"
+                        android:textSize="18sp" android:textColor="@color/black"
+                        android:text="Erosion Extent"
                         android:id="@+id/erosionDegreeLabel"
                         android:layout_marginLeft="10dp"
                         android:layout_gravity="center"
