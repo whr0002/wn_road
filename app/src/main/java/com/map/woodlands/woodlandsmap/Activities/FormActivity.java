@@ -12,7 +12,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -766,9 +765,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_"+timeStamp;
-//        String storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)+"/picupload";
         File dir = new File(this.getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "picupload");
-//        File dir = new File(storageDir);
 
         if(!dir.exists()){
             dir.mkdir();
@@ -780,9 +777,9 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         deleteTempImageIfExist();
         mCurrentPhotoPath = image.getAbsolutePath();
 
-        Log.i("debug", "Image path: " + mCurrentPhotoPath);
+//        Log.i("debug", "Image path: " + mCurrentPhotoPath);
         mTempPhotoMap.put(mCurrentRequestCode, mCurrentPhotoPath);
-//        mPhotoMap.put(mCurrentRequestCode, mCurrentPhotoPath);
+
 
         return image;
     }

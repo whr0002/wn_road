@@ -208,7 +208,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        dataController.loadRow(marker.getPosition());
+        String title = marker.getTitle();
+        String id = title.substring(title.indexOf(" ")+1, title.indexOf("\n"));
+        if(id != null && id.length()>0)
+            dataController.loadRow(id);
         return false;
     }
 

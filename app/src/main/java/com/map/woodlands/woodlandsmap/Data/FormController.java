@@ -3,7 +3,6 @@ package com.map.woodlands.woodlandsmap.Data;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -27,7 +26,6 @@ public class FormController {
     private SharedPreferences.Editor spEditor;
     private Context mContext;
     private FormFragment mFormFragment;
-    private View loadingView;
     private ProgressDialog progressDialog = null;
 
     public FormController(Context context){
@@ -39,16 +37,6 @@ public class FormController {
         this.spEditor = sp.edit();
     }
 
-//    public FormController(Context context, FormFragment formFragment, View loadingView){
-//        mContext = context;
-//        this.mType = new TypeToken<ArrayList<Form>>(){}.getType();
-//        this.mForms = new ArrayList<Form>();
-//        this.gson = new Gson();
-//        this.sp = mContext.getSharedPreferences("Data", 0);
-//        this.spEditor = sp.edit();
-//        this.mFormFragment = formFragment;
-//        this.loadingView = loadingView;
-//    }
     public FormController(Context context, FormFragment formFragment){
         mContext = context;
         this.mType = new TypeToken<ArrayList<Form>>(){}.getType();
@@ -106,6 +94,20 @@ public class FormController {
 
     }
 
+    public void deleteOneFormAsync(int formID){
+        mForms.clear();
+        mForms = getAllForms();
+        IndexForm mif = getIndexForm(formID);
+        if(mif != null){
+            mForms.remove(mif.index);
+            deleteImageFileIfExists(mif.form);
+        }
+
+        json = gson.toJson(mForms);
+        spEditor.putString("FormData", json);
+        spEditor.commit();
+    }
+
     public void deleteAllForms(){
         mForms.clear();
         json = sp.getString("FormData", "");
@@ -136,31 +138,13 @@ public class FormController {
 
                         progressDialog = ProgressDialog.show(mContext,"","Uploading...", true);
 
-                        if(total < 10) {
-                            for (Form form : mForms) {
-                                Uploader uploader = new Uploader(form,
-                                        mContext, mFormFragment, progressDialog, counter, total);
-                                uploader.execute();
-
-
-                                counter++;
-                            }
-                        }else{
-                            for(int i = 0;i<10;i++){
-                                Form form = mForms.get(i);
-                                Uploader uploader = new Uploader(form,
-                                        mContext, mFormFragment, progressDialog, counter, 10);
-                                uploader.execute();
-
-
-                                counter++;
-                            }
+                        Uploader uploader = new Uploader(mContext, mFormFragment, progressDialog, total);
+                        for (Form form : mForms) {
+                            uploader.execute(form,counter);
+                            counter++;
                         }
-
                     }
                 }
-
-//                mFormFragment.setListView();
             }else{
                 Toast.makeText(mContext,
                         "You are not authorized to upload any forms",
@@ -247,11 +231,11 @@ public class FormController {
 
     public void addTestData(){
         ArrayList<Form> forms = new ArrayList<Form>();
-        for(int i=0;i<20;i++){
+        for(int i=0;i<100;i++){
             Form f = new Form();
             f.ID = i;
-            f.INSP_DATE = "4/22/2015";
-            f.INSP_CREW = "Tester";
+            f.INSP_DATE = "4/28/2015";
+            f.INSP_CREW = "Tester"+i;
             f.STR_CLASS = "Non - fluvial";
             f.CROSS_TYPE = "Culvert - multiple";
             f.EROSION = "No";
@@ -260,12 +244,12 @@ public class FormController {
             f.EMG_REP_RE = "No";
             f.STU_PROBS = "No";
             f.STATUS = "Ready to summit";
-//            f.PHOTO_INUP = "/storage/emulated/0/Android/data/com.map.woodlands.woodlandsmap/files/Pictures/picupload/JPEG_20150421_122128.jpg";
-//            f.PHOTO_INDW = "/storage/emulated/0/Android/data/com.map.woodlands.woodlandsmap/files/Pictures/picupload/JPEG_20150421_122128.jpg";
-//            f.PHOTO_OTUP = "/storage/emulated/0/Android/data/com.map.woodlands.woodlandsmap/files/Pictures/picupload/JPEG_20150421_122128.jpg";
-//            f.PHOTO_OTDW = "/storage/emulated/0/Android/data/com.map.woodlands.woodlandsmap/files/Pictures/picupload/JPEG_20150421_122128.jpg";
-//            f.PHOTO_1 = "/storage/emulated/0/Android/data/com.map.woodlands.woodlandsmap/files/Pictures/picupload/JPEG_20150421_122128.jpg";
-//            f.PHOTO_2 = "/storage/emulated/0/Android/data/com.map.woodlands.woodlandsmap/files/Pictures/picupload/JPEG_20150421_122128.jpg";
+//            f.PHOTO_INUP = "/storage/emulated/0/Android/data/com.map.woodlands.woodlandsmap/files/Pictures/picupload/JPEG_20150428_091641.jpg";
+//            f.PHOTO_INDW = "/storage/emulated/0/Android/data/com.map.woodlands.woodlandsmap/files/Pictures/picupload/JPEG_20150428_091641.jpg";
+//            f.PHOTO_OTUP = "/storage/emulated/0/Android/data/com.map.woodlands.woodlandsmap/files/Pictures/picupload/JPEG_20150428_091641.jpg";
+//            f.PHOTO_OTDW = "/storage/emulated/0/Android/data/com.map.woodlands.woodlandsmap/files/Pictures/picupload/JPEG_20150428_091641.jpg";
+//            f.PHOTO_1 = "/storage/emulated/0/Android/data/com.map.woodlands.woodlandsmap/files/Pictures/picupload/JPEG_20150428_091641.jpg";
+//            f.PHOTO_2 = "/storage/emulated/0/Android/data/com.map.woodlands.woodlandsmap/files/Pictures/picupload/JPEG_20150428_091641.jpg";
 
             f.CULV_DIA_1 = "300";
             f.CULV_DIA_1_M = "3";

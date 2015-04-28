@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
@@ -57,9 +56,9 @@ public class DataController {
 
     public void loadCoords(String dataUrl, final int type){
         UserInfo ui = getUserRole();
-        progressDialog = ProgressDialog.show(context, "", "Loading...", true);
+
         if(ui != null) {
-            progressDialog.show();
+            progressDialog = ProgressDialog.show(context, "", "Loading...", true);
             RequestParams params = new RequestParams();
             params.put("Email", ui.username);
             params.put("Password", ui.password);
@@ -140,7 +139,7 @@ public class DataController {
 
 
 
-    public void loadRow(LatLng ll){
+    public void loadRow(String ID){
         UserInfo ui = getUserRole();
 
         if(ui != null) {
@@ -150,8 +149,9 @@ public class DataController {
             params.put("Password", ui.password);
             params.put("RememberMe", "false");
             params.put("Role", ui.role);
-            params.put("Latitude", ll.latitude);
-            params.put("Longitude", ll.longitude);
+            params.put("ID", ID);
+//            params.put("Latitude", ll.latitude);
+//            params.put("Longitude", ll.longitude);
             client.post(rowUri, params, new AsyncHttpResponseHandler() {
                 @Override
                 public void onSuccess(int i, Header[] headers, byte[] bytes) {

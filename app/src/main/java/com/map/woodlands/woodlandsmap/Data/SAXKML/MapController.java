@@ -166,7 +166,7 @@ public class MapController {
                 Marker m = null;
                 MarkerOptions mo = new MarkerOptions()
                         .position(new LatLng(Double.parseDouble(c.Latitude), Double.parseDouble(c.Longitude)))
-                        .title("Risk: " + c.Risk);
+                        .title("ID: "+ c.ID + "\n Risk: "+c.Risk);
                 String riskS = c.Risk.toLowerCase();
                 if(riskS.contains("high")) {
                     m = map.addMarker(mo);
@@ -181,7 +181,7 @@ public class MapController {
                     mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_grey));
                     m = map.addMarker(mo);
                 }else{
-                    mo.title("raw");
+//                    mo.title("raw");
                     mo.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_blue));
                     m = map.addMarker(mo);
                 }

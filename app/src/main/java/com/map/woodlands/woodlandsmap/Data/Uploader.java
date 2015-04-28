@@ -20,12 +20,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by Jimmy on 3/13/2015.
  */
 public class Uploader {
-    public Form mForm;
+
     public Context mContext;
     private UserInfo user;
     private AsyncHttpClient client;
@@ -33,58 +35,44 @@ public class Uploader {
     private FormController mFormController;
     private String baseStorageUrl;
     private HashMap<String,String> mHashMap;
-//    private View loadingView;
     private int current;
     private int total;
     private ProgressDialog progressDialog = null;
+    private FormFragment mFormFragment;
+    private ExecutorService executorService;
 
 
+    public Uploader(Context context, FormFragment formFragment,
+                    ProgressDialog p, int total){
 
-    public Uploader(Form form, Context context){
-        this.mForm = form;
         this.mContext = context;
         this.user = getUserInfo();
         this.client = new AsyncHttpClient();
-        this.mFormController = new FormController(mContext);
-//        client.setConnectTimeout(10000);
+        this.executorService = Executors.newFixedThreadPool(10);
+        this.client.setThreadPool(executorService);
 
-//        if(user != null){
-//            client.setBasicAuth(user.username, user.password);
-//        }
-    }
-    public Uploader(Form form, Context context, FormFragment formFragment, ProgressDialog p, int current, int total){
-        this.mForm = form;
-        this.mContext = context;
-        this.user = getUserInfo();
-        this.client = new AsyncHttpClient();
         this.mFormController = new FormController(mContext, formFragment);
         this.baseStorageUrl = mContext.getResources().getString(R.string.storage_url);
         this.mHashMap = new HashMap<String, String>();
-//        this.loadingView = loadingView;
         this.current = current;
         this.total = total;
         this.progressDialog = p;
-//        client.setConnectTimeout(10000);
+        this.mFormFragment = formFragment;
 
-//        if(user != null){
-//            client.setBasicAuth(user.username, user.password);
-//        }
-    }
-    public Uploader(ArrayList<Form> forms, Context context){
-        this.mForms = forms;
-        this.mContext = context;
-        this.user = getUserInfo();
-        this.client = new AsyncHttpClient();
     }
 
-    public void execute(){
+
+    public void execute(Form f, int c){
         if(user != null) {
-            uploadPhotos();
-//            uploadForm();
+            uploadPhotos(f, c);
+
+            if(c == total){
+                executorService.shutdown();
+            }
         }
     }
 
-    public void uploadPhotos(){
+    public void uploadPhotos(final Form mForm, final int c){
         List<String> photoPathes = new ArrayList<String>();
         photoPathes.add(mForm.PHOTO_INUP);
         photoPathes.add(mForm.PHOTO_INDW);
@@ -130,6 +118,7 @@ public class Uploader {
                 progressDialog.dismiss();
                 Toast.makeText(mContext, "Image file not found", Toast.LENGTH_SHORT).show();
             }else{
+                setFormParams(params, mForm);
                 client.post(mContext.getResources()
                                 .getString(R.string.image_post_url)
                         , params,
@@ -140,25 +129,36 @@ public class Uploader {
                                 try {
                                     s = new String(bytes, "UTF-8");
                                 }catch (Exception e){}
-                                if(s.contains("success")){
-                                    uploadForm();
+                                if(s.contains("success") || s.contains("submitted")){
+                                    deleteFormIfSuccess(mForm);
+
+                                    if(c == total){
+
+                                        Toast.makeText(mContext,s,Toast.LENGTH_SHORT).show();
+                                        progressDialog.dismiss();
+                                    }
+
                                 }else{
                                     // Uploading failed
-                                    if(current == total){
+                                    if(c == total){
                                         Toast.makeText(mContext,"Photo upload failed, please try later",Toast.LENGTH_SHORT).show();
-//                            loadingView.setVisibility(View.GONE);
                                         progressDialog.dismiss();
                                     }
                                 }
+                                mFormFragment.setListView();
+
+
                             }
 
                             @Override
                             public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
 
-                                if(current == total){
-                                    Toast.makeText(mContext,"Network Error when uploading photos",Toast.LENGTH_SHORT).show();
+                                if(c == total){
+                                    Toast.makeText(mContext,"Network Error when uploading forms",Toast.LENGTH_SHORT).show();
+
                                     progressDialog.dismiss();
                                 }
+                                mFormFragment.setListView();
                             }
                         });
             }
@@ -187,8 +187,8 @@ public class Uploader {
         }
     }
 
-    public void uploadForm(){
-        RequestParams params = new RequestParams();
+    public void setFormParams(RequestParams params, Form mForm){
+//        RequestParams params = new RequestParams();
         try{
             params.put("UserName", user.getUsername());
             params.put("Group", user.role);
@@ -290,49 +290,49 @@ public class Uploader {
         }catch (Exception e){
 //            e.printStackTrace();
         }
-        client.post(mContext.getResources().getString(R.string.form_post_url), params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int i, Header[] headers, byte[] bytes) {
-//                Log.i("debug", "200 OK");
-                String s = "";
-                try {
-                    s = new String(bytes, "UTF-8");
-                }catch (Exception e){}
-//                Log.i("debug", s);
-
-                if(s.toLowerCase().equals("form submitted")) {
-                    deleteFormIfSuccess();
-                }
-
-                if(current == total){
-                    Toast.makeText(mContext,s,Toast.LENGTH_SHORT).show();
-//                    loadingView.setVisibility(View.GONE);
-                    progressDialog.dismiss();
-                }
-
-            }
-
-            @Override
-            public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-//                Log.i("debug", "40X Fail");
-                String s = "Form upload fail";
-                try {
-                    s = new String(bytes, "UTF-8");
-                }catch (Exception e){}
-
-
-                if(current == total){
-                    Toast.makeText(mContext,s,Toast.LENGTH_SHORT).show();
-//                    loadingView.setVisibility(View.GONE);
-                    progressDialog.dismiss();
-                }
-            }
-        });
+//        client.post(mContext.getResources().getString(R.string.form_post_url), params, new AsyncHttpResponseHandler() {
+//            @Override
+//            public void onSuccess(int i, Header[] headers, byte[] bytes) {
+////                Log.i("debug", "200 OK");
+//                String s = "";
+//                try {
+//                    s = new String(bytes, "UTF-8");
+//                }catch (Exception e){}
+////                Log.i("debug", s);
+//
+//                if(s.toLowerCase().equals("form submitted")) {
+//                    deleteFormIfSuccess();
+//                }
+//
+//                if(current == total){
+//                    Toast.makeText(mContext,s,Toast.LENGTH_SHORT).show();
+////                    loadingView.setVisibility(View.GONE);
+//                    progressDialog.dismiss();
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
+////                Log.i("debug", "40X Fail");
+//                String s = "Form upload fail";
+//                try {
+//                    s = new String(bytes, "UTF-8");
+//                }catch (Exception e){}
+//
+//
+//                if(current == total){
+//                    Toast.makeText(mContext,s,Toast.LENGTH_SHORT).show();
+////                    loadingView.setVisibility(View.GONE);
+//                    progressDialog.dismiss();
+//                }
+//            }
+//        });
 
     }
 
-    private void deleteFormIfSuccess() {
-        mFormController.deleteOneForm(mForm.ID);
+    private void deleteFormIfSuccess(Form mForm) {
+        mFormController.deleteOneFormAsync(mForm.ID);
     }
 
     public void uploadJson(){
