@@ -2233,6 +2233,7 @@
                 android:weightSum="1"
                 >
 
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -2240,7 +2241,7 @@
                     android:id="@+id/attachmentsLabel"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
-                    android:layout_weight="0.5"/>
+                    android:layout_weight="0.4"/>
 
                 <TextView
                     android:layout_width="0dp"
@@ -2250,6 +2251,16 @@
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
                     android:layout_weight="0.3"/>
+
+                <ImageButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:id="@+id/cancel_attachment"
+                    android:src="@drawable/file_delete"
+                    android:scaleType="fitCenter"
+                    android:visibility="gone"/>
+
                 <ImageButton
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

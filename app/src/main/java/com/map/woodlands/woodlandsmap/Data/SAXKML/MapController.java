@@ -1,9 +1,7 @@
 package com.map.woodlands.woodlandsmap.Data.SAXKML;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.location.Location;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -16,13 +14,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.map.woodlands.woodlandsmap.Data.Coordinate;
-import com.map.woodlands.woodlandsmap.Data.KMLController;
 import com.map.woodlands.woodlandsmap.Data.MarkerToggler;
 import com.map.woodlands.woodlandsmap.R;
-
-import org.apache.http.Header;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +31,6 @@ public class MapController {
     private MarkerToggler mt;
     ArrayList<Marker> markers;
 
-    private KMLController kmlController;
-    private Context mContext;
-    private ProgressDialog progressDialog;
 
     public MapController(GoogleMap gmap, MarkerToggler m, Context context){
         this.map = gmap;
@@ -47,53 +38,9 @@ public class MapController {
         this.coordinatesParser = new CoordinatesParser();
         this.mt = m;
         this.markers = new ArrayList<Marker>();
-
-        this.kmlController = new KMLController(this, context);
-        this.mContext = context;
     }
 
-    public void loadKML(final String url, final String fileName){
-        progressDialog = ProgressDialog.show(mContext, "", "Loading...", true);
-        NavigationDataSet navigationDataSet = null;
-        client.get(url, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int i, Header[] headers, byte[] bytes) {
-//                Log.i("debug", "Got KML file");
 
-                // Save it to local storage
-                String filetype = url.substring(url.length()-3);
-                kmlController.saveFile(bytes, fileName+"."+filetype);
-
-                // Start loading to the map
-                if(url.contains("kml")) {
-                    // It is a kml file
-                    addDataToMap(MapService.getNavigationDataSet(bytes));
-                }else if(url.contains("kmz")){
-                    // It is a kmz file
-                    addDataToMap(MapService.getNavigationDataSet(kmlController.getKMLFromKMZ(bytes)));
-
-                }
-
-                progressDialog.dismiss();
-            }
-
-            @Override
-            public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-
-                Toast.makeText(mContext
-                        ,"Network error, try to load KML file from local storage"
-                        ,Toast.LENGTH_SHORT)
-                        .show();
-
-                String fullFilename = fileName + "." + url.substring(url.length()-3);
-                kmlController.loadLocalKML(fullFilename);
-
-                progressDialog.dismiss();
-            }
-        });
-
-
-    }
 
     public void addDataToMap(NavigationDataSet n){
         if(n != null) {
@@ -113,7 +60,8 @@ public class MapController {
                             Marker m = map.addMarker(new MarkerOptions().position(latLngs.get(0)).title(p.title));
                             markers.add(m);
 
-                        } else if (p.getType().equals("Polygon")) {
+                        }
+                        else if (p.getType().equals("Polygon")) {
                             // This is Polygon placemark
 
                             Iterable<LatLng> iterable = latLngs;

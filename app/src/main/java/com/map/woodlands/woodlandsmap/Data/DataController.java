@@ -204,14 +204,13 @@ public class DataController {
 
 
                     }catch (Exception e){
-                        e.printStackTrace();
+//                        e.printStackTrace();
                     }
-//                    progressDialog.dismiss();
+
                 }
 
                 @Override
                 public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-//                    progressDialog.dismiss();
 //                    Toast.makeText(context, "Fail to get KML", Toast.LENGTH_SHORT).show();
                 }
             });

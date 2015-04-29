@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -108,7 +109,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
     public LinearLayout culvertBlock,bridgeBlock,erosionBlock,fishSamplingBlock, blockageBlock,
             culvertDiameter2Block, culvertDiameter3Block, fishReasonBlock ;
 
-    public ImageButton attachmentButton;
+    public ImageButton attachmentButton, cancelAttachmentButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,7 +147,10 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
 
     protected void setImageButtons() {
         this.attachmentButton = (ImageButton) findViewById(R.id.attachmentButton);
+        this.cancelAttachmentButton = (ImageButton) findViewById(R.id.cancel_attachment);
+
         attachmentButton.setOnClickListener(this);
+        cancelAttachmentButton.setOnClickListener(this);
     }
 
     protected void setLatLong() {
@@ -676,6 +680,10 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
                 openFileChooser();
                 break;
 
+            case R.id.cancel_attachment:
+                cancelAttachment();
+                break;
+
             case R.id.attachmentName:
                 // Get intent
                 if(m_chosenDir != null && !m_chosenDir.equals("")){
@@ -686,7 +694,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
                         File file = new File(m_chosenDir);
                         String name = file.getName();
 
-                                MimeTypeMap mime = MimeTypeMap.getSingleton();
+                        MimeTypeMap mime = MimeTypeMap.getSingleton();
                         String extension = name.substring(name.lastIndexOf(".")+1).toLowerCase();
                         String type = mime.getMimeTypeFromExtension(extension);
 
@@ -702,6 +710,11 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
             default:
                 break;
         }
+    }
+
+    protected void cancelAttachment(){
+        m_chosenDir = "";
+        attachmentName.setText("");
     }
 
     protected String m_chosenDir = "";
@@ -721,11 +734,12 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
                                     }else{
                                         m_chosenDir = chosenDir;
                                         Toast.makeText(FormActivity.this, "Choosen file: "
-                                                + m_chosenDir, Toast.LENGTH_SHORT).show();
+                                                + m_chosenDir, Toast.LENGTH_LONG).show();
                                         String fileName = m_chosenDir
                                                 .substring(m_chosenDir
                                                         .lastIndexOf("/")+1);
                                         attachmentName.setText(fileName);
+                                        cancelAttachmentButton.setVisibility(View.VISIBLE);
                                     }
                                 }
 
@@ -917,5 +931,18 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
     protected void onStop() {
         super.onStop();
         GoogleAnalytics.getInstance(this).reportActivityStop(this);
+    }
+
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        // Checks the orientation of the screen
+//        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+//            Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show();
+//        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+//            Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show();
+//        }
     }
 }

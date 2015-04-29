@@ -2,6 +2,9 @@ package com.map.woodlands.woodlandsmap.Data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +15,7 @@ import com.google.gson.reflect.TypeToken;
 import com.map.woodlands.woodlandsmap.Data.SAXKML.MapController;
 import com.map.woodlands.woodlandsmap.R;
 
+import java.io.File;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,17 +33,26 @@ public class PopupController {
     private MarkerToggler mt;
     private HashMap hm;
     private DataController dataController;
+    private KMLController kmlController;
 
-    public PopupController(Context c, final MapController m, MarkerToggler mt, DataController d){
+    public PopupController(Context c, final MapController m,
+                           MarkerToggler mt, DataController d,
+                           KMLController kmlController){
         mContext = c;
         this.mapController = m;
         this.mt = mt;
         hm = new HashMap();
         this.dataController = d;
+        this.kmlController = kmlController;
     }
 
     public void showKMLPopup(View v){
-        this.hm = getKML();
+        if(isOnline()) {
+            this.hm = getKML();
+        }else{
+            this.hm = kmlController.getLocalKMLsFromFolder();
+        }
+
 
         PopupMenu popupMenu = new PopupMenu(mContext, v);
         popupMenu.getMenuInflater().inflate(R.menu.menu_layers, popupMenu.getMenu());
@@ -47,7 +60,11 @@ public class PopupController {
 
         Set set = hm.entrySet();
         Iterator i = set.iterator();
+
+
+
         int counter = 0;
+        menu.add(1, counter, counter, "Choose...");
         while(i.hasNext()){
             Map.Entry me = (Map.Entry)i.next();
             menu.add(1, counter, counter, me.getKey().toString());
@@ -84,9 +101,12 @@ public class PopupController {
                     }
                 }else if(title.equals("Clear")){
                     mapController.clear();
+                }else if(title.equals("Choose...")){
+                    // Popup a file chooser
+                    openFileChooser();
                 }
                 else{
-                    mapController.loadKML(""+hm.get(item.getTitle()), ""+item.getTitle());
+                    kmlController.loadKML(""+hm.get(item.getTitle()), ""+item.getTitle());
                 }
                 return true;
 
@@ -181,4 +201,34 @@ public class PopupController {
         return h;
     }
 
+    public boolean isOnline(){
+        ConnectivityManager cm = (ConnectivityManager) mContext
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+
+
+    protected void openFileChooser() {
+        String m_chosenDir = "";
+        File f = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),"kmls");
+        if(f.exists()){
+            m_chosenDir = f.getAbsolutePath();
+        }
+        KMLFileChooser directoryChooserDialog =
+                new KMLFileChooser(mContext,
+                        new DirectoryChooserDialog.ChosenDirectoryListener(){
+                            @Override
+                            public void onChosenDir(String chosenDir) {
+                                File file = new File(chosenDir);
+                                if(file.exists()){
+                                    kmlController.loadLocalKML(file.getName());
+
+                                }
+                            }
+                        });
+        directoryChooserDialog.setNewFolderEnabled(false);
+        directoryChooserDialog.chooseDirectory(m_chosenDir);
+    }
 }

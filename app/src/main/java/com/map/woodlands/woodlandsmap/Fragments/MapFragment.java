@@ -26,6 +26,7 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.Marker;
 import com.map.woodlands.woodlandsmap.Data.DataController;
+import com.map.woodlands.woodlandsmap.Data.KMLController;
 import com.map.woodlands.woodlandsmap.Data.MarkerToggler;
 import com.map.woodlands.woodlandsmap.Data.PopupController;
 import com.map.woodlands.woodlandsmap.Data.SAXKML.MapController;
@@ -56,6 +57,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     private PopupController popupController;
     private DataController dataController;
     private MarkerToggler markerToggler;
+    private KMLController kmlController;
 //    private ViewToggler viewToggler;
 
     private static final LocationRequest REQUEST = LocationRequest.create()
@@ -172,7 +174,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 
         this.mapController = new MapController(this.map, markerToggler, mContext);
         this.dataController = new DataController(mContext, mapController);
-        this.popupController = new PopupController(mContext, mapController, markerToggler, dataController);
+        this.kmlController = new KMLController(mapController, mContext);
+        this.popupController = new PopupController(mContext, mapController,
+                markerToggler, dataController, kmlController);
 
 
 

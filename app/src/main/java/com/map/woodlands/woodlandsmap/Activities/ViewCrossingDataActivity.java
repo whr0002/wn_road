@@ -1,5 +1,6 @@
 package com.map.woodlands.woodlandsmap.Activities;
 
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -311,6 +312,11 @@ public class ViewCrossingDataActivity extends ActionBarActivity {
 
 
 
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 
     private void setBackgroundColor(LinearLayout linearLayout1) {

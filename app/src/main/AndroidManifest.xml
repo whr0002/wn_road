@@ -30,10 +30,11 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyCPE1m6EGztu5qsIJyhlC-MMGSI3_Kwt10" />
+            android:value="AIzaSyCLHBtHp_hJinOAK4NTNVh1kD9dqRkKxgw" />
 
         <activity
             android:name=".MainActivity"
+            android:configChanges="orientation|screenSize"
             android:uiOptions="splitActionBarWhenNarrow"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
@@ -44,15 +45,19 @@
         </activity>
         <activity
             android:name=".Activities.FormActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/form_detail"
             android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
             android:name=".Activities.EditFormActivity"
+            android:configChanges="orientation|screenSize"
             android:label="View a form"
             android:windowSoftInputMode="stateHidden">
         </activity>
-        <activity android:name=".Activities.ViewCrossingDataActivity" >
+        <activity
+            android:name=".Activities.ViewCrossingDataActivity"
+            android:configChanges="orientation|screenSize">
         </activity>
         <activity
             android:name=".Activities.SettingsActivity"

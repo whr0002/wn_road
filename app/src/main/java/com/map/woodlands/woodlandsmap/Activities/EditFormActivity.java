@@ -1,8 +1,10 @@
 package com.map.woodlands.woodlandsmap.Activities;
 
+import android.content.res.Configuration;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
@@ -186,9 +188,14 @@ public class EditFormActivity extends FormActivity{
         return 0;
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
+
     /*
-    * Set form data in view
-    * */
+        * Set form data in view
+        * */
     private void setForm() {
         IndexForm mif = mFormController.getIndexForm(formID);
         formIndex = mif.index;
@@ -269,6 +276,7 @@ public class EditFormActivity extends FormActivity{
             if(s != null && !s.equals("")) {
                 m_chosenDir = s;
                 attachmentName.setText(f.AttachmentPath1.substring(f.AttachmentPath1.lastIndexOf("/")+1));
+                cancelAttachmentButton.setVisibility(View.VISIBLE);
             }
 //            setPhotoFromPath();
         }

@@ -133,6 +133,41 @@ public class MapService {
 
         } catch (Exception e) {
             Log.i("debug", "error with kml xml", e);
+//            e.printStackTrace();
+            navigationDataSet = null;
+        }
+
+        return navigationDataSet;
+    }
+
+    public static NavigationDataSet getNavigationDataSet(InputStream inputStream) {
+
+        NavigationDataSet navigationDataSet = null;
+        try
+        {
+        /* Get a SAXParser from the SAXPArserFactory. */
+            SAXParserFactory spf = SAXParserFactory.newInstance();
+            SAXParser sp = spf.newSAXParser();
+
+        /* Get the XMLReader of the SAXParser we created. */
+            XMLReader xr = sp.getXMLReader();
+
+        /* Create a new ContentHandler and apply it to the XML-Reader*/
+            NavigationSaxHandler navSax2Handler = new NavigationSaxHandler();
+            xr.setContentHandler(navSax2Handler);
+
+        /* Parse the xml-data from our URL. */
+            xr.parse(new InputSource(inputStream));
+
+        /* Our NavigationSaxHandler now provides the parsed data to us. */
+            navigationDataSet = navSax2Handler.getParsedData();
+
+        /* Set the result to be displayed in our GUI. */
+            Log.i("debug", "Data Size: " + navigationDataSet.getPlacemarks().size());
+//            Log.i("debug", "navigationDataSet: " + navigationDataSet.toString());
+
+        } catch (Exception e) {
+            Log.i("debug", "error with kml xml", e);
             e.printStackTrace();
             navigationDataSet = null;
         }

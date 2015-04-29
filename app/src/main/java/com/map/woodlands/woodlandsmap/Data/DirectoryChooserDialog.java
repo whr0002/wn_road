@@ -33,11 +33,11 @@ public class DirectoryChooserDialog
     private Context m_context;
     private TextView m_titleView;
 
-    private String m_dir = "";
+    protected String m_dir = "";
     private List<String> m_subdirs = null;
-    private ChosenDirectoryListener m_chosenDirectoryListener = null;
+    protected ChosenDirectoryListener m_chosenDirectoryListener = null;
     private ArrayAdapter<String> m_listAdapter = null;
-    private AlertDialog dirsDialog;
+    protected AlertDialog dirsDialog;
     //////////////////////////////////////////////////////
     // Callback interface for selected directory
     //////////////////////////////////////////////////////
@@ -183,7 +183,7 @@ public class DirectoryChooserDialog
         return false;
     }
 
-    private List<String> getDirectories(String dir)
+    protected List<String> getDirectories(String dir)
     {
         List<String> dirs = new ArrayList<String>();
 
@@ -280,6 +280,7 @@ public class DirectoryChooserDialog
         // Current directory TextView allows long directory path to be wrapped to multiple lines.
         LinearLayout titleLayout = new LinearLayout(m_context);
         titleLayout.setOrientation(LinearLayout.VERTICAL);
+
 
         LinearLayout topLayout = new LinearLayout(m_context);
         LinearLayout.LayoutParams layoutParams = new LinearLayout

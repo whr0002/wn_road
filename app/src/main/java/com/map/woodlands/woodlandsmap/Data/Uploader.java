@@ -48,7 +48,7 @@ public class Uploader {
         this.mContext = context;
         this.user = getUserInfo();
         this.client = new AsyncHttpClient();
-        this.executorService = Executors.newFixedThreadPool(10);
+        this.executorService = Executors.newFixedThreadPool(20);
         this.client.setThreadPool(executorService);
 
         this.mFormController = new FormController(mContext, formFragment);
@@ -68,6 +68,7 @@ public class Uploader {
 
             if(c == total){
                 executorService.shutdown();
+
             }
         }
     }
@@ -153,6 +154,12 @@ public class Uploader {
                             @Override
                             public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
 
+                                try{
+                                    String s = new String(bytes, "utf-8");
+                                    Log.i("debug", "Failed: "+ s);
+                                }catch (Exception e){
+
+                                }
                                 if(c == total){
                                     Toast.makeText(mContext,"Network Error when uploading forms",Toast.LENGTH_SHORT).show();
 
