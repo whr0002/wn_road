@@ -14,8 +14,8 @@
     <string name="main_activity_name2">Woodlands SCARI</string>
     <string name="title_section1">Login</string>
     <string name="title_section2">Map</string>
-    <string name="title_section3">Form</string>
-    <string name="title_section4">Unsubmitted Forms</string>
+    <string name="title_section3">PDF</string>
+    <string name="title_section4">Form</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Login</string>

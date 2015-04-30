@@ -1,6 +1,5 @@
 package com.map.woodlands.woodlandsmap.Adapters;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.map.woodlands.woodlandsmap.Fragments.FormFragment;
 import com.map.woodlands.woodlandsmap.Fragments.LoginFragment;
 import com.map.woodlands.woodlandsmap.Fragments.MapFragment;
+import com.map.woodlands.woodlandsmap.Fragments.PDFFragment;
 import com.map.woodlands.woodlandsmap.MainActivity;
 import com.map.woodlands.woodlandsmap.R;
 
@@ -21,7 +21,9 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
     private LoginFragment mLoginFragment;
     private FormFragment mFormFragment;
     private MapFragment mMapFragment;
+    private PDFFragment pdfFragment;
     private Context mCtx;
+
     public TabPagerAdapter(FragmentManager fm, Context ctx) {
         super(fm);
         this.mCtx = ctx;
@@ -29,6 +31,7 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
         this.mFormFragment = FormFragment.newInstance();
         this.mMapFragment = MapFragment.newInstance();
         this.mLoginFragment = LoginFragment.newInstance(mMapFragment);
+        this.pdfFragment = new PDFFragment();
     }
 
     @Override
@@ -42,7 +45,10 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
                 return mCtx.getString(R.string.title_section2).toUpperCase(l);
 
             case 2:
-                return mCtx.getString(R.string.title_section3).toUpperCase(l);
+                return mCtx.getString(R.string.title_section3).toUpperCase();
+
+            case 3:
+                return mCtx.getString(R.string.title_section4).toUpperCase(l);
         }
         return null;
     }
@@ -57,6 +63,9 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
                 return mMapFragment;
 
             case 2:
+                return pdfFragment;
+
+            case 3:
                 return FormFragment.newInstance();
 
 
@@ -66,6 +75,6 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return 4;
     }
 }

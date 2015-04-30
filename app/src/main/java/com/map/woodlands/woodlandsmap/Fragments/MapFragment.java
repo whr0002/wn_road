@@ -20,10 +20,17 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.GroundOverlay;
+import com.google.android.gms.maps.model.GroundOverlayOptions;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.map.woodlands.woodlandsmap.Data.DataController;
 import com.map.woodlands.woodlandsmap.Data.KMLController;
@@ -181,6 +188,22 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 
 
         getMapData();
+
+
+//        LatLng sw = new LatLng(7394791.918571,-12281199.473960);
+//        LatLng ne = new LatLng(7441648.918571, -12244992.473960);
+        LatLng sw = new LatLng(55.169293,-110.323892);
+        LatLng ne = new LatLng(55.408980, -109.998639);
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(sw, 25.0f));
+
+        LatLngBounds bounds = new LatLngBounds(sw, ne);
+
+        BitmapDescriptor image = BitmapDescriptorFactory.fromResource(R.drawable.overlay1);
+
+        GroundOverlay groundOverlay = map.addGroundOverlay(new GroundOverlayOptions()
+                .image(image)
+                .positionFromBounds(bounds)
+                .transparency(0.5f));
 
 
     }
