@@ -33,14 +33,38 @@
         android:layout_alignBottom="@id/map"
         android:padding="6dp"
         android:background="#80FFFFFF"
+        android:id="@+id/layers"
         android:orientation="vertical">
         <Spinner
             android:id="@+id/layers_spinner"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/map"
+        android:layout_toRightOf="@+id/layers"
+        android:orientation="horizontal"
+        android:background="#80FFFFFF"
+        android:layout_margin="5dp">
 
-    <include layout="@layout/loading"
-        android:id="@+id/loadingView"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Transparency"
+            android:textSize="18sp"
+            android:layout_gravity="center_vertical"
+            />
+
+        <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/transparencySeekBar"
+            />
+
+
+    </LinearLayout>
+
 </RelativeLayout>

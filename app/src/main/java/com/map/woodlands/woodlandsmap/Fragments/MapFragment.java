@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -20,17 +21,11 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptor;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.GroundOverlay;
-import com.google.android.gms.maps.model.GroundOverlayOptions;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.Marker;
 import com.map.woodlands.woodlandsmap.Data.DataController;
 import com.map.woodlands.woodlandsmap.Data.KMLController;
@@ -46,14 +41,16 @@ import static com.google.android.gms.maps.GoogleMap.MAP_TYPE_SATELLITE;
 import static com.google.android.gms.maps.GoogleMap.MAP_TYPE_TERRAIN;
 
 /**
- * Created by Jimmy on 3/19/2015.
- */
+* Created by Jimmy on 3/19/2015.
+*/
 public class MapFragment extends Fragment implements OnMapReadyCallback,
         GoogleMap.OnMarkerClickListener,
+        GoogleMap.OnCameraChangeListener,
         AdapterView.OnItemSelectedListener,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener
+        LocationListener,
+        SeekBar.OnSeekBarChangeListener
 {
 
     private GoogleApiClient mGoogleApiClient;
@@ -65,7 +62,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     private DataController dataController;
     private MarkerToggler markerToggler;
     private KMLController kmlController;
-//    private ViewToggler viewToggler;
+    private SeekBar seekBar;
 
     private static final LocationRequest REQUEST = LocationRequest.create()
             .setInterval(5000)          // 5 seconds
@@ -82,10 +79,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_map, container, false);
         setHasOptionsMenu(true);
-
-        View loadingView = v.findViewById(R.id.loadingView);
-        loadingView.setVisibility(View.GONE);
-
 
         this.markerToggler = new MarkerToggler();
         mContext = this.getActivity();
@@ -117,6 +110,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
+
+        this.seekBar = (SeekBar) v.findViewById(R.id.transparencySeekBar);
+        seekBar.setMax(MapController.TRASPARENCY_MAX);
+        seekBar.setProgress(50);
+
 
 
         return v;
@@ -179,34 +177,27 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         this.map.setOnMarkerClickListener(this);
 
 
+
         this.mapController = new MapController(this.map, markerToggler, mContext);
         this.dataController = new DataController(mContext, mapController);
         this.kmlController = new KMLController(mapController, mContext);
         this.popupController = new PopupController(mContext, mapController,
                 markerToggler, dataController, kmlController);
 
-
-
+        this.map.setOnCameraChangeListener(this);
+        this.seekBar.setOnSeekBarChangeListener(this);
         getMapData();
 
 
-//        LatLng sw = new LatLng(7394791.918571,-12281199.473960);
-//        LatLng ne = new LatLng(7441648.918571, -12244992.473960);
-        LatLng sw = new LatLng(55.169293,-110.323892);
-        LatLng ne = new LatLng(55.408980, -109.998639);
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(sw, 25.0f));
 
-        LatLngBounds bounds = new LatLngBounds(sw, ne);
+//        LatLng sw = new LatLng(55.169293,-110.323892);
+//        LatLng ne = new LatLng(55.408980, -109.998639);
 
-        BitmapDescriptor image = BitmapDescriptorFactory.fromResource(R.drawable.overlay1);
 
-        GroundOverlay groundOverlay = map.addGroundOverlay(new GroundOverlayOptions()
-                .image(image)
-                .positionFromBounds(bounds)
-                .transparency(0.5f));
 
 
     }
+
 
     @Override
     public void onPause() {
@@ -293,6 +284,26 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onCameraChange(CameraPosition cameraPosition) {
+        this.mapController.onCameraChanged(cameraPosition);
+    }
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        mapController.onTransparencyChanged(progress);
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
 
     }
 }

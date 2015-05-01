@@ -42,7 +42,7 @@ public class KMLFileChooser extends DirectoryChooserDialog{
                     int dotIndex = fileName.lastIndexOf(".");
                     if(dotIndex > -1){
                         String ext = fileName.substring(dotIndex).toLowerCase();
-                        if(ext.contains("kml"))
+                        if(ext.contains("kml") || ext.contains("zip"))
                         {
                             dirs.add(fileName);
                         }

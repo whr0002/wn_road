@@ -98,8 +98,6 @@ public class  LoginFragment extends Fragment implements OnClickListener{
         loginLayout = (RelativeLayout) rootView.findViewById(R.id.LoginLayout);
         loggedInLayout = (RelativeLayout) rootView.findViewById(R.id.LoggedInLayout);
 
-//        emailField.setText("whr0002@gmail.com");
-//        passwordField.setText("`Nmhwj0002");
 
         if(hasUserData()){
             showLoggedInView();

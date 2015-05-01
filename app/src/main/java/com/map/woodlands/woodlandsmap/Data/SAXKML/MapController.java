@@ -6,7 +6,11 @@ import android.location.Location;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.GroundOverlay;
+import com.google.android.gms.maps.model.GroundOverlayOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -30,6 +34,8 @@ public class MapController {
     private CoordinatesParser coordinatesParser;
     private MarkerToggler mt;
     ArrayList<Marker> markers;
+    private List<GroundOverlay> groundOverlays;
+    public static final int TRASPARENCY_MAX = 100;
 
 
     public MapController(GoogleMap gmap, MarkerToggler m, Context context){
@@ -38,6 +44,7 @@ public class MapController {
         this.coordinatesParser = new CoordinatesParser();
         this.mt = m;
         this.markers = new ArrayList<Marker>();
+        this.groundOverlays = new ArrayList<GroundOverlay>();
     }
 
 
@@ -180,8 +187,45 @@ public class MapController {
 
     public void clear(){
         markers.clear();
+        groundOverlays.clear();
         map.clear();
     }
 
+    public void addOverlays(BitmapDescriptor bitmapDescriptor, LatLngBounds bounds){
+        if(bitmapDescriptor != null && bounds != null){
+            GroundOverlay groundOverlay = map.addGroundOverlay(new GroundOverlayOptions()
+            .image(bitmapDescriptor)
+            .positionFromBounds(bounds)
+            .transparency(0.5f)
+            .visible(false));
 
+            map.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 50));
+            groundOverlays.add(groundOverlay);
+        }
+
+    }
+
+    /**
+     * Listening to zoom level change
+     * */
+    public void onCameraChanged(CameraPosition position){
+
+//        Log.i("debug", "Zoom Level: "+position.zoom);
+
+        for(GroundOverlay g : groundOverlays){
+            if(g.getBounds().contains(position.target)){
+                // Camera center is in the bound, show overlay
+                g.setVisible(true);
+            }else{
+                g.setVisible(false);
+            }
+        }
+    }
+
+    public void onTransparencyChanged(int currentTransparency){
+
+        for(GroundOverlay g: groundOverlays){
+            g.setTransparency((float) currentTransparency / (float) TRASPARENCY_MAX);
+        }
+    }
 }

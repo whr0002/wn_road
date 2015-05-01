@@ -7,6 +7,10 @@ import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.map.woodlands.woodlandsmap.Data.SAXKML.MapController;
@@ -14,12 +18,21 @@ import com.map.woodlands.woodlandsmap.Data.SAXKML.MapService;
 import com.map.woodlands.woodlandsmap.Data.SAXKML.NavigationDataSet;
 
 import org.apache.http.Header;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.HashMap;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 
 /**
@@ -224,5 +237,169 @@ public class KMLController {
 
             progressDialog.dismiss();
         }
+    }
+
+    public void addOverlays(File folder){
+        if(folder != null && folder.exists()){
+            Toast.makeText(mContext, "Loading...", Toast.LENGTH_LONG).show();
+
+            File[] files = folder.listFiles();
+            for(File f : files){
+//                Log.i("debug", f.getAbsolutePath());
+                String fName = f.getName();
+                String ext = fName.substring(fName.lastIndexOf(".")+1).toLowerCase();
+                if(ext.equals("xml")){
+                    // Parse .xml file to get bounds
+                    LatLngBounds bounds = getBoundsFromXML(f);
+                    if(bounds != null){
+                        // Have bounds, get bitmap
+                        try {
+                            String imageName = f.getName().substring(0, f.getName().lastIndexOf("."));
+                            String fullPath = folder.getAbsolutePath() + File.separator + imageName;
+                            BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory
+                                    .fromPath(fullPath);
+
+//                            Log.i("debug", "Image path: "+fullPath);
+
+                            mapController.addOverlays(bitmapDescriptor, bounds);
+                        }catch (Exception e){
+                            Toast.makeText(mContext, "Cannot load image", Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+
+                }
+            }
+        }
+    }
+
+
+    private LatLngBounds getBoundsFromXML(File f) {
+        try{
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(f);
+
+            doc.getDocumentElement().normalize();
+
+//            Log.i("debug", "Root element: " + doc.getDocumentElement().getNodeName());
+
+            NodeList nodeList = doc.getElementsByTagName("GeoBndBox");
+
+            for(int i=0;i<nodeList.getLength();i++){
+                Node node = nodeList.item(i);
+
+//                Log.i("debug", "Element: "+node.getNodeName());
+
+                if(node.getNodeType() == node.ELEMENT_NODE){
+                    Element element = (Element) node;
+
+                    String southS = element.getElementsByTagName("southBL").item(0).getTextContent();
+                    String westS = element.getElementsByTagName("westBL").item(0).getTextContent();
+                    String northS = element.getElementsByTagName("northBL").item(0).getTextContent();
+                    String eastS = element.getElementsByTagName("eastBL").item(0).getTextContent();
+
+//                    Log.i("debug", "-south: "+ southS);
+//                    Log.i("debug", "-westS: "+ westS);
+//                    Log.i("debug", "-northS: "+ northS);
+//                    Log.i("debug", "-eastS: "+ eastS);
+
+                    double southD = Double.parseDouble(southS);
+                    double westD = Double.parseDouble(westS);
+                    double northD = Double.parseDouble(northS);
+                    double eastD = Double.parseDouble(eastS);
+
+                    return new LatLngBounds(new LatLng(southD,westD), new LatLng(northD,eastD));
+
+
+
+                }
+
+
+            }
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public File unZip(File file){
+        byte[] buffer = new byte[1024];
+
+        try{
+            File overlayFolder = new File(mContext
+                    .getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),"overlays");
+
+            if(!overlayFolder.exists()){
+                overlayFolder.mkdir();
+            }
+
+            File extractionFolder = new File(mContext
+                    .getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),
+                    "overlays/extractions");
+
+            if(!extractionFolder.exists()){
+                extractionFolder.mkdir();
+            }
+
+
+            String fName = file.getName();
+            String noExtName = fName.substring(0, fName.lastIndexOf("."));
+
+
+
+
+            File folder = new File(mContext
+                    .getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),
+                    "overlays/extractions/"+noExtName);
+
+            if(!folder.exists()){
+                folder.mkdir();
+            }
+
+//            Log.i("debug", "Folder Path: "+ folder.getAbsolutePath());
+
+            // Get zip file content
+            ZipInputStream zis = new ZipInputStream(new FileInputStream(file));
+
+            // Get zipped file list entry
+            ZipEntry ze = zis.getNextEntry();
+            while(ze!=null){
+                String fileName = ze.getName();
+                File newFile = new File(folder.getAbsolutePath() + File.separator + fileName);
+//                Log.i("debug", "Extracted file: " + newFile.getAbsolutePath());
+                if(!ze.isDirectory()) {
+
+
+                    FileOutputStream fos = new FileOutputStream(newFile);
+                    int len = 0;
+                    while((len = zis.read(buffer)) > 0){
+                        fos.write(buffer, 0, len);
+                    }
+
+                    fos.close();
+
+                }else{
+                    newFile.mkdir();
+                }
+
+
+                zis.closeEntry();
+                ze = zis.getNextEntry();
+            }
+
+            zis.close();
+
+
+            return folder;
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

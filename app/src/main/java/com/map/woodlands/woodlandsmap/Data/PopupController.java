@@ -212,7 +212,7 @@ public class PopupController {
 
     protected void openFileChooser() {
         String m_chosenDir = "";
-        File f = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),"kmls");
+        File f = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),"");
         if(f.exists()){
             m_chosenDir = f.getAbsolutePath();
         }
@@ -223,7 +223,14 @@ public class PopupController {
                             public void onChosenDir(String chosenDir) {
                                 File file = new File(chosenDir);
                                 if(file.exists()){
-                                    kmlController.loadLocalKML(file.getName());
+                                    String fName = file.getName().toLowerCase();
+                                    String ext = fName.substring(fName.lastIndexOf("."));
+                                    if(ext.contains(".kml")) {
+                                        kmlController.loadLocalKML(file.getName());
+                                    }else if(ext.contains(".zip")){
+                                        // This is zip overlay, unzip it first
+                                        kmlController.addOverlays(kmlController.unZip(file));
+                                    }
 
                                 }
                             }
@@ -231,4 +238,6 @@ public class PopupController {
         directoryChooserDialog.setNewFolderEnabled(false);
         directoryChooserDialog.chooseDirectory(m_chosenDir);
     }
+
+
 }
