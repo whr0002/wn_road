@@ -69,12 +69,6 @@
             android:windowSoftInputMode="stateHidden">
         </activity>
 
-        <activity
-            android:name=".Activities.pdfActivity"
-            android:label="View PDF">
-
-        </activity>
-
     </application>
 
 </manifest>

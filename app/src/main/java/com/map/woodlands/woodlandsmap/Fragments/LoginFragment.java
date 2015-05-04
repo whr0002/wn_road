@@ -41,7 +41,7 @@ import java.util.List;
 
 /**
  * Created by Jimmy on 3/9/2015.
- * This is used for Login
+ * Login Section
  */
 public class  LoginFragment extends Fragment implements OnClickListener{
 

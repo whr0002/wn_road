@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Jimmy on 3/12/2015.
+ * Used for editing a form
  */
 public class EditFormActivity extends FormActivity{
 

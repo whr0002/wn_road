@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 /**
  * Created by Jimmy on 3/18/2015.
+ * A custom ImageView with a Click Listener
  */
 public class IconView extends ImageView implements View.OnClickListener{
 

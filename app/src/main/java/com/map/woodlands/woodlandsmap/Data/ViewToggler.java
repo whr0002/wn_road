@@ -8,6 +8,7 @@ import com.map.woodlands.woodlandsmap.R;
 
 /**
  * Created by Jimmy on 3/16/2015.
+ * Used for showing or hiding views in FormActivity
  */
 public class ViewToggler {
     private AdapterView<?> mParent;

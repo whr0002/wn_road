@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * Created by Jimmy on 4/29/2015.
+ * Used for choosing KML files
  */
 public class KMLFileChooser extends DirectoryChooserDialog{
     public KMLFileChooser(Context context, ChosenDirectoryListener chosenDirectoryListener) {

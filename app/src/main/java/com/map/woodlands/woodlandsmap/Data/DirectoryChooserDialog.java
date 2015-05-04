@@ -2,6 +2,7 @@ package com.map.woodlands.woodlandsmap.Data;
 
 /**
  * Created by Jimmy on 4/8/2015.
+ * Used for displaying a file chooser.
  */
 
 import android.app.AlertDialog;

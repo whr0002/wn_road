@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Jimmy on 3/11/2015.
+ * Used for the listview in FormFragment
  */
 public class FormArrayAdapter extends ArrayAdapter<Form>{
     private LayoutInflater inflater;

@@ -42,6 +42,7 @@ import static com.google.android.gms.maps.GoogleMap.MAP_TYPE_TERRAIN;
 
 /**
 * Created by Jimmy on 3/19/2015.
+ * A fragment used for viewing Google Map
 */
 public class MapFragment extends Fragment implements OnMapReadyCallback,
         GoogleMap.OnMarkerClickListener,

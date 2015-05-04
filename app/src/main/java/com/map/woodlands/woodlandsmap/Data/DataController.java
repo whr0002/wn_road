@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Jimmy on 3/23/2015.
+ * Used for getting data from server.
  */
 public class DataController {
 

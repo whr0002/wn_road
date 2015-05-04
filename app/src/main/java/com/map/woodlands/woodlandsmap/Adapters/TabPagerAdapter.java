@@ -15,6 +15,7 @@ import java.util.Locale;
 
 /**
  * Created by Jimmy on 3/9/2015.
+ * Used for tabs
  */
 public class TabPagerAdapter extends FragmentPagerAdapter {
     private LoginFragment mLoginFragment;

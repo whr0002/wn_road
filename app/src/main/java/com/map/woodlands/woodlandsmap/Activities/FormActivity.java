@@ -56,6 +56,7 @@ import java.util.Map;
 
 /**
  * Created by Jimmy on 3/11/2015.
+ * Used for creating a form
  */
 public class FormActivity extends ActionBarActivity implements View.OnClickListener,
         AdapterView.OnItemSelectedListener,

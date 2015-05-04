@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Jimmy on 3/16/2015.
+ * Used for validating a form
  */
 public class FormValidator {
     private Form mForm;

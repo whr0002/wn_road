@@ -25,6 +25,7 @@ import java.util.Set;
 
 /**
  * Created by Jimmy on 3/23/2015.
+ * Used for handling the popups in Map Section
  */
 public class PopupController {
 

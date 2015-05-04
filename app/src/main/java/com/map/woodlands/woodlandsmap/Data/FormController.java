@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Jimmy on 3/18/2015.
+ * Used for get, save, and remove forms stored in the mobile device.
  */
 public class FormController {
 

@@ -40,6 +40,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 /**
  * Created by Jimmy on 3/24/2015.
+ * Used for adding kml and overlays
  */
 public class KMLController {
 

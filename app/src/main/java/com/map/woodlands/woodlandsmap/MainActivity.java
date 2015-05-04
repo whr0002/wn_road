@@ -20,7 +20,9 @@ import com.map.woodlands.woodlandsmap.Activities.SettingsActivity;
 import com.map.woodlands.woodlandsmap.Adapters.TabPagerAdapter;
 import com.map.woodlands.woodlandsmap.Data.MyApplication;
 
-
+/**
+ * Main Activity
+ */
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener {
 
     /**

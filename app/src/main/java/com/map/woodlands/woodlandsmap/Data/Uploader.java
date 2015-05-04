@@ -26,6 +26,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by Jimmy on 3/13/2015.
+ * Used for uploading forms to the server
  */
 public class Uploader {
 

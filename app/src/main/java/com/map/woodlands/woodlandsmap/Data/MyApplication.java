@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 /**
  * Created by Jimmy on 4/14/2015.
+ * Used for the integration of Google Analytics
  */
 public class MyApplication extends Application{
 

@@ -14,6 +14,7 @@ import java.io.IOException;
 
 /**
  * Created by Jimmy on 3/16/2015.
+ * Used for setting imageviews and compressing images
  */
 public class ImageProcessor {
     private ImageView mImageView;

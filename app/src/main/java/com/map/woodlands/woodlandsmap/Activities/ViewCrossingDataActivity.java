@@ -26,6 +26,7 @@ import java.util.Iterator;
 
 /**
  * Created by Jimmy on 3/24/2015.
+ * Used for viewing details of a marker in the map
  */
 public class ViewCrossingDataActivity extends ActionBarActivity {
     private String json;
