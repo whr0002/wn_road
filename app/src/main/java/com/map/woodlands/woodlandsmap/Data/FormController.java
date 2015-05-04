@@ -231,12 +231,20 @@ public class FormController {
 
     public void addTestData(){
         ArrayList<Form> forms = new ArrayList<Form>();
-        for(int i=0;i<10;i++){
+        for(int i=0;i<20;i++){
             Form f = new Form();
             f.ID = i;
-            f.INSP_DATE = "4/28/2015";
+            f.INSP_DATE = "5/4/2015";
             f.INSP_CREW = "Tester";
+            f.ACCESS = "ATV";
+            f.CROSS_NM = "CROSS_1_5";
+            f.CROSS_ID = "Crossing ID";
+            f.STR_ID = "Stream ID";
+            f.DISPOSITION_ID = "DispositionID";
+
             f.STR_CLASS = "Non - fluvial";
+            f.STR_WIDTH = "3";
+
             f.CROSS_TYPE = "Culvert - multiple";
             f.EROSION = "No";
             f.FISH_PCONC = "No Concerns";
@@ -244,12 +252,12 @@ public class FormController {
             f.EMG_REP_RE = "No";
             f.STU_PROBS = "No";
             f.STATUS = "Ready to summit";
-//            f.PHOTO_INUP = "/storage/emulated/0/Android/data/com.map.woodlands.woodlandsmap/files/Pictures/picupload/JPEG_20150429_124522.jpg";
-//            f.PHOTO_INDW = "/storage/emulated/0/Android/data/com.map.woodlands.woodlandsmap/files/Pictures/picupload/JPEG_20150429_124522.jpg";
-//            f.PHOTO_OTUP = "/storage/emulated/0/Android/data/com.map.woodlands.woodlandsmap/files/Pictures/picupload/JPEG_20150429_124522.jpg";
-//            f.PHOTO_OTDW = "/storage/emulated/0/Android/data/com.map.woodlands.woodlandsmap/files/Pictures/picupload/JPEG_20150429_124522.jpg";
-//            f.PHOTO_1 = "/storage/emulated/0/Android/data/com.map.woodlands.woodlandsmap/files/Pictures/picupload/JPEG_20150429_124522.jpg";
-//            f.PHOTO_2 = "/storage/emulated/0/Android/data/com.map.woodlands.woodlandsmap/files/Pictures/picupload/JPEG_20150429_124522.jpg";
+//            f.PHOTO_INUP = "/storage/emulated/0/Android/data/com.map.woodlands.woodlandsmap/files/Pictures/picupload/JPEG_20150504_094731.jpg";
+//            f.PHOTO_INDW = "/storage/emulated/0/Android/data/com.map.woodlands.woodlandsmap/files/Pictures/picupload/JPEG_20150504_094731.jpg";
+//            f.PHOTO_OTUP = "/storage/emulated/0/Android/data/com.map.woodlands.woodlandsmap/files/Pictures/picupload/JPEG_20150504_094731.jpg";
+//            f.PHOTO_OTDW = "/storage/emulated/0/Android/data/com.map.woodlands.woodlandsmap/files/Pictures/picupload/JPEG_20150504_094731.jpg";
+//            f.PHOTO_1 = "/storage/emulated/0/Android/data/com.map.woodlands.woodlandsmap/files/Pictures/picupload/JPEG_20150504_094731.jpg";
+//            f.PHOTO_2 = "/storage/emulated/0/Android/data/com.map.woodlands.woodlandsmap/files/Pictures/picupload/JPEG_20150504_094731.jpg";
 
             f.CULV_DIA_1 = "300";
             f.CULV_DIA_1_M = "3";

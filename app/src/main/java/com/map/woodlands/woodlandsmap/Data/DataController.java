@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -45,10 +46,6 @@ public class DataController {
         this.mapController = mapController;
 
 
-//        Resources resources = context.getResources();
-//        coordsUri = resources.getString(R.string.coords_url);
-//        rowUri = resources.getString(R.string.row_url);
-//        kmlUri = resources.getString(R.string.kml_url);
         coordsUri = "http://scari.azurewebsites.net/androiddata/coordinates";
         rowUri = "http://scari.azurewebsites.net/androiddata/onerow";
         kmlUri = "http://scari.azurewebsites.net/androiddata/KMLs";
@@ -184,7 +181,6 @@ public class DataController {
         UserInfo ui = getUserRole();
 
         if(ui != null) {
-//            progressDialog = ProgressDialog.show(context, "", "Loading...", true);
             RequestParams params = new RequestParams();
             params.put("Email", ui.username);
             params.put("Password", ui.password);
@@ -212,12 +208,12 @@ public class DataController {
                 @Override
                 public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
 //                    Toast.makeText(context, "Fail to get KML", Toast.LENGTH_SHORT).show();
+                    Log.i("debug", "Getting KML failed");
                 }
             });
 
         }
     }
-
     private UserInfo getUserRole(){
         SharedPreferences sp = context.getSharedPreferences("UserInfo",0);
         String json = sp.getString("json", "");
@@ -229,4 +225,6 @@ public class DataController {
 
         return ui;
     }
+
+
 }

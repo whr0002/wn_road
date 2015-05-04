@@ -2,6 +2,7 @@ package com.map.woodlands.woodlandsmap.Data;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
@@ -11,8 +12,10 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.map.woodlands.woodlandsmap.Data.SAXKML.MapController;
 import com.map.woodlands.woodlandsmap.Data.SAXKML.MapService;
 import com.map.woodlands.woodlandsmap.Data.SAXKML.NavigationDataSet;
@@ -147,6 +150,35 @@ public class KMLController {
         return hashMap;
     }
 
+    public HashMap getLocalOverlaysFromFolder(){
+        File dir = new File(mContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "overlays");
+        HashMap hashMap = new HashMap();
+        if(!dir.exists()){
+            // Folder does not exist
+            Toast.makeText(mContext,"No local overlays", Toast.LENGTH_LONG).show();
+            return hashMap;
+        }
+
+        if(dir.isDirectory()){
+
+            for(File f : dir.listFiles()){
+                if(f.isFile()){
+                    // Only accepting KML files in this folder
+                    String fileName = f.getName();
+                    String ext = fileName.substring(fileName.lastIndexOf(".")+1).toLowerCase();
+                    if(ext.equals("zip")){
+                        // It's is KML file
+                        try {
+                            hashMap.put(fileName, f.getCanonicalPath());
+                        }catch (Exception e){}
+                    }
+                }
+            }
+        }
+
+        return hashMap;
+    }
+
     public void loadKML(final String url, final String fileName){
         progressDialog = ProgressDialog.show(mContext, "", "Loading...", true);
         NavigationDataSet navigationDataSet = null;
@@ -195,7 +227,7 @@ public class KMLController {
             if(files[0] != null && files[0].exists()) {
                 int size = (int) files[0].length();
                 byte[] bytes = new byte[size];
-                Log.i("debug", "File size: "+size);
+//                Log.i("debug", "File size: "+size);
 
                 try {
                     BufferedInputStream buf = new BufferedInputStream(new FileInputStream(files[0]));
@@ -213,7 +245,7 @@ public class KMLController {
 
         @Override
         protected void onPostExecute(NavigationDataSet s) {
-            Log.i("debug","back");
+//            Log.i("debug","back");
             if(s!= null) {
                 try {
                     Log.i("debug", "Add data to map");
@@ -241,7 +273,7 @@ public class KMLController {
 
     public void addOverlays(File folder){
         if(folder != null && folder.exists()){
-            Toast.makeText(mContext, "Loading...", Toast.LENGTH_LONG).show();
+//            Toast.makeText(mContext, "Loading...", Toast.LENGTH_LONG).show();
 
             File[] files = folder.listFiles();
             for(File f : files){
@@ -401,5 +433,92 @@ public class KMLController {
         }
 
         return null;
+    }
+
+    public void getZip(final String fileName, String url){
+        progressDialog = ProgressDialog.show(mContext, "", "Loading...", true);
+
+        UserInfo ui = getUserRole();
+        if(ui.username != null && ui.password != null){
+            RequestParams params = new RequestParams();
+            params.put("Email", ui.username);
+            params.put("Password", ui.password);
+            params.put("fileName", fileName);
+
+            client.post(url, params, new AsyncHttpResponseHandler() {
+                @Override
+                public void onSuccess(int i, Header[] headers, byte[] bytes) {
+                    File zip = saveZip(bytes, fileName);
+                    addOverlays(unZip(zip));
+
+                    progressDialog.dismiss();
+                }
+
+                @Override
+                public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
+                    // Cannot get zip, check the existence from local device
+                    loadLocalZip(fileName);
+                    progressDialog.dismiss();
+                }
+            });
+        }
+    }
+
+    private void loadLocalZip(String fileName){
+        if(fileName != null) {
+            File file = new File(mContext
+                    .getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),
+                    "overlays/" + fileName);
+
+            if(file.exists()){
+                // Found the zip, load it.
+                addOverlays(unZip(file));
+            }else{
+                Toast.makeText(mContext, "The overlay does not exist", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    private File saveZip(byte[] bytes, String fileName){
+        try{
+            File dir = new File(mContext
+                    .getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),
+                    "overlays");
+
+            // Create directory
+            if(!dir.exists()){
+                dir.mkdir();
+            }
+
+
+            File zip = new File(dir.getAbsolutePath()+ File.separator +fileName);
+            if(zip.exists()){
+                zip.delete();
+            }
+
+            FileOutputStream fos = new FileOutputStream(zip);
+            fos.write(bytes);
+            fos.close();
+
+            return zip;
+
+        }catch (Exception e){
+
+            Toast.makeText(mContext,"Errors when saving overlay", Toast.LENGTH_LONG).show();
+        }
+
+        return null;
+    }
+
+    private UserInfo getUserRole(){
+        SharedPreferences sp = mContext.getSharedPreferences("UserInfo",0);
+        String json = sp.getString("json", "");
+        Gson gson = new Gson();
+        UserInfo ui = null;
+        if(!json.equals("")){
+            ui = gson.fromJson(json, UserInfo.class);
+        }
+
+        return ui;
     }
 }

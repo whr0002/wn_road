@@ -50,7 +50,8 @@ public class PopupController {
         if(isOnline()) {
             this.hm = getKML();
         }else{
-            this.hm = kmlController.getLocalKMLsFromFolder();
+//            this.hm = kmlController.getLocalKMLsFromFolder();
+            this.hm = kmlController.getLocalOverlaysFromFolder();
         }
 
 
@@ -65,6 +66,8 @@ public class PopupController {
 
         int counter = 0;
         menu.add(1, counter, counter, "Choose...");
+        counter++;
+
         while(i.hasNext()){
             Map.Entry me = (Map.Entry)i.next();
             menu.add(1, counter, counter, me.getKey().toString());
@@ -104,6 +107,9 @@ public class PopupController {
                 }else if(title.equals("Choose...")){
                     // Popup a file chooser
                     openFileChooser();
+                }else if(title.contains(".zip")){
+
+                    kmlController.getZip(item.getTitle().toString(), hm.get(item.getTitle()).toString());
                 }
                 else{
                     kmlController.loadKML(""+hm.get(item.getTitle()), ""+item.getTitle());

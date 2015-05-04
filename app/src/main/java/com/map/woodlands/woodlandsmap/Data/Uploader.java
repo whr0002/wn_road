@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by Jimmy on 3/13/2015.
@@ -40,6 +41,7 @@ public class Uploader {
     private ProgressDialog progressDialog = null;
     private FormFragment mFormFragment;
     private ExecutorService executorService;
+    private static AtomicInteger counter;
 
 
     public Uploader(Context context, FormFragment formFragment,
@@ -48,8 +50,9 @@ public class Uploader {
         this.mContext = context;
         this.user = getUserInfo();
         this.client = new AsyncHttpClient();
-        this.executorService = Executors.newFixedThreadPool(20);
+        this.executorService = Executors.newFixedThreadPool(10);
         this.client.setThreadPool(executorService);
+
 
         this.mFormController = new FormController(mContext, formFragment);
         this.baseStorageUrl = mContext.getResources().getString(R.string.storage_url);
@@ -58,6 +61,8 @@ public class Uploader {
         this.total = total;
         this.progressDialog = p;
         this.mFormFragment = formFragment;
+
+        this.counter = new AtomicInteger();
 
     }
 
@@ -126,46 +131,50 @@ public class Uploader {
                         new AsyncHttpResponseHandler() {
                             @Override
                             public void onSuccess(int i, Header[] headers, byte[] bytes) {
+                                int currentC = counter.incrementAndGet();
                                 String s = "";
                                 try {
                                     s = new String(bytes, "UTF-8");
+//                                    Log.i("debug", "Response: " + s);
                                 }catch (Exception e){}
                                 if(s.contains("success") || s.contains("submitted")){
                                     deleteFormIfSuccess(mForm);
 
-                                    if(c == total){
-
+                                    if(currentC == total){
+                                        mFormFragment.setListView();
                                         Toast.makeText(mContext,s,Toast.LENGTH_SHORT).show();
                                         progressDialog.dismiss();
                                     }
 
                                 }else{
                                     // Uploading failed
-                                    if(c == total){
+                                    if(currentC == total){
+                                        mFormFragment.setListView();
                                         Toast.makeText(mContext,"Photo upload failed, please try later",Toast.LENGTH_SHORT).show();
                                         progressDialog.dismiss();
                                     }
                                 }
-                                mFormFragment.setListView();
+
 
 
                             }
 
                             @Override
                             public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-
+                                int currentC = counter.incrementAndGet();
                                 try{
                                     String s = new String(bytes, "utf-8");
                                     Log.i("debug", "Failed: "+ s);
                                 }catch (Exception e){
 
                                 }
-                                if(c == total){
-                                    Toast.makeText(mContext,"Network Error when uploading forms",Toast.LENGTH_SHORT).show();
+                                if(currentC == total){
 
+                                    mFormFragment.setListView();
+                                    Toast.makeText(mContext,"Network Error when uploading forms",Toast.LENGTH_SHORT).show();
                                     progressDialog.dismiss();
+
                                 }
-                                mFormFragment.setListView();
                             }
                         });
             }

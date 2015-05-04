@@ -173,6 +173,7 @@ public class MapController {
                 if(location != null) {
                     LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
 //                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15.0f));
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15.0f));
                     map.setOnMyLocationChangeListener(null);
 
 
