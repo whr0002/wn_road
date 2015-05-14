@@ -16,6 +16,7 @@ import com.map.woodlands.woodlandsmap.Activities.ViewCrossingDataActivity;
 import com.map.woodlands.woodlandsmap.Data.SAXKML.MapController;
 
 import org.apache.http.Header;
+import org.json.JSONArray;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -135,8 +136,6 @@ public class DataController {
         return json;
     }
 
-
-
     public void loadRow(String ID){
         UserInfo ui = getUserRole();
 
@@ -215,6 +214,48 @@ public class DataController {
 
         }
     }
+
+    public void getClients(){
+        String url = "http://scari.azurewebsites.net/androiddata/clients";
+        UserInfo ui = getUserRole();
+
+        if(ui != null){
+            RequestParams params = new RequestParams();
+            params.put("Email", ui.getUsername());
+            params.put("Password", ui.getPassword());
+
+            client.post(url, params, new AsyncHttpResponseHandler() {
+                @Override
+                public void onSuccess(int i, Header[] headers, byte[] bytes) {
+                    try{
+                        String json = new String(bytes);
+                        JSONArray jsonArray = new JSONArray(json);
+
+                        if(jsonArray != null){
+                            SharedPreferences sp = context.getSharedPreferences("Data", 0);
+                            SharedPreferences.Editor spEditor = sp.edit();
+
+                            spEditor.putString("Clients", json);
+                            spEditor.commit();
+
+//                           for(int j=0; j<jsonArray.length();j++) {
+//                               Log.i("debug", jsonArray.getString(j));
+//
+//                           }
+                        }
+                    }catch (Exception e){
+
+                    }
+                }
+
+                @Override
+                public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
+
+                }
+            });
+        }
+    }
+
     private UserInfo getUserRole(){
         SharedPreferences sp = context.getSharedPreferences("UserInfo",0);
         String json = sp.getString("json", "");

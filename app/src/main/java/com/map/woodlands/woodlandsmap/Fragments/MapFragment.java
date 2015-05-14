@@ -189,6 +189,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         this.seekBar.setOnSeekBarChangeListener(this);
         getMapData();
 
+        dataController.getClients();
+
 
 
 //        LatLng sw = new LatLng(55.169293,-110.323892);

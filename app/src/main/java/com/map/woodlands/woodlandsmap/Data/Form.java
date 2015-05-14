@@ -10,6 +10,9 @@ public class Form {
     public int ID;
     public String STATUS;
     public String INSP_DATE;
+
+    public String Client;
+
     public String INSP_CREW;
     public String ACCESS;
     public String CROSS_NM;

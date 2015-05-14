@@ -57,7 +57,7 @@ public class Uploader {
 
         this.mFormController = new FormController(mContext, formFragment);
         this.baseStorageUrl = mContext.getResources().getString(R.string.storage_url);
-        this.mHashMap = new HashMap<String, String>();
+
         this.current = current;
         this.total = total;
         this.progressDialog = p;
@@ -70,6 +70,7 @@ public class Uploader {
 
     public void execute(Form f, int c){
         if(user != null) {
+            this.mHashMap = new HashMap<String, String>();
             uploadPhotos(f, c);
 
             if(c == total){
@@ -87,6 +88,8 @@ public class Uploader {
         photoPathes.add(mForm.PHOTO_OTDW);
         photoPathes.add(mForm.PHOTO_1);
         photoPathes.add(mForm.PHOTO_2);
+
+
         String s = mForm.AttachmentPath1;
         if(s != null && !s.equals("")){
 //            Log.i("debug","added: "+s);
@@ -125,7 +128,9 @@ public class Uploader {
                 progressDialog.dismiss();
                 Toast.makeText(mContext, "Image file not found", Toast.LENGTH_SHORT).show();
             }else{
+
                 setFormParams(params, mForm);
+
                 client.post(mContext.getResources()
                                 .getString(R.string.image_post_url)
                         , params,
@@ -138,11 +143,12 @@ public class Uploader {
                                     s = new String(bytes, "UTF-8");
 //                                    Log.i("debug", "Response: " + s);
                                 }catch (Exception e){}
-                                if(s.contains("success") || s.contains("submitted")){
+                                if(s.contains("submitted")){
+
                                     deleteFormIfSuccess(mForm);
 
                                     if(currentC == total){
-                                        mFormFragment.setListView();
+//                                        mFormFragment.setListView();
                                         Toast.makeText(mContext,s,Toast.LENGTH_SHORT).show();
                                         progressDialog.dismiss();
                                     }
@@ -150,11 +156,13 @@ public class Uploader {
                                 }else{
                                     // Uploading failed
                                     if(currentC == total){
-                                        mFormFragment.setListView();
-                                        Toast.makeText(mContext,"Photo upload failed, please try later",Toast.LENGTH_SHORT).show();
+//                                        mFormFragment.setListView();
+                                        Toast.makeText(mContext,"Form upload failed, please try later",Toast.LENGTH_SHORT).show();
                                         progressDialog.dismiss();
                                     }
                                 }
+
+                                mFormFragment.setListView();
 
 
 
@@ -171,11 +179,13 @@ public class Uploader {
                                 }
                                 if(currentC == total){
 
-                                    mFormFragment.setListView();
+//                                    mFormFragment.setListView();
                                     Toast.makeText(mContext,"Network Error when uploading forms",Toast.LENGTH_SHORT).show();
                                     progressDialog.dismiss();
 
                                 }
+
+                                mFormFragment.setListView();
                             }
                         });
             }
@@ -209,7 +219,9 @@ public class Uploader {
         try{
             params.put("UserName", user.getUsername());
             params.put("Group", user.role);
+            params.put("Client", mForm.Client);
             params.put("INSP_DATE",mForm.INSP_DATE);
+            params.put("TimeStamp", mForm.timestamp);
             params.put("INSP_CREW",mForm.INSP_CREW);
             params.put("ACCESS",mForm.ACCESS);
             params.put("CROSS_NM",mForm.CROSS_NM);

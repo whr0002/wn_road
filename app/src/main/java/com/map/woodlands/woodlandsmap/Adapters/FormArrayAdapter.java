@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.map.woodlands.woodlandsmap.Data.DeleteView;
 import com.map.woodlands.woodlandsmap.Data.Form;
+import com.map.woodlands.woodlandsmap.Data.SingleSubmitView;
 import com.map.woodlands.woodlandsmap.Data.WarningView;
 import com.map.woodlands.woodlandsmap.Fragments.FormFragment;
 import com.map.woodlands.woodlandsmap.R;
@@ -49,6 +50,7 @@ public class FormArrayAdapter extends ArrayAdapter<Form>{
             holder.statusView = (TextView) convertView.findViewById(R.id.statusView);
             holder.warningIcon = (ImageView) convertView.findViewById(R.id.warningIcon);
             holder.deleteIcon = (ImageView) convertView.findViewById(R.id.deleteIcon);
+            holder.singleSubmitIcon = (ImageView) convertView.findViewById(R.id.singleSubmitIcon);
             convertView.setTag(holder);
         }else{
             holder = (ViewHolder) convertView.getTag();
@@ -56,13 +58,16 @@ public class FormArrayAdapter extends ArrayAdapter<Form>{
 
         if(form.messages == null){
             holder.warningIcon.setVisibility(View.GONE);
+            holder.singleSubmitIcon.setVisibility(View.VISIBLE);
             holder.statusView.setTextColor(mContext.getResources().getColor(R.color.green));
         }else{
             if(form.messages.size() != 0) {
                 holder.warningIcon.setVisibility(View.VISIBLE);
+                holder.singleSubmitIcon.setVisibility(View.GONE);
                 holder.statusView.setTextColor(mContext.getResources().getColor(R.color.red));
             }else{
                 holder.warningIcon.setVisibility(View.GONE);
+                holder.singleSubmitIcon.setVisibility(View.VISIBLE);
                 holder.statusView.setTextColor(mContext.getResources().getColor(R.color.green));
             }
         }
@@ -73,6 +78,7 @@ public class FormArrayAdapter extends ArrayAdapter<Form>{
         holder.statusView.setText(form.STATUS);
         holder.warningIcon.setOnClickListener(new WarningView(mContext,form));
         holder.deleteIcon.setOnClickListener(new DeleteView(mContext,form,mFormFragment));
+        holder.singleSubmitIcon.setOnClickListener(new SingleSubmitView(mContext, form, mFormFragment));
         return convertView;
     }
 
@@ -83,6 +89,7 @@ public class FormArrayAdapter extends ArrayAdapter<Form>{
         TextView statusView;
         ImageView warningIcon;
         ImageView deleteIcon;
+        ImageView singleSubmitIcon;
 
     }
 }

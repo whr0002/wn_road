@@ -68,6 +68,7 @@ public class NavigationSaxHandler extends DefaultHandler {
             this.in_geometrycollectiontag = true;
         } else if (localName.equals("LineString")) {
             this.in_linestringtag = true;
+            navigationDataSet.getCurrentPlacemark().setType("LineString");
         } else if (localName.equals("Point")) {
             this.in_pointtag = true;
             navigationDataSet.getCurrentPlacemark().setType("Point");

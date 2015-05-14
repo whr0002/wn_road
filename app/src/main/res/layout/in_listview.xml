@@ -92,6 +92,17 @@
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:scaleType="fitCenter"
+                            android:src="@drawable/file_submit"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="20dp"
+                            android:id="@+id/singleSubmitIcon"
+                            android:visibility="gone"
+                            android:background="@drawable/item_background"/>
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:scaleType="fitCenter"
                             android:src="@drawable/file_warning"
                             android:layout_gravity="center"
                             android:layout_marginRight="20dp"

@@ -11,7 +11,9 @@ import com.map.woodlands.woodlandsmap.Fragments.FormFragment;
 
 import java.io.File;
 import java.lang.reflect.Type;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Jimmy on 3/18/2015.
@@ -20,9 +22,7 @@ import java.util.ArrayList;
 public class FormController {
 
     private Type mType;
-    private ArrayList<Form> mForms;
     private Gson gson;
-    private String json;
     private SharedPreferences sp;
     private SharedPreferences.Editor spEditor;
     private Context mContext;
@@ -32,7 +32,6 @@ public class FormController {
     public FormController(Context context){
         mContext = context;
         this.mType = new TypeToken<ArrayList<Form>>(){}.getType();
-        this.mForms = new ArrayList<Form>();
         this.gson = new Gson();
         this.sp = mContext.getSharedPreferences("Data", 0);
         this.spEditor = sp.edit();
@@ -41,7 +40,6 @@ public class FormController {
     public FormController(Context context, FormFragment formFragment){
         mContext = context;
         this.mType = new TypeToken<ArrayList<Form>>(){}.getType();
-        this.mForms = new ArrayList<Form>();
         this.gson = new Gson();
         this.sp = mContext.getSharedPreferences("Data", 0);
         this.spEditor = sp.edit();
@@ -51,11 +49,12 @@ public class FormController {
     /* Get all ready-to-submit forms */
     public ArrayList<Form> getReadyToSubmitForms(){
         ArrayList<Form> tempForms = new ArrayList<Form>();
-        mForms.clear();
-        json = sp.getString("FormData","");
+        ArrayList<Form> returnForms = new ArrayList<Form>();
+//        mForms.clear();
+        String json = sp.getString("FormData","");
         if(!json.equals("")){
-            mForms = gson.fromJson(json, mType);
-            for(Form f : mForms){
+            returnForms = gson.fromJson(json, mType);
+            for(Form f : returnForms){
                 if(f.STATUS.toLowerCase().contains("ready")){
                     tempForms.add(f);
                 }
@@ -68,26 +67,25 @@ public class FormController {
 
     /* Get all forms */
     public ArrayList<Form> getAllForms(){
-        mForms.clear();
-        json = sp.getString("FormData","");
+        ArrayList<Form> forms = new ArrayList<Form>();
+        String json = sp.getString("FormData","");
         if(!json.equals("")){
-            mForms = gson.fromJson(json, mType);
-
+            forms = gson.fromJson(json, mType);
         }
 
-        return mForms;
+        return forms;
     }
 
     public void deleteOneForm(int formID){
-        mForms.clear();
-        mForms = getAllForms();
+
+        ArrayList<Form> temp = getAllForms();
         IndexForm mif = getIndexForm(formID);
         if(mif != null){
-            mForms.remove(mif.index);
+            temp.remove(mif.index);
             deleteImageFileIfExists(mif.form);
         }
 
-        json = gson.toJson(mForms);
+        String json = gson.toJson(temp);
         spEditor.putString("FormData", json);
         spEditor.commit();
 
@@ -96,25 +94,25 @@ public class FormController {
     }
 
     public void deleteOneFormAsync(int formID){
-        mForms.clear();
-        mForms = getAllForms();
+        ArrayList<Form> forms = getAllForms();
+
         IndexForm mif = getIndexForm(formID);
         if(mif != null){
-            mForms.remove(mif.index);
+            forms.remove(mif.index);
             deleteImageFileIfExists(mif.form);
         }
 
-        json = gson.toJson(mForms);
+        String json = gson.toJson(forms);
         spEditor.putString("FormData", json);
         spEditor.commit();
     }
 
     public void deleteAllForms(){
-        mForms.clear();
-        json = sp.getString("FormData", "");
+        ArrayList<Form> forms = getAllForms();
+        String json = sp.getString("FormData", "");
         if(!json.equals("")){
-            mForms = gson.fromJson(json, mType);
-            for(Form f : mForms){
+            forms = gson.fromJson(json, mType);
+            for(Form f : forms){
                 deleteImageFileIfExists(f);
             }
         }
@@ -130,8 +128,8 @@ public class FormController {
         UserInfo ui = getUserInfo();
         if(ui != null) {
             if(ui.getRole() != null && !ui.getRole().equals("null")) {
-                mForms.clear();
-                mForms = getReadyToSubmitForms();
+
+                ArrayList<Form> mForms = getReadyToSubmitForms();
                 if (mForms != null) {
                     int counter = 1;
                     int total = mForms.size();
@@ -156,10 +154,41 @@ public class FormController {
         }
     }
 
+    /**
+     *
+     * Single form submission
+     * @param f
+     */
+    public void submitSingleForm(Form f){
+        UserInfo ui = getUserInfo();
+        if(ui != null) {
+            if(ui.getRole() != null && !ui.getRole().equals("null")) {
+
+                if (f != null) {
+                    int counter = 1;
+                    int total = 1;
+                    if (total > 0) {
+
+                        progressDialog = ProgressDialog.show(mContext,"","Uploading...", true);
+
+                        Uploader uploader = new Uploader(mContext, mFormFragment, progressDialog, total);
+                        uploader.execute(f,counter);
+                    }
+                }
+            }else{
+                Toast.makeText(mContext,
+                        "You are not authorized to upload any forms",
+                        Toast.LENGTH_LONG).show();
+            }
+        }else{
+            Toast.makeText(mContext, "Please login first", Toast.LENGTH_LONG).show();
+        }
+    }
+
     public void saveForm(Form form){
-        mForms = getAllForms();
+        ArrayList<Form> mForms = getAllForms();
         mForms.add(form);
-        json = gson.toJson(mForms);
+        String json = gson.toJson(mForms);
         spEditor.putString("FormData", json);
         spEditor.commit();
 
@@ -168,12 +197,14 @@ public class FormController {
     }
 
     public void saveForm(int index, Form form){
-        mForms.clear();
-        mForms = getAllForms();
+
+        ArrayList<Form> mForms = getAllForms();
         mForms.set(index, form);
-        json = gson.toJson(mForms);
+        String json = gson.toJson(mForms);
         spEditor.putString("FormData", json);
         spEditor.commit();
+
+//        Log.i("debug", json);
     }
 
     public int getNextFormID(){
@@ -185,8 +216,7 @@ public class FormController {
 
     public  IndexForm getIndexForm(int formID){
 
-        mForms.clear();
-        mForms = getAllForms();
+        ArrayList<Form> mForms = getAllForms();
         for(int i=0;i<mForms.size();i++){
             if(mForms.get(i).ID == formID){
                 return new IndexForm(i, mForms.get(i));
@@ -235,7 +265,7 @@ public class FormController {
         for(int i=0;i<20;i++){
             Form f = new Form();
             f.ID = i;
-            f.INSP_DATE = "5/4/2015";
+            f.INSP_DATE = "5/15/2015";
             f.INSP_CREW = "Tester";
             f.ACCESS = "ATV";
             f.CROSS_NM = "CROSS_1_5";
@@ -276,6 +306,9 @@ public class FormController {
 
             f.CULV_SUBSTYPE3 = "Cobble";
             f.CULV_SUBSPROPORTION3 = "51 - 75";
+
+            f.Client = "super admin";
+            f.timestamp = DateFormat.getTimeInstance().format(new Date());
 
 
             forms.add(f);

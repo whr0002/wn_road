@@ -112,6 +112,7 @@ public class  LoginFragment extends Fragment implements OnClickListener{
         super.onActivityCreated(savedInstanceState);
 //        Log.i("debug", "sign in start");
         signInAtStart();
+
     }
 
     @Override

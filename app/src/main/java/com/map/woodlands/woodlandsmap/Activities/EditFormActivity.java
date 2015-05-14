@@ -65,6 +65,7 @@ public class EditFormActivity extends FormActivity{
     @Override
     public Form generateForm() {
         if(f != null){
+            f.Client = clientSpinner.getSelectedItem().toString();
             f.INSP_DATE = dateView.getText().toString();
             f.INSP_CREW = inspectionCrewView.getText().toString();
             f.ACCESS = accessSpinner.getSelectedItem().toString();
@@ -202,6 +203,7 @@ public class EditFormActivity extends FormActivity{
         formIndex = mif.index;
         f = mif.form;
         if(f != null) {
+            clientSpinner.setSelection(getSpinnerIndex(clientSpinner, f.Client));
             dateView.setText(f.INSP_DATE);
             inspectionCrewView.setText(f.INSP_CREW);
             accessSpinner.setSelection(getSpinnerIndex(accessSpinner, f.ACCESS));

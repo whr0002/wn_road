@@ -59,7 +59,7 @@ public class ImageProcessor {
         mImageView.setImageBitmap(bitmap);
         // Indicate whether to compress the image
         if(mIsCompress) {
-            bmOptions.inSampleSize = 8;
+            bmOptions.inSampleSize = 4;
             Bitmap b = BitmapFactory.decodeFile(mPath, bmOptions);
             compressImage(b);
 

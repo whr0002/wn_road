@@ -125,6 +125,38 @@
 
 
             </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:weightSum="1"
+                android:id="@+id/clientLayout"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Client"
+                    android:id="@+id/clientLabel"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"/>
+
+                <Spinner
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/clientDropdown"
+                    android:layout_weight="0.5"
+                    android:layout_gravity="center"/>
+
+
+            </LinearLayout>
+
             <!-- Crossing Number -->
             <LinearLayout
                 android:orientation="horizontal"

@@ -2,6 +2,7 @@ package com.map.woodlands.woodlandsmap.Data.SAXKML;
 
 import android.content.Context;
 import android.location.Location;
+import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -51,6 +52,7 @@ public class MapController {
 
     public void addDataToMap(NavigationDataSet n){
         if(n != null) {
+            Log.i("debug", "adding kml to map");
             ArrayList<Placemark> placemarks = n.getPlacemarks();
             ArrayList<Marker> markers = new ArrayList<Marker>();
             ArrayList<Polyline> polylines = new ArrayList<Polyline>();
@@ -75,6 +77,10 @@ public class MapController {
                             Polyline polyline = map.addPolyline(new PolylineOptions().addAll(iterable).width(5).color(R.color.lightBlue));
                             polylines.add(polyline);
 
+                        }else if(p.getType().equals("LineString")){
+                            Iterable<LatLng> iterable = latLngs;
+                            Polyline polyline = map.addPolyline(new PolylineOptions().addAll(iterable).width(5).color(R.color.lightBlue));
+                            polylines.add(polyline);
                         }
                     }
                 }

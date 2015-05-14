@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.location.Location;
 import android.net.Uri;
@@ -34,19 +35,24 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.gson.Gson;
 import com.map.woodlands.woodlandsmap.Data.DirectoryChooserDialog;
 import com.map.woodlands.woodlandsmap.Data.Form;
 import com.map.woodlands.woodlandsmap.Data.FormController;
 import com.map.woodlands.woodlandsmap.Data.FormValidator;
 import com.map.woodlands.woodlandsmap.Data.ImageProcessor;
 import com.map.woodlands.woodlandsmap.Data.MyApplication;
+import com.map.woodlands.woodlandsmap.Data.UserInfo;
 import com.map.woodlands.woodlandsmap.Data.ViewToggler;
 import com.map.woodlands.woodlandsmap.R;
+
+import org.json.JSONArray;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
@@ -103,12 +109,12 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
             channelOpeningSpinner,obstructionsSpinner,fishSamplingSpinner,fishSamplingMethod,fishSamplingSpecies1Spinner,
             fishSamplingSpecies2Spinner,fishPassageConcernsSpinner,emergencyRepairRequiredSpinner,structuralProblemsSpinner,
             sedimentationSpinner, blockageSpinner, fishReasonSpinner, cst1Spinner, cst2Spinner, cst3Spinner, csp1Spinner,
-            csp2Spinner, csp3Spinner;
+            csp2Spinner, csp3Spinner, clientSpinner;
 
     public ImageView photoView1,photoView2,photoView3,photoView4,photoView5,photoView6;
 
     public LinearLayout culvertBlock,bridgeBlock,erosionBlock,fishSamplingBlock, blockageBlock,
-            culvertDiameter2Block, culvertDiameter3Block, fishReasonBlock ;
+            culvertDiameter2Block, culvertDiameter3Block, fishReasonBlock, clientBlock ;
 
     public ImageButton attachmentButton, cancelAttachmentButton;
 
@@ -237,6 +243,10 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         csp2Spinner = (Spinner)findViewById(R.id.csp2Dropdown);
         csp3Spinner = (Spinner)findViewById(R.id.csp3Dropdown);
 
+        clientSpinner = (Spinner)findViewById(R.id.clientDropdown);
+        setClientSpinner(clientSpinner);
+
+
         setSpinnerAdapter(accessSpinner, R.array.accessItems);
         setSpinnerAdapter(streamClassificationSpinner, R.array.streamClassItems2);
         setSpinnerAdapter(streamWidthMeasuredSpinner, R.array.streamMeasuredItems);
@@ -309,6 +319,32 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         spinner.setAdapter(adapter);
     }
 
+    public void setClientSpinner(Spinner s){
+        SharedPreferences sp = this.getSharedPreferences("Data", 0);
+        String json = sp.getString("Clients", "");
+
+        ArrayList<CharSequence> arrayList = new ArrayList<CharSequence>();
+        arrayList.add("");
+
+        if(!json.equals("")){
+            try{
+                JSONArray jsonArray = new JSONArray(json);
+
+                for(int i=0;i<jsonArray.length();i++){
+                    arrayList.add(jsonArray.getString(i));
+                }
+
+            }catch (Exception e){
+
+            }
+        }
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(this
+                ,R.layout.spinner_item,
+                arrayList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        s.setAdapter(adapter);
+    }
+
     public void setLayouts() {
         culvertBlock = (LinearLayout)findViewById(R.id.culvertBlock);
         bridgeBlock = (LinearLayout)findViewById(R.id.bridgeBlock);
@@ -317,10 +353,34 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         blockageBlock = (LinearLayout)findViewById(R.id.blockageBlock);
         culvertDiameter2Block = (LinearLayout)findViewById(R.id.culvertD2Layout);
         culvertDiameter3Block = (LinearLayout)findViewById(R.id.culvertD3Layout);
-        fishReasonBlock = (LinearLayout)findViewById
-                (R.id.fishReasonLayout);
+        fishReasonBlock = (LinearLayout)findViewById(R.id.fishReasonLayout);
+
+        clientBlock = (LinearLayout)findViewById(R.id.clientLayout);
+        setClientBlock(clientBlock);
     }
 
+    private void setClientBlock(LinearLayout layout){
+        UserInfo ui = getUserInfo();
+
+        if(ui != null){
+            if(ui.role.equals("super admin")){
+                layout.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
+    public UserInfo getUserInfo(){
+        SharedPreferences sp = this.getSharedPreferences("UserInfo", 0);
+        String json = sp.getString("json","");
+
+        if(!json.equals("")){
+            Gson gson = new Gson();
+            UserInfo user;
+            user = gson.fromJson(json, UserInfo.class);
+            return user;
+        }
+        return null;
+    }
 
     protected void setImageViews() {
         photoView1 = (ImageView) findViewById(R.id.inlet1);
@@ -427,6 +487,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         Form f = new Form();
         f.ID = id;
         f.INSP_DATE = dateView.getText().toString();
+        f.Client = clientSpinner.getSelectedItem().toString();
         f.INSP_CREW = inspectionCrewView.getText().toString();
         f.ACCESS = accessSpinner.getSelectedItem().toString();
         f.CROSS_NM = crossingNumberView.getText().toString();
