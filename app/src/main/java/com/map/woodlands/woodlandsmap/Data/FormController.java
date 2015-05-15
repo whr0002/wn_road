@@ -76,7 +76,7 @@ public class FormController {
         return forms;
     }
 
-    public void deleteOneForm(int formID){
+    public synchronized void deleteOneForm(int formID){
 
         ArrayList<Form> temp = getAllForms();
         IndexForm mif = getIndexForm(formID);
@@ -93,7 +93,7 @@ public class FormController {
 
     }
 
-    public void deleteOneFormAsync(int formID){
+    public synchronized void deleteOneFormAsync(int formID){
         ArrayList<Form> forms = getAllForms();
 
         IndexForm mif = getIndexForm(formID);
@@ -107,7 +107,7 @@ public class FormController {
         spEditor.commit();
     }
 
-    public void deleteAllForms(){
+    public synchronized void deleteAllForms(){
         ArrayList<Form> forms = getAllForms();
         String json = sp.getString("FormData", "");
         if(!json.equals("")){
@@ -185,7 +185,7 @@ public class FormController {
         }
     }
 
-    public void saveForm(Form form){
+    public synchronized void saveForm(Form form){
         ArrayList<Form> mForms = getAllForms();
         mForms.add(form);
         String json = gson.toJson(mForms);
@@ -196,7 +196,7 @@ public class FormController {
 
     }
 
-    public void saveForm(int index, Form form){
+    public synchronized void saveForm(int index, Form form){
 
         ArrayList<Form> mForms = getAllForms();
         mForms.set(index, form);
@@ -207,14 +207,14 @@ public class FormController {
 //        Log.i("debug", json);
     }
 
-    public int getNextFormID(){
+    public synchronized int getNextFormID(){
         int i = sp.getInt("ID",0);
         spEditor.putInt("ID", i+1);
         spEditor.commit();
         return i;
     }
 
-    public  IndexForm getIndexForm(int formID){
+    public synchronized IndexForm getIndexForm(int formID){
 
         ArrayList<Form> mForms = getAllForms();
         for(int i=0;i<mForms.size();i++){
@@ -262,10 +262,10 @@ public class FormController {
 
     public void addTestData(){
         ArrayList<Form> forms = new ArrayList<Form>();
-        for(int i=0;i<20;i++){
+        for(int i=0;i<100;i++){
             Form f = new Form();
             f.ID = i;
-            f.INSP_DATE = "5/15/2015";
+            f.INSP_DATE = "5/16/2015";
             f.INSP_CREW = "Tester";
             f.ACCESS = "ATV";
             f.CROSS_NM = "CROSS_1_5";
@@ -307,8 +307,8 @@ public class FormController {
             f.CULV_SUBSTYPE3 = "Cobble";
             f.CULV_SUBSPROPORTION3 = "51 - 75";
 
-            f.Client = "super admin";
-            f.timestamp = DateFormat.getTimeInstance().format(new Date());
+            f.Client = "APACHE";
+            f.timestamp = DateFormat.getTimeInstance().format(new Date())+i;
 
 
             forms.add(f);

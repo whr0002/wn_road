@@ -14,6 +14,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -710,6 +711,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+
 //        Intent i = new Intent("android.media.action.IMAGE_CAPTURE");
         switch(v.getId()){
             case R.id.inlet1:
@@ -898,7 +900,11 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
                 }
 
                 // Add/Update new photo
-                mPhotoMap.put(me.getKey(),me.getValue());
+                Log.i("debug", me.getValue());
+                File temp2 = new File(me.getValue());
+                if(temp2.exists()) {
+                    mPhotoMap.put(me.getKey(), me.getValue());
+                }
 
                 iterator.remove();
             }

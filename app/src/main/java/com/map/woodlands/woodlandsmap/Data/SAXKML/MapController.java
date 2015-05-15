@@ -67,6 +67,7 @@ public class MapController {
                             // This is Point placemark
 
                             Marker m = map.addMarker(new MarkerOptions().position(latLngs.get(0)).title(p.title));
+
                             markers.add(m);
 
                         }

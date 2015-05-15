@@ -1,5 +1,7 @@
 package com.map.woodlands.woodlandsmap.Fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -55,7 +57,9 @@ public class FormFragment  extends Fragment{
         aba = (ActionBarActivity) this.getActivity();
 
         formController = new FormController(aba, this);
+
 //        formController.addTestData();
+
         setHasOptionsMenu(true);
 
         return v;
@@ -136,8 +140,28 @@ public class FormFragment  extends Fragment{
 
             case 3:
                 // Submit forms
-                formController.submitForms();
+                AlertDialog.Builder builder = new AlertDialog.Builder(aba);
+                builder.setTitle("Submit");
+                builder.setMessage("Do you want to submit all forms?");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        formController.submitForms();
+                    }
+                });
+
+                builder.setNegativeButton("No", null);
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+
                 return true;
+
+
+//            case 4:
+//                Log.i("debug", "Size: " +  formController.getAllForms().size());
+//
+//                setListView();
+//                return true;
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -167,6 +191,11 @@ public class FormFragment  extends Fragment{
                 .setIcon(R.drawable.file_submit)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS
                         | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+
+//        menu.add(0,4,4,"Refresh")
+//                .setIcon(R.drawable.file_search)
+//                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS
+//                        | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
     }
 
 }

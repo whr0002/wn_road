@@ -14,7 +14,6 @@ import com.map.woodlands.woodlandsmap.Fragments.FormFragment;
 import com.map.woodlands.woodlandsmap.R;
 
 import org.apache.http.Header;
-import org.apache.http.entity.StringEntity;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -33,16 +32,18 @@ public class Uploader {
     public Context mContext;
     private UserInfo user;
     private AsyncHttpClient client;
-    private ArrayList<Form> mForms;
+
     private FormController mFormController;
     private String baseStorageUrl;
     private HashMap<String,String> mHashMap;
-    private int current;
+
     private int total;
     private ProgressDialog progressDialog = null;
     private FormFragment mFormFragment;
     private ExecutorService executorService;
-    private static AtomicInteger counter;
+
+    private AtomicInteger counter = new AtomicInteger();
+    private AtomicInteger successCounter = new AtomicInteger();
 
 
     public Uploader(Context context, FormFragment formFragment,
@@ -58,12 +59,13 @@ public class Uploader {
         this.mFormController = new FormController(mContext, formFragment);
         this.baseStorageUrl = mContext.getResources().getString(R.string.storage_url);
 
-        this.current = current;
+
         this.total = total;
         this.progressDialog = p;
         this.mFormFragment = formFragment;
 
-        this.counter = new AtomicInteger();
+
+
 
     }
 
@@ -108,20 +110,22 @@ public class Uploader {
 
             boolean hasFile = true;
             for(int i=0;i<photoPathes.size();i++){
+
                 String path = photoPathes.get(i);
                 int j = i+1;
                 String paramName = "image"+j;
+
                 if(path != null){
                     try{
+
                         File mFile = new File(path);
                         setRealPhotoUrl(mFile, ui.role, j);
                         params.put(paramName, mFile);
+
                     }catch (Exception e){
                         hasFile = false;
 
                     }
-
-
                 }
             }
             if(!hasFile){
@@ -137,40 +141,47 @@ public class Uploader {
                         new AsyncHttpResponseHandler() {
                             @Override
                             public void onSuccess(int i, Header[] headers, byte[] bytes) {
+
                                 int currentC = counter.incrementAndGet();
+                                int totalSuccess = successCounter.incrementAndGet();
+
+                                String msg = "Submitted "
+                                        + totalSuccess
+                                        + "/"
+                                        + total;
+
                                 String s = "";
+
                                 try {
                                     s = new String(bytes, "UTF-8");
 //                                    Log.i("debug", "Response: " + s);
                                 }catch (Exception e){}
+
+
+                                // Delete submitted form
                                 if(s.contains("submitted")){
 
                                     deleteFormIfSuccess(mForm);
 
-                                    if(currentC == total){
-//                                        mFormFragment.setListView();
-                                        Toast.makeText(mContext,s,Toast.LENGTH_SHORT).show();
-                                        progressDialog.dismiss();
-                                    }
-
-                                }else{
-                                    // Uploading failed
-                                    if(currentC == total){
-//                                        mFormFragment.setListView();
-                                        Toast.makeText(mContext,"Form upload failed, please try later",Toast.LENGTH_SHORT).show();
-                                        progressDialog.dismiss();
-                                    }
                                 }
 
-                                mFormFragment.setListView();
-
-
-
+                                // Send a msg to user when uploading is done
+                                if(currentC == total){
+                                    mFormFragment.setListView();
+                                    Toast.makeText(mContext, msg ,Toast.LENGTH_SHORT).show();
+                                    progressDialog.dismiss();
+                                }
                             }
 
                             @Override
                             public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
                                 int currentC = counter.incrementAndGet();
+                                int totalSuccess = successCounter.get();
+
+                                String msg = "Submitted "
+                                        + totalSuccess
+                                        + "/"
+                                        + total;
                                 try{
                                     String s = new String(bytes, "utf-8");
                                     Log.i("debug", "Failed: "+ s);
@@ -179,13 +190,11 @@ public class Uploader {
                                 }
                                 if(currentC == total){
 
-//                                    mFormFragment.setListView();
-                                    Toast.makeText(mContext,"Network Error when uploading forms",Toast.LENGTH_SHORT).show();
+                                    mFormFragment.setListView();
+                                    Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
                                     progressDialog.dismiss();
 
                                 }
-
-                                mFormFragment.setListView();
                             }
                         });
             }
@@ -219,7 +228,12 @@ public class Uploader {
         try{
             params.put("UserName", user.getUsername());
             params.put("Group", user.role);
-            params.put("Client", mForm.Client);
+            if(user.role.equals("super admin")){
+                params.put("Client", mForm.Client);
+            }else{
+                params.put("Client", user.role);
+            }
+
             params.put("INSP_DATE",mForm.INSP_DATE);
             params.put("TimeStamp", mForm.timestamp);
             params.put("INSP_CREW",mForm.INSP_CREW);
@@ -255,12 +269,6 @@ public class Uploader {
             params.put("FISH_PCONCREASON",combineFishReasons
                     (mForm.FISH_ReasonDropdown,mForm.FISH_PCONCREASON));
             params.put("REMARKS",mForm.REMARKS);
-//            params.put("PHOTO_INUP",mForm.PHOTO_INUP);
-//            params.put("PHOTO_INDW",mForm.PHOTO_INDW);
-//            params.put("PHOTO_OTUP",mForm.PHOTO_OTUP);
-//            params.put("PHOTO_OTDW",mForm.PHOTO_OTDW);
-//            params.put("PHOTO_1",mForm.PHOTO_1);
-//            params.put("PHOTO_2",mForm.PHOTO_2);
 
             params.put("PHOTO_INUP",mHashMap.get("1"));
             params.put("PHOTO_INDW",mHashMap.get("2"));
@@ -269,9 +277,7 @@ public class Uploader {
             params.put("PHOTO_1",mHashMap.get("5"));
             params.put("PHOTO_2",mHashMap.get("6"));
             params.put("CULV_LEN",mForm.CULV_LEN);
-//            params.put("CULV_SUBSP",mForm.CULV_SUBSP);
-//            params.put("CULV_SUBSTYPE",mForm.CULV_SUBSTYPE);
-//            params.put("CULV_SUBSPROPORTION",mForm.CULV_SUBSPROPORTION);
+
             params.put("CULV_BACKWATERPROPORTION",mForm.CULV_BACKWATERPROPORTION);
             params.put("CULV_OUTLETTYPE",mForm.CULV_OUTLETTYPE);
             params.put("CULV_DIA_1",mForm.CULV_DIA_1_M);
@@ -311,93 +317,17 @@ public class Uploader {
             params.put("CULV_SUBSPROPORTION3", mForm.CULV_SUBSPROPORTION3);
             params.put("OUTLET_SCORE", mForm.outlet_score);
 
-
-
             // Put attachment Url
             params.put("ATTACHMENT",mHashMap.get("7"));
 
         }catch (Exception e){
 //            e.printStackTrace();
         }
-//        client.post(mContext.getResources().getString(R.string.form_post_url), params, new AsyncHttpResponseHandler() {
-//            @Override
-//            public void onSuccess(int i, Header[] headers, byte[] bytes) {
-////                Log.i("debug", "200 OK");
-//                String s = "";
-//                try {
-//                    s = new String(bytes, "UTF-8");
-//                }catch (Exception e){}
-////                Log.i("debug", s);
-//
-//                if(s.toLowerCase().equals("form submitted")) {
-//                    deleteFormIfSuccess();
-//                }
-//
-//                if(current == total){
-//                    Toast.makeText(mContext,s,Toast.LENGTH_SHORT).show();
-////                    loadingView.setVisibility(View.GONE);
-//                    progressDialog.dismiss();
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-////                Log.i("debug", "40X Fail");
-//                String s = "Form upload fail";
-//                try {
-//                    s = new String(bytes, "UTF-8");
-//                }catch (Exception e){}
-//
-//
-//                if(current == total){
-//                    Toast.makeText(mContext,s,Toast.LENGTH_SHORT).show();
-////                    loadingView.setVisibility(View.GONE);
-//                    progressDialog.dismiss();
-//                }
-//            }
-//        });
 
     }
 
     private void deleteFormIfSuccess(Form mForm) {
         mFormController.deleteOneFormAsync(mForm.ID);
-    }
-
-    public void uploadJson(){
-        Gson gson = new Gson();
-        JsonModel jm= new JsonModel(mForms);
-        String json = gson.toJson(jm);
-        Log.i("debug", "Before: "+ json);
-        StringEntity entity = null;
-        try {
-            entity = new StringEntity(json);
-            entity.setContentType("application/json");
-        }catch (Exception e){e.printStackTrace();}
-
-        client.post(mContext, "http://woodlandstest.azurewebsites.net/android/jsonpost", entity,
-                "application/json", new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int i, Header[] headers, byte[] bytes) {
-                Log.i("debug", "json 200 OK");
-                String response = "";
-                try{
-                    response = new String(bytes,"UTF-8");
-                }catch (Exception e){}
-                Log.i("debug", response);
-            }
-
-            @Override
-            public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-                Log.i("debug", "json 40X fail");
-                String response = "";
-                try{
-                    response = new String(bytes,"UTF-8");
-                }catch (Exception e){}
-                Log.i("debug", response);
-            }
-        }  );
-
     }
 
     public UserInfo getUserInfo(){
