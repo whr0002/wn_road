@@ -500,6 +500,124 @@
 
 
             </LinearLayout>
+
+            <!-- Channel Creek Depth -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:weightSum="1"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp" android:textColor="@color/black"
+                    android:text="Channel Creek Depth Left (cm)"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"/>
+
+                <EditText android:textColor="@color/cblue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/channelCreekDepthLeftText"
+                    android:layout_weight="0.5"
+                    android:singleLine="true"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:weightSum="1"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp" android:textColor="@color/black"
+                    android:text="Channel Creek Depth Right (cm)"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"/>
+
+                <EditText android:textColor="@color/cblue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/channelCreekDepthRightText"
+                    android:layout_weight="0.5"
+                    android:singleLine="true"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:weightSum="1"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp" android:textColor="@color/black"
+                    android:text="Channel Creek Depth Center (cm)"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"/>
+
+                <EditText android:textColor="@color/cblue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/channelCreekDepthCenterText"
+                    android:layout_weight="0.5"
+                    android:singleLine="true"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <!-- First Riffle Distance -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:weightSum="1"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp" android:textColor="@color/black"
+                    android:text="First Riffle Distance (m)"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"/>
+
+                <EditText android:textColor="@color/cblue"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/firstRiffleDistanceText"
+                    android:layout_weight="0.5"
+                    android:singleLine="true"
+                    android:imeOptions="actionNext"
+                    android:inputType="numberDecimal"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+
             <!-- Crossing Type -->
             <LinearLayout
                 android:orientation="horizontal"
@@ -897,6 +1015,38 @@
 
 
                 </LinearLayout>
+
+                <!-- Road Fill Above Culvert -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:weightSum="1"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:textSize="18sp" android:textColor="@color/black"
+                        android:text="Road Fill Above Culvert (m)"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"/>
+
+                    <EditText android:textColor="@color/cblue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/roadFillAboveCulvertText"
+                        android:layout_weight="0.5"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        android:inputType="numberDecimal"
+                        android:layout_gravity="center"/>
+
+                </LinearLayout>
+
                 <!-- Culvert Outlet Type -->
                 <LinearLayout
                     android:orientation="horizontal"
@@ -2437,6 +2587,75 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/outlet2"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/file_image"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <!-- Road Approach -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:weightSum="1"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp" android:textColor="@color/black"
+                    android:text="Road"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="0.2"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Left"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"/>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/roadLeft"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/file_image"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Right"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"/>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/roadRight"
                         android:scaleType="fitCenter"
                         android:src="@drawable/file_image"
                         android:layout_gravity="center"/>

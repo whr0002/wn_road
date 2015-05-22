@@ -119,10 +119,16 @@ public class Form {
     public String timestamp;
 
     public String outlet_score;
-//    public String photo_inup_url;
-//    public String photo_indw_url;
-//    public String photo_otup_url;
-//    public String photo_otdw_url;
-//    public String photo_other1_url;
-//    public String pho
+
+    public String ChannelCreekDepthLeft;
+    public String ChannelCreekDepthRight;
+    public String ChannelCreekDepthCenter;
+
+    public String PHOTO_ROAD_LEFT;
+    public String PHOTO_ROAD_RIGHT;
+
+    public String FirstRiffleDistance;
+    public String RoadFillAboveCulvert;
+
+
 }

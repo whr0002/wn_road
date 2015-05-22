@@ -90,6 +90,8 @@ public class Uploader {
         photoPathes.add(mForm.PHOTO_OTDW);
         photoPathes.add(mForm.PHOTO_1);
         photoPathes.add(mForm.PHOTO_2);
+        photoPathes.add(mForm.PHOTO_ROAD_LEFT);
+        photoPathes.add(mForm.PHOTO_ROAD_RIGHT);
 
 
         String s = mForm.AttachmentPath1;
@@ -276,6 +278,9 @@ public class Uploader {
             params.put("PHOTO_OTDW",mHashMap.get("4"));
             params.put("PHOTO_1",mHashMap.get("5"));
             params.put("PHOTO_2",mHashMap.get("6"));
+            params.put("PHOTO_ROAD_LEFT",mHashMap.get("7"));
+            params.put("PHOTO_ROAD_RIGHT",mHashMap.get("8"));
+
             params.put("CULV_LEN",mForm.CULV_LEN);
 
             params.put("CULV_BACKWATERPROPORTION",mForm.CULV_BACKWATERPROPORTION);
@@ -318,7 +323,13 @@ public class Uploader {
             params.put("OUTLET_SCORE", mForm.outlet_score);
 
             // Put attachment Url
-            params.put("ATTACHMENT",mHashMap.get("7"));
+            params.put("ATTACHMENT",mHashMap.get("9"));
+
+            params.put("CHANNEL_CREEK_DEPTH_LEFT", mForm.ChannelCreekDepthLeft);
+            params.put("CHANNEL_CREEK_DEPTH_RIGHT", mForm.ChannelCreekDepthRight);
+            params.put("CHANNEL_CREEK_DEPTH_CENTER", mForm.ChannelCreekDepthCenter);
+            params.put("FIRST_RIFFLE_DISTANCE", mForm.FirstRiffleDistance);
+            params.put("ROAD_FILL_ABOVE_CULVERT", mForm.RoadFillAboveCulvert);
 
         }catch (Exception e){
 //            e.printStackTrace();

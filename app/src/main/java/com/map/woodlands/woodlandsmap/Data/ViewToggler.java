@@ -71,7 +71,7 @@ public class ViewToggler {
                 break;
 
             case R.id.erosionDropdown:
-                if(s.equals("yes") || s.equals("pot")){
+                if(s.equals("yes") || s.equals("potential")){
                     erosionBlock.setVisibility(View.VISIBLE);
                 }else{
                     erosionBlock.setVisibility(View.GONE);

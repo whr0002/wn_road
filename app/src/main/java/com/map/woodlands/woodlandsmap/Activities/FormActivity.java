@@ -98,7 +98,8 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
             streamWidthView,erosionAreaView,culvertLengthView,culvertDiameter1View,
             culvertDiameter2View,culvertDiameter3View,culvertPoolDepthView,culvertOutletGapView,
             bridgeLengthView,fishPassageConvernsReasonView,blockageMaterialView,
-            blockageCauseView,remarksView;
+            blockageCauseView,remarksView, channelCreekDepthLeftView, channelCreekDepthRightView,
+            channelCreekDepthCenterView, firstRiffleDistanceView, roadFillAboveCulvertView;
 
 
     public Spinner accessSpinner,streamClassificationSpinner,streamWidthMeasuredSpinner,crossingTypeSpinner,erosionSpinner,
@@ -112,7 +113,7 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
             sedimentationSpinner, blockageSpinner, fishReasonSpinner, cst1Spinner, cst2Spinner, cst3Spinner, csp1Spinner,
             csp2Spinner, csp3Spinner, clientSpinner;
 
-    public ImageView photoView1,photoView2,photoView3,photoView4,photoView5,photoView6;
+    public ImageView photoView1,photoView2,photoView3,photoView4,photoView5,photoView6, photoView7, photoView8;
 
     public LinearLayout culvertBlock,bridgeBlock,erosionBlock,fishSamplingBlock, blockageBlock,
             culvertDiameter2Block, culvertDiameter3Block, fishReasonBlock, clientBlock ;
@@ -190,6 +191,13 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         blockageMaterialView = (EditText)findViewById(R.id.blockageMaterialText);
         blockageCauseView = (EditText)findViewById(R.id.blockageCauseText);
         remarksView = (EditText)findViewById(R.id.remarksText);
+
+        channelCreekDepthLeftView = (EditText)findViewById(R.id.channelCreekDepthLeftText);
+        channelCreekDepthRightView = (EditText)findViewById(R.id.channelCreekDepthRightText);
+        channelCreekDepthCenterView = (EditText)findViewById(R.id.channelCreekDepthCenterText);
+        firstRiffleDistanceView = (EditText)findViewById(R.id.firstRiffleDistanceText);
+        roadFillAboveCulvertView = (EditText)findViewById(R.id.roadFillAboveCulvertText);
+
 
         attachmentName.setOnClickListener(this);
     }
@@ -390,6 +398,9 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         photoView4 = (ImageView) findViewById(R.id.outlet2);
         photoView5 = (ImageView) findViewById(R.id.other1);
         photoView6 = (ImageView) findViewById(R.id.other2);
+        photoView7 = (ImageView) findViewById(R.id.roadLeft);
+        photoView8 = (ImageView) findViewById(R.id.roadRight);
+
 
         photoView1.setOnClickListener(this);
         photoView2.setOnClickListener(this);
@@ -397,6 +408,9 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         photoView4.setOnClickListener(this);
         photoView5.setOnClickListener(this);
         photoView6.setOnClickListener(this);
+        photoView7.setOnClickListener(this);
+        photoView8.setOnClickListener(this);
+
     }
 
     protected void setDatePicker() {
@@ -571,6 +585,13 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
 
         f.outlet_score = getOutletScore(f.CULV_OPOOD, f.CULV_OPGAP);
 
+        f.ChannelCreekDepthLeft = channelCreekDepthLeftView.getText().toString();
+        f.ChannelCreekDepthRight = channelCreekDepthRightView.getText().toString();
+        f.ChannelCreekDepthCenter = channelCreekDepthCenterView.getText().toString();
+        f.FirstRiffleDistance = firstRiffleDistanceView.getText().toString();
+        f.RoadFillAboveCulvert = roadFillAboveCulvertView.getText().toString();
+
+
         setPhotoPath(f);
 
         return f;
@@ -643,6 +664,8 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
         f.PHOTO_OTDW = mPhotoMap.get(4);
         f.PHOTO_1 = mPhotoMap.get(5);
         f.PHOTO_2 = mPhotoMap.get(6);
+        f.PHOTO_ROAD_LEFT = mPhotoMap.get(7);
+        f.PHOTO_ROAD_RIGHT = mPhotoMap.get(8);
     }
 
     @Override
@@ -704,6 +727,14 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
                     setPhotoView(photoView6, mCurrentPhotoPath);
                     break;
 
+                case 7:
+                    setPhotoView(photoView7, mCurrentPhotoPath);
+                    break;
+
+                case 8:
+                    setPhotoView(photoView8, mCurrentPhotoPath);
+                    break;
+
             }
         }
 
@@ -732,12 +763,21 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
                 dispatchTakePictureIntent(4);
                 break;
 
+
             case R.id.other1:
                 dispatchTakePictureIntent(5);
                 break;
 
             case R.id.other2:
                 dispatchTakePictureIntent(6);
+                break;
+
+            case R.id.roadLeft:
+                dispatchTakePictureIntent(7);
+                break;
+
+            case R.id.roadRight:
+                dispatchTakePictureIntent(8);
                 break;
 
             case R.id.attachmentButton:

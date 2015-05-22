@@ -143,6 +143,13 @@ public class EditFormActivity extends FormActivity{
             f.REMARKS = remarksView.getText().toString();
             f.outlet_score = getOutletScore(f.CULV_OPOOD, f.CULV_OPGAP);
             f.AttachmentPath1 = m_chosenDir;
+
+            f.ChannelCreekDepthLeft = channelCreekDepthLeftView.getText().toString();
+            f.ChannelCreekDepthRight = channelCreekDepthRightView.getText().toString();
+            f.ChannelCreekDepthCenter = channelCreekDepthCenterView.getText().toString();
+            f.FirstRiffleDistance = firstRiffleDistanceView.getText().toString();
+            f.RoadFillAboveCulvert = roadFillAboveCulvertView.getText().toString();
+
             setPhotoPath(f);
 
             return f;
@@ -275,12 +282,22 @@ public class EditFormActivity extends FormActivity{
             structuralProblemsSpinner.setSelection(getSpinnerIndex(structuralProblemsSpinner,f.STU_PROBS));
             sedimentationSpinner.setSelection(getSpinnerIndex(sedimentationSpinner,f.SEDEMENTAT));
             remarksView.setText(f.REMARKS);
+
+            channelCreekDepthLeftView.setText(f.ChannelCreekDepthLeft);
+            channelCreekDepthRightView.setText(f.ChannelCreekDepthRight);
+            channelCreekDepthCenterView.setText(f.ChannelCreekDepthCenter);
+            firstRiffleDistanceView.setText(f.FirstRiffleDistance);
+            roadFillAboveCulvertView.setText(f.RoadFillAboveCulvert);
+
+
             String s = f.AttachmentPath1;
             if(s != null && !s.equals("")) {
                 m_chosenDir = s;
                 attachmentName.setText(f.AttachmentPath1.substring(f.AttachmentPath1.lastIndexOf("/")+1));
                 cancelAttachmentButton.setVisibility(View.VISIBLE);
             }
+
+
 //            setPhotoFromPath();
         }
     }
@@ -315,6 +332,17 @@ public class EditFormActivity extends FormActivity{
             setPhotoView(photoView6, f.PHOTO_2);
             mPhotoMap.put(6, f.PHOTO_2);
         }
+
+        if(f.PHOTO_ROAD_LEFT != null){
+            setPhotoView(photoView7, f.PHOTO_ROAD_LEFT);
+            mPhotoMap.put(7, f.PHOTO_ROAD_LEFT);
+        }
+
+        if(f.PHOTO_ROAD_RIGHT != null){
+            setPhotoView(photoView8, f.PHOTO_ROAD_RIGHT);
+            mPhotoMap.put(8, f.PHOTO_ROAD_RIGHT);
+        }
+
         isCompress = true;
     }
 

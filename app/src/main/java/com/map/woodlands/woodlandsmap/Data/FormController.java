@@ -234,6 +234,8 @@ public class FormController {
         paths.add(form.PHOTO_OTDW);
         paths.add(form.PHOTO_1);
         paths.add(form.PHOTO_2);
+        paths.add(form.PHOTO_ROAD_LEFT);
+        paths.add(form.PHOTO_ROAD_RIGHT);
 
         for(String path : paths){
             if(path != null) {
@@ -262,10 +264,10 @@ public class FormController {
 
     public void addTestData(){
         ArrayList<Form> forms = new ArrayList<Form>();
-        for(int i=0;i<100;i++){
+        for(int i=0;i<2;i++){
             Form f = new Form();
             f.ID = i;
-            f.INSP_DATE = "5/16/2015";
+            f.INSP_DATE = "5/23/2015";
             f.INSP_CREW = "Tester";
             f.ACCESS = "ATV";
             f.CROSS_NM = "CROSS_1_5";
@@ -295,8 +297,8 @@ public class FormController {
 
             f.CULV_OPOOD = "300";
             f.CULV_OPGAP = "20";
-            f.LAT = "0";
-            f.LONG = "0";
+            f.LAT = "1";
+            f.LONG = "1";
 
             f.CULV_SUBSTYPE1 = "Sand";
             f.CULV_SUBSPROPORTION1 = "0 - 25";
@@ -309,6 +311,12 @@ public class FormController {
 
             f.Client = "APACHE";
             f.timestamp = DateFormat.getTimeInstance().format(new Date())+i;
+
+            f.ChannelCreekDepthLeft = "50";
+            f.ChannelCreekDepthRight = "60";
+            f.ChannelCreekDepthCenter = "70";
+            f.FirstRiffleDistance = "80";
+            f.RoadFillAboveCulvert = "90";
 
 
             forms.add(f);

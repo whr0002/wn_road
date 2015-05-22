@@ -58,7 +58,7 @@ public class FormFragment  extends Fragment{
 
         formController = new FormController(aba, this);
 
-//        formController.addTestData();
+        formController.addTestData();
 
         setHasOptionsMenu(true);
 
