@@ -12,5 +12,5 @@
     <bool name="ga_dryRun">false</bool>
 
     <!-- The screen names that will appear in reports -->
-    <string name="com.map.woodlands.woodlandsmap.MainActivity">Global Main Activity</string>
+    <string name="com.map.woodlands.woodlandsroad.MainActivity">Global Main Activity</string>
 </resources>

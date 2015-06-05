@@ -1,11 +1,11 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory android:title="@string/general_category">
-        <com.map.woodlands.woodlandsmap.settings.DialogDisclaimer
+        <com.map.woodlands.woodlandsroad.settings.DialogDisclaimer
             android:summary="Images and icons used in this app"
             android:title="Acknowledgement" />
 
-        <com.map.woodlands.woodlandsmap.settings.AboutCompany
+        <com.map.woodlands.woodlandsroad.settings.AboutCompany
             android:summary=""
             android:title="About" />
 

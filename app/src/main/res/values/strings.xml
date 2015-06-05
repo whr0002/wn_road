@@ -9,7 +9,7 @@
     <string name="storage_url">https://scari.blob.core.windows.net/</string>
     <string name="raw_data_url">http://scari.azurewebsites.net/androiddata/rawdata</string>
 
-    <string name="app_name">SCARI</string>
+    <string name="app_name">Road Inspection</string>
     <string name="main_activity_name">Stream Crossing &amp; Aquatic Resource Inventory</string>
     <string name="main_activity_name2">Woodlands SCARI</string>
     <string name="title_section1">Login</string>

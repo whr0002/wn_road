@@ -5,7 +5,7 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "com.map.woodlands.woodlandsmap"
+        applicationId "com.map.woodlands.woodlandsroad"
         minSdkVersion 15
         targetSdkVersion 21
         versionCode 1

@@ -24,14 +24,14 @@
     substitute for the full length canonical Activity name in screen view hit. In order to
     specify an alternate screen name use an <screenName> element, with the name attribute
     specifying the canonical name, and the value the alias to use instead. -->
-    <screenName name="com.map.woodlands.woodlandsmap.MainActivity">SCARI Main Activity</screenName>
-    <screenName name="com.map.woodlands.woodlandsmap.Activities.FormActivity">
+    <screenName name="com.map.woodlands.woodlandsroad.MainActivity">SCARI Main Activity</screenName>
+    <screenName name="com.map.woodlands.woodlandsroad.Activities.FormActivity">
         SCARI Create Form Activity
     </screenName>
-    <screenName name="com.map.woodlands.woodlandsmap.Activities.EditFormActivity">
+    <screenName name="com.map.woodlands.woodlandsroad.Activities.EditFormActivity">
         SCARI Edit Form Activity
     </screenName>
-    <screenName name="com.map.woodlands.woodlandsmap.Activities.ViewCrossingDataActivity">
+    <screenName name="com.map.woodlands.woodlandsroad.Activities.ViewCrossingDataActivity">
         SCARI View Crossing Activity
     </screenName>
 
