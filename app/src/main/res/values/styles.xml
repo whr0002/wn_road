@@ -11,11 +11,15 @@
     <color name="blue">#b4c6e7</color>
     <color name="black">#000000</color>
     <color name="cblue">#ff2840ff</color>
-    <color name="dgreen">#097054</color>
     <color name="yellow">#FFDE00</color>
     <color name="llblue">#6599FF</color>
     <color name="lllblue">#ff60b6ff</color>
     <color name="green">#0CAC37</color>
     <color name="white">#fafafa</color>
     <color name="grey">#dcd9d2</color>
+    <color name="dgreen">#097054</color>
+    <color name="dorange">#FF9900</color>
+    <color name="lgreen">#C1DAD6</color>
+    <color name="lbrown">#E8D0A9</color>
+    <color name="darkgreen">#B7AFA3</color>
 </resources>

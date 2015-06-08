@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+
     <string-array name="road_status">
+        <item></item>
         <item>Active</item>
         <item>Access Control</item>
         <item>Erosion Control</item>
@@ -9,13 +12,89 @@
         <item>Proposed</item>
     </string-array>
 
-    <string-array name="road_status_test">
-        <item>Active$desc1</item>
-        <item>Access Control$desc2</item>
-        <item>Erosion Control$desc3</item>
-        <item>Laid Out$dlaskfj dsjaflkiwe</item>
-        <item>Reclaimed$oiuewh hahaha</item>
-        <item>Proposed$pooiwrk,. dsfkl</item>
+    <string-array name="yes_no">
+        <item></item>
+        <item>Yes</item>
+        <item>No</item>
+
+    </string-array>
+
+    <string-array name="road_surface_condition">
+        <item></item>
+        <item>Good</item>
+        <item>Fair</item>
+        <item>Poor</item>
+        <item>Failed*</item>
+    </string-array>
+
+    <string-array name="road_surface_notification">
+        <item></item>
+        <item>EMS$Environmental Incident</item>
+        <item>AESRD$Alberta Environment and Sustainable Resources</item>
+        <item>DFO$Department of Fisheries and Oceans</item>
+        <item>No$No</item>
+    </string-array>
+
+    <string-array name="road_surface" formatted="false">
+        <item></item>
+        <item>Good$Smooth, no ruts deeper than surface material, washboard, potholes or failure of subgrade.</item>
+        <item>Fair$Minor rutting (&lt;5cm deep, &lt;25%) of road, minor washboard (sections &lt;100m length, minor pot holes repairable with grading, failure of cut or fill slope can be repaired by grader. </item>
+        <item>Poor$Substantial rutting(&gt;5cm deep, &gt;25%) of road, washboard (sections &gt;100m in length and &gt;2% of road length), pot holes not repairable with grading, failure of cut or fill slope can not be repaired by grader.</item>
+        <item>Failed*$Condition presents imminent safety or environmental risk.</item>
+    </string-array>
+
+    <string-array name="road_surface_gravel" formatted="false">
+        <item></item>
+        <item>Good$100% of running surface uniformly graveled with angular material for entire length of road.</item>
+        <item>Fair$&gt;50% of running surface uniformly graveled with angular material for entire length of road.</item>
+        <item>Poor$&lt;50% of running surface uniformly graveled with angular material for entire length of road.</item>
+        <item>Failed*$Condition presents imminent safety or environment risk.</item>
+        <item>N/A$Winter Road</item>
+    </string-array>
+
+    <string-array name="vc_road_surface" formatted="false">
+        <item></item>
+        <item>Bare$No vegetation covering road surface</item>
+        <item>Partially covered$Some vegetation Cover(&lt;50%)</item>
+        <item>Mostly covered$Vegetation Cover(51 - 75%)</item>
+        <item>Completely covered$Vegetation Cover (76 - 100%)</item>
+    </string-array>
+
+    <string-array name="vc_cover_type">
+        <item></item>
+        <item>None (N/A)</item>
+        <item>Grass/Clover</item>
+        <item>Shrubs</item>
+        <item>Trees</item>
+    </string-array>
+
+    <string-array name="ditches">
+        <item></item>
+        <item>Good$Ditches flowing freely with no standing water, no signs of erosion, no sedimentation of water bodies, and tail outs are functioning properly.</item>
+        <item>Fair$Most ditches flowing freely with the odd obstruction, some standing water but not saturating road grade, some minor erosion, no sedimentation of water bodies, ditch blocks and tail outs are functioning properly.</item>
+        <item>Poor$Ditches obstructed with standing water that is saturating road grade, water flowing directly down road surface, significant erosion, minor sedimentation of water bodies, ditch blocks and tail outs are not functioning properly.</item>
+        <item>Failed*$Ditches completely obstructed, standing water saturating road surface, water flowing on road surface with sedimentation freely flowing into water bodies, significant erosion, complete failure of ditch blocks or tail outs.</item>
+        <item>N/A$Winter Road</item>
+    </string-array>
+
+    <string-array name="last_signage">
+        <item></item>
+        <item>Present$Up and present</item>
+        <item>Obstructed$Up but require brushing/repairs</item>
+        <item>Missing/Damaged$Gone or damaged, require replacement</item>
+    </string-array>
+
+    <string-array name="last_crossings">
+        <item></item>
+        <item>No Issues$No issues on any crossings</item>
+        <item>Inspection Required$Issue with crossing that requires further inspection with crossing inspection form</item>
+    </string-array>
+
+    <string-array name="last_ground_access">
+        <item></item>
+        <item>None - Heli Only</item>
+        <item>ATV</item>
+        <item>Pickup</item>
     </string-array>
 
 </resources>
