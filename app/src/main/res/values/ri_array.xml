@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="road_status">
+        <item>Active</item>
+        <item>Access Control</item>
+        <item>Erosion Control</item>
+        <item>Laid Out</item>
+        <item>Reclaimed</item>
+        <item>Proposed</item>
+    </string-array>
+
+    <string-array name="road_status_test">
+        <item>Active$desc1</item>
+        <item>Access Control$desc2</item>
+        <item>Erosion Control$desc3</item>
+        <item>Laid Out$dlaskfj dsjaflkiwe</item>
+        <item>Reclaimed$oiuewh hahaha</item>
+        <item>Proposed$pooiwrk,. dsfkl</item>
+    </string-array>
+
+</resources>
