@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.map.woodlands.woodlandsroad.Data.Form;
-import com.map.woodlands.woodlandsroad.Data.ImageProcessor;
+import com.map.woodlands.woodlandsroad.Data.ImageProcessor_Old;
 import com.map.woodlands.woodlandsroad.Data.IndexForm;
 import com.map.woodlands.woodlandsroad.R;
 
@@ -348,8 +348,8 @@ public class EditFormActivity extends FormActivity{
 
     @Override
     public void setPhotoView(ImageView photoView, String path) {
-        ImageProcessor imageProcessor = new ImageProcessor(photoView, path, isCompress, location);
-        imageProcessor.setImageView();
+        ImageProcessor_Old imageProcessorOld = new ImageProcessor_Old(photoView, path, isCompress, location);
+        imageProcessorOld.setImageView();
     }
 
     @Override

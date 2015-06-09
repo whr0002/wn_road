@@ -5,6 +5,12 @@
     android:layout_height="match_parent"
     android:padding="5dp">
 
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"></LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -24,7 +30,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
+                    <!-- Name -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
@@ -53,6 +59,7 @@
                             />
                     </LinearLayout>
 
+                    <!-- Date -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
@@ -131,6 +138,7 @@
                         android:textStyle="bold"
                         android:gravity="center"/>
 
+                    <!-- Licence -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
@@ -159,6 +167,7 @@
                             />
                     </LinearLayout>
 
+                    <!-- Road Name -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
@@ -187,6 +196,7 @@
                             />
                     </LinearLayout>
 
+                    <!-- DLO -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
@@ -215,6 +225,7 @@
                             />
                     </LinearLayout>
 
+                    <!-- Km From -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
@@ -254,6 +265,7 @@
                             />
                     </LinearLayout>
 
+                    <!-- Km To -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
@@ -370,6 +382,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
                         android:gravity="top|left"
+                        android:id="@+id/commentEdit"
+                        android:textColor="@color/cblue"
                         />
 
 

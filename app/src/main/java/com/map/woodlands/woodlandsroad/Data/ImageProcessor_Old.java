@@ -10,23 +10,27 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * Created by Jimmy on 3/16/2015.
  * Used for setting imageviews and compressing images
  */
-public class ImageProcessor {
-
-
-
-    private Location mLocation;
-    public ImageProcessor(Location location){
-
-        mLocation = location;
-
+public class ImageProcessor_Old {
+    private ImageView mImageView;
+    private String mPath;
+    private boolean mIsCompress;
+    private LatLng mLatLng;
+    public ImageProcessor_Old(ImageView imageView, String path, Boolean isCompress, Location location){
+        this.mImageView = imageView;
+        this.mPath = path;
+        this.mIsCompress = isCompress;
+        if(location != null) {
+            this.mLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+        }
     }
 
-    public void setImageView(ImageView mImageView, String mPath, Boolean mIsCompress){
+    public void setImageView(){
         // Get the dimensions of the view
         int targetW = mImageView.getWidth();
         int targetH = mImageView.getHeight();
@@ -57,44 +61,23 @@ public class ImageProcessor {
         if(mIsCompress) {
             bmOptions.inSampleSize = 4;
             Bitmap b = BitmapFactory.decodeFile(mPath, bmOptions);
-            compressImage(b, mPath);
+            compressImage(b);
 
-
-            setGeoTag(mPath);
-
-        }
-
-    }
-
-    public void shrinkImage(String mPath){
-
-
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(mPath, options);
-
-        options.inJustDecodeBounds = false;
-        options.inSampleSize = 4;
-        options.inPurgeable = true;
-
-        Bitmap bitmap = BitmapFactory.decodeFile(mPath, options);
-
-        compressImage(bitmap, mPath);
-        setGeoTag(mPath);
-    }
-
-    public boolean isImageFound(String path){
-        if(path != null) {
-            File file = new File(path);
-            if(file != null && file.exists()){
-                return true;
+            if(mLatLng != null){
+                if(mPath != null) {
+                    setGeoTag(mPath, mLatLng);
+                }
             }
         }
 
-        return false;
+
+
+
+
+
     }
 
-    public void compressImage(Bitmap b, String mPath){
+    public void compressImage(Bitmap b){
         try{
             if(mPath != null) {
 //                Log.i("debug", "in: " + mPath);
@@ -124,10 +107,9 @@ public class ImageProcessor {
         }
     }
 
-    public boolean setGeoTag(String path) {
-
+    public boolean setGeoTag(String path, LatLng geoTag) {
+        if (geoTag != null) {
             try {
-                LatLng geoTag = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
                 ExifInterface exif = new ExifInterface(path);
 
                 double latitude = Math.abs(geoTag.latitude);
@@ -161,14 +143,13 @@ public class ImageProcessor {
 
                 exif.saveAttributes();
 
-                return true;
-
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (IOException e) {
+//                e.printStackTrace();
                 return false;
             }
-
+        } else {
+            return false;
+        }
+        return true;
     }
-
-
 }

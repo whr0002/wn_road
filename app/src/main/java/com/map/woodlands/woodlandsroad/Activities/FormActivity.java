@@ -41,7 +41,7 @@ import com.map.woodlands.woodlandsroad.Data.DirectoryChooserDialog;
 import com.map.woodlands.woodlandsroad.Data.Form;
 import com.map.woodlands.woodlandsroad.Data.FormController;
 import com.map.woodlands.woodlandsroad.Data.FormValidator;
-import com.map.woodlands.woodlandsroad.Data.ImageProcessor;
+import com.map.woodlands.woodlandsroad.Data.ImageProcessor_Old;
 import com.map.woodlands.woodlandsroad.Data.MyApplication;
 import com.map.woodlands.woodlandsroad.Data.UserInfo;
 import com.map.woodlands.woodlandsroad.Data.ViewToggler;
@@ -688,9 +688,9 @@ public class FormActivity extends ActionBarActivity implements View.OnClickListe
 
     public void setPhotoView(ImageView photoView, String path){
 //        Log.i("debug", "out: "+ path);
-        ImageProcessor imageProcessor = new ImageProcessor(photoView, path, true, location);
+        ImageProcessor_Old imageProcessorOld = new ImageProcessor_Old(photoView, path, true, location);
 
-        imageProcessor.setImageView();
+        imageProcessorOld.setImageView();
 
     }
 

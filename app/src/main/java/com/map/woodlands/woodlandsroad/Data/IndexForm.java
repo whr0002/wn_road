@@ -6,8 +6,14 @@ package com.map.woodlands.woodlandsroad.Data;
 public class IndexForm{
     public int index;
     public Form form;
+    public RoadForm roadForm;
     public IndexForm(int i, Form f){
         this.index = i;
         this.form = f;
+    }
+
+    public IndexForm(int i, RoadForm f){
+        this.index = i;
+        this.roadForm = f;
     }
 }

@@ -77,13 +77,11 @@
                         android:layout_marginBottom="5dp"
                         />
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="8dp"
-                        android:weightSum="1"
-                        android:gravity="center"
                         android:id="@+id/cl"
                         >
 
@@ -91,43 +89,26 @@
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/file_submit"
-                            android:layout_gravity="center"
-                            android:layout_marginRight="20dp"
-                            android:id="@+id/singleSubmitIcon"
-                            android:visibility="gone"
-                            android:background="@drawable/item_background"/>
-
-                        <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:scaleType="fitCenter"
                             android:src="@drawable/file_warning"
-                            android:layout_gravity="center"
-                            android:layout_marginRight="20dp"
+                            android:layout_centerInParent="true"
                             android:id="@+id/warningIcon"
                             android:visibility="gone"
-                            android:background="@drawable/item_background"/>
+                            android:background="@drawable/item_background"
+                            />
 
-                        <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/file_delete"
-                            android:layout_gravity="center"
-                            android:id="@+id/deleteIcon"
-                            android:background="@drawable/item_background"/>
 
                         <CheckBox
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:id="@+id/checkbox"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
                             android:clickable="false"
                             android:visibility="gone"/>
-                    </LinearLayout>
+                    </RelativeLayout>
 
             </RelativeLayout>
 

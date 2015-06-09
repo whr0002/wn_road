@@ -5,9 +5,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.map.woodlands.woodlandsroad.Fragments.FormFragment;
 import com.map.woodlands.woodlandsroad.Fragments.LoginFragment;
 import com.map.woodlands.woodlandsroad.Fragments.MapFragment;
+import com.map.woodlands.woodlandsroad.Fragments.RoadFormFragment;
 import com.map.woodlands.woodlandsroad.MainActivity;
 import com.map.woodlands.woodlandsroad.R;
 
@@ -19,7 +19,7 @@ import java.util.Locale;
  */
 public class TabPagerAdapter extends FragmentPagerAdapter {
     private LoginFragment mLoginFragment;
-    private FormFragment mFormFragment;
+    private RoadFormFragment mFormFragment;
     private MapFragment mMapFragment;
     private Context mCtx;
 
@@ -27,7 +27,7 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
         super(fm);
         this.mCtx = ctx;
 
-        this.mFormFragment = FormFragment.newInstance();
+        this.mFormFragment = RoadFormFragment.newInstance();
         this.mMapFragment = MapFragment.newInstance();
         this.mLoginFragment = LoginFragment.newInstance(mMapFragment);
     }

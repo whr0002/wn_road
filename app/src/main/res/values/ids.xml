@@ -6,5 +6,6 @@
     <item type="id" name="photo_otdw" />
     <item type="id" name="photo_1" />
     <item type="id" name="photo_2" />
+    <item name="image_desc" type="id"/>
     
 </resources>

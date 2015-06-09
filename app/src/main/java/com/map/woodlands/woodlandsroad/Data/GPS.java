@@ -18,6 +18,7 @@ public class GPS implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener{
 
     public Location mPreviouLocation;
+    public Location currentLocation;
     public GoogleApiClient mGoogleApiClient;
     public Recorder mRecorder;
     protected static final long timeInterval = 5000;
@@ -72,6 +73,9 @@ public class GPS implements GoogleApiClient.ConnectionCallbacks,
 
     @Override
     public void onLocationChanged(Location location) {
+
+        currentLocation = location;
+
         if(mRecorder.isRecording){
             mRecorder.record(location);
         }else{
