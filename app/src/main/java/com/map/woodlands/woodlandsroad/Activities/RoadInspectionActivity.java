@@ -27,6 +27,7 @@ import com.map.woodlands.woodlandsroad.Data.Photo;
 import com.map.woodlands.woodlandsroad.Data.Recorder;
 import com.map.woodlands.woodlandsroad.Data.RoadForm;
 import com.map.woodlands.woodlandsroad.Data.RoadFormController;
+import com.map.woodlands.woodlandsroad.Data.RoadFormValidator;
 import com.map.woodlands.woodlandsroad.R;
 
 import java.text.SimpleDateFormat;
@@ -43,7 +44,7 @@ public class RoadInspectionActivity extends ActionBarActivity implements
     rs_roadSurface, rs_gravelCondition, rs_vc, rs_vc_ct, di_ditches, di_vc, di_vc_type,
             last_signage, last_crossings, last_groundAccess, last_roadMaintenanceRequired,
             last_roadImmediateAction, last_photos, last_comment, imageGallery;
-    private TextView dateView;
+    private TextView dateView, latitudeView, longitudeView;
     private EditText inspectorEdit, licenceEdit, roadNameEdit, DLOEdit, kmFromEdit, kmToEdit, commentEdit;
 
     private CameraHandler cameraHandler;
@@ -67,6 +68,9 @@ public class RoadInspectionActivity extends ActionBarActivity implements
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         dateView = (TextView) findViewById(R.id.dateView);
+        latitudeView = (TextView) findViewById(R.id.latitudeView);
+        longitudeView = (TextView) findViewById(R.id.longitudeView);
+
         inspectorEdit = (EditText)findViewById(R.id.nameEdit);
         licenceEdit = (EditText)findViewById(R.id.licenceEdit);
         roadNameEdit = (EditText)findViewById(R.id.roadNameEdit);
@@ -82,6 +86,8 @@ public class RoadInspectionActivity extends ActionBarActivity implements
         recorder = new Recorder(this, recordBtn);
         gps = new GPS(this);
         gps.mRecorder = recorder;
+        gps.latitudeView = latitudeView;
+        gps.longitudeView = longitudeView;
         cameraHandler = new CameraHandler(this);
         imageProcessor = new ImageProcessor(gps.currentLocation);
         mFormController = new RoadFormController(this);
@@ -264,7 +270,9 @@ public class RoadInspectionActivity extends ActionBarActivity implements
                 Log.i("debug", "save");
                 // Save form
                 RoadForm form = generateForm();
-                //                validateForms(form);
+
+                RoadFormValidator validator = new RoadFormValidator(form);
+                validator.validateForm();
 
                 if(formID == -1) {
                     mFormController.saveForm(form);
@@ -324,6 +332,10 @@ public class RoadInspectionActivity extends ActionBarActivity implements
         f.OT_RoadRIA = getSpinnerItemFromLayout(last_roadImmediateAction);
         f.OT_Comments = commentEdit.getText().toString();
         f.Photos = cameraHandler.getCurrentPhotos();
+        f.Locations = recorder.locations;
+
+
+
         return f;
 
     }
@@ -359,10 +371,14 @@ public class RoadInspectionActivity extends ActionBarActivity implements
         setSpinnerItemFromLayout(last_roadImmediateAction, f.OT_RoadRIA);
 
         commentEdit.setText(f.OT_Comments);
+        recorder.locations = f.Locations;
 
         if(f.Photos != null) {
             setGallery(f.Photos);
         }
+
+
+
 
 
     }

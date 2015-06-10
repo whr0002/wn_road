@@ -36,12 +36,10 @@ public class Recorder {
         }
     }
 
-    public void record(Location location){
+    public void record(Location location, double meters){
         if(locations.size()>0){
             Location lastLocation = locations.get(locations.size()-1);
-            if(lastLocation.getLatitude() != location.getLatitude() ||
-                    lastLocation.getLongitude() != location.getLongitude()
-                    ){
+            if(GPS.calculateDistance(lastLocation, location) > meters ){
 
                 locations.add(location);
             }
@@ -58,6 +56,18 @@ public class Recorder {
             Log.i("debug", "(" + location.getLatitude() + ", " + location.getLongitude() + ")");
         }
         Log.i("debug", "----Stop");
+    }
+
+    public static String locationsToString(List<Location> ls){
+        String temp = "";
+
+        if(ls != null) {
+            for (Location location : ls) {
+                temp += location.getLatitude() + ", " + location.getLongitude() + " ";
+            }
+        }
+
+        return temp;
     }
 
 }

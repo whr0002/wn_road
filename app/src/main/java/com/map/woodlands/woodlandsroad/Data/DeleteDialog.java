@@ -39,7 +39,7 @@ public class DeleteDialog {
             public void onClick(DialogInterface dialogInterface, int i) {
 
                 for (RoadForm f : mForms) {
-                    mRoadFormController.deleteOneFormAsync(f.ID);
+                    mRoadFormController.deleteOneFormSync(f.ID);
                     mAdapter.remove(f);
                 }
             }

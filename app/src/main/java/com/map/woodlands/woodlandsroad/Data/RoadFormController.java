@@ -66,7 +66,7 @@ public class RoadFormController {
     /* Get all forms */
     public ArrayList<RoadForm> getAllForms(){
         ArrayList<RoadForm> forms = new ArrayList<RoadForm>();
-        String json = sp.getString("FormData","");
+        String json = sp.getString("FormData", "");
         if(!json.equals("")){
             forms = gson.fromJson(json, mType);
         }
@@ -91,7 +91,7 @@ public class RoadFormController {
 
     }
 
-    public synchronized void deleteOneFormAsync(int formID){
+    public synchronized void deleteOneFormSync(int formID){
         ArrayList<RoadForm> forms = getAllForms();
 
         IndexForm mif = getIndexForm(formID);
@@ -103,6 +103,21 @@ public class RoadFormController {
         String json = gson.toJson(forms);
         spEditor.putString("FormData", json);
         spEditor.commit();
+    }
+
+    private void deleteImageFileIfExists(RoadForm form) {
+        ArrayList<Photo> photos = form.Photos;
+
+        if(photos != null) {
+            for (Photo photo : photos) {
+
+                File file = new File(photo.path);
+                if (file.exists()) {
+                    file.delete();
+                }
+
+            }
+        }
     }
 
     public synchronized void deleteAllForms(){
@@ -133,11 +148,18 @@ public class RoadFormController {
                     int total = mForms.size();
                     if (total > 0) {
 
-                        progressDialog = ProgressDialog.show(mContext,"","Uploading...", true);
+//                        progressDialog = ProgressDialog.show(mContext,"","Uploading...", true);
+                        progressDialog = new ProgressDialog(mContext);
+                        progressDialog.setProgress(0);
+                        progressDialog.setMax(total);
+                        progressDialog.setIndeterminate(true);
+                        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                        progressDialog.setTitle("Uploading");
+                        progressDialog.show();
 
-//                        Uploader uploader = new Uploader(mContext, mFormFragment, progressDialog, total);
+                        RoadUploader uploader = new RoadUploader(mContext, mFormFragment, progressDialog, total);
                         for (RoadForm form : mForms) {
-//                            uploader.execute(form,counter);
+                            uploader.execute(form,counter);
                             counter++;
                         }
                     }
@@ -206,7 +228,7 @@ public class RoadFormController {
     }
 
     public synchronized int getNextFormID(){
-        int i = sp.getInt("ID",0);
+        int i = sp.getInt("ID", 0);
         spEditor.putInt("ID", i+1);
         spEditor.commit();
         return i;
@@ -224,28 +246,7 @@ public class RoadFormController {
         return null;
     }
 
-    private void deleteImageFileIfExists(RoadForm form) {
-        ArrayList<String> paths = new ArrayList<String>();
-//        paths.add(form.PHOTO_INUP);
-//        paths.add(form.PHOTO_INDW);
-//        paths.add(form.PHOTO_OTUP);
-//        paths.add(form.PHOTO_OTDW);
-//        paths.add(form.PHOTO_1);
-//        paths.add(form.PHOTO_2);
-//        paths.add(form.PHOTO_ROAD_LEFT);
-//        paths.add(form.PHOTO_ROAD_RIGHT);
 
-        for(String path : paths){
-            if(path != null) {
-                File file = new File(path);
-                if (file.exists()) {
-                    // File exists, delete it
-                    file.delete();
-                }
-            }
-        }
-
-    }
 
     private UserInfo getUserInfo(){
         SharedPreferences sp = mContext.getSharedPreferences("UserInfo", 0);

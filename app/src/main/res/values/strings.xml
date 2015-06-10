@@ -1,8 +1,8 @@
 <resources>
 
-    <string name="login_url">http://scari.azurewebsites.net/Android/Login</string>
+    <string name="login_url">http://roadinspection.azurewebsites.net/Android/Login</string>
     <string name="form_post_url">http://scari.azurewebsites.net/android/formpost</string>
-    <string name="image_post.url">http://scari.azurewebsites.net/android/filepost</string>
+    <string name="image_post.url">http://roadinspection.azurewebsites.net/RoadData/RoadFormSubmit</string>
     <string name="coords_url">http://scari.azurewebsites.net/androiddata/coordinates</string>
     <string name="row_url">http://scari.azurewebsites.net/androiddata/onerow</string>
     <string name="kml_url">http://scari.azurewebsites.net/androiddata/KMLs</string>

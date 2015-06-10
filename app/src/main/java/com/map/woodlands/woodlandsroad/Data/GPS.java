@@ -3,7 +3,7 @@ package com.map.woodlands.woodlandsroad.Data;
 import android.app.Activity;
 import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
+import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -21,6 +21,9 @@ public class GPS implements GoogleApiClient.ConnectionCallbacks,
     public Location currentLocation;
     public GoogleApiClient mGoogleApiClient;
     public Recorder mRecorder;
+    public TextView latitudeView;
+    public TextView longitudeView;
+
     protected static final long timeInterval = 5000;
     protected static final LocationRequest REQUEST = LocationRequest.create()
             .setInterval(timeInterval)
@@ -74,12 +77,14 @@ public class GPS implements GoogleApiClient.ConnectionCallbacks,
     @Override
     public void onLocationChanged(Location location) {
 
+        if(latitudeView != null && longitudeView != null){
+            latitudeView.setText(""+location.getLatitude());
+            longitudeView.setText(""+location.getLongitude());
+        }
         currentLocation = location;
 
         if(mRecorder.isRecording){
-            mRecorder.record(location);
-        }else{
-            mRecorder.print();
+            mRecorder.record(location, 5);
         }
 
         if(mPreviouLocation == null){
@@ -88,16 +93,13 @@ public class GPS implements GoogleApiClient.ConnectionCallbacks,
 
         }
 
-        // Calculate
-        double speed = calculateSpeed(mPreviouLocation, location, timeInterval);
+//        Log.i("debug", "(" + location.getLatitude() + ", " + location.getLongitude() + ") " + calculateDistance(mPreviouLocation, location));
 
         // update previous location to current location
         mPreviouLocation = new Location(location);
 
-//        locationView.setText("(" + location.getLatitude() + ", " + location.getLongitude() + ") " + speed);
-        if(speed > 0) {
-            Log.i("debug", "(" + location.getLatitude() + ", " + location.getLongitude() + ") " + speed);
-        }
+
+
     }
 
     @Override

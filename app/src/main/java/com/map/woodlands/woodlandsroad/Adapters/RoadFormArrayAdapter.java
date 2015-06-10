@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.map.woodlands.woodlandsroad.Data.RoadForm;
+import com.map.woodlands.woodlandsroad.Data.RoadWarningView;
 import com.map.woodlands.woodlandsroad.Fragments.RoadFormFragment;
 import com.map.woodlands.woodlandsroad.R;
 
@@ -49,14 +50,6 @@ public class RoadFormArrayAdapter extends ArrayAdapter<RoadForm>{
             holder.warningIcon = (ImageView) convertView.findViewById(R.id.warningIcon);
             holder.checkBox = (CheckBox) convertView.findViewById(R.id.checkbox);
 
-//            holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//
-//                @Override
-//                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                    int getPosition = (Integer) buttonView.getTag();  // Here we get the position that we have set for the checkbox using setTag.
-//                    mForms.get(getPosition).isSelected = buttonView.isChecked(); // Set the value of checkbox to maintain its state.
-//                }
-//            });
 
             convertView.setTag(holder);
         }else{
@@ -75,10 +68,10 @@ public class RoadFormArrayAdapter extends ArrayAdapter<RoadForm>{
         holder.checkBox.setChecked(mForms.get(position).isSelected);
 
 
-        holder.positionView.setText(position+1+".");
+        holder.positionView.setText(position + 1 + ".");
         holder.dateView.setText(form.INSP_DATE);
         holder.statusView.setText(form.STATUS);
-//        holder.warningIcon.setOnClickListener(new WarningView(mContext,form));
+        holder.warningIcon.setOnClickListener(new RoadWarningView(mContext, form));
         return convertView;
     }
 

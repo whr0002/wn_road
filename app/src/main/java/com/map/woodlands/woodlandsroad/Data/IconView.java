@@ -12,6 +12,7 @@ import android.widget.ImageView;
 public class IconView extends ImageView implements View.OnClickListener{
 
     public Form mForm;
+    public RoadForm mRoadForm;
     public AlertDialog.Builder alertDialogBuilder;
     public IconView(Context context) {
         super(context);

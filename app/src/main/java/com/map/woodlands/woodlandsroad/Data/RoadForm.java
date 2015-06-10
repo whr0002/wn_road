@@ -1,6 +1,9 @@
 package com.map.woodlands.woodlandsroad.Data;
 
+import android.location.Location;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Jimmy on 6/8/2015.
@@ -10,6 +13,7 @@ public class RoadForm {
     public static final String CLASS_PHOTO_GENERAL = "GENERAL";
 
     public int ID;
+    public String Client;
     public String InspectorName;
     public String INSP_DATE;
     public String Licence;
@@ -39,7 +43,7 @@ public class RoadForm {
 
     public ArrayList<Photo> Photos;
 
-    public String Coordinates;
+    public List<Location> Locations;
 
     public ArrayList<String> messages;
     public String STATUS;

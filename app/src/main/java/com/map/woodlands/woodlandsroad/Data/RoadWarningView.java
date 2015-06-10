@@ -12,9 +12,9 @@ public class RoadWarningView extends IconView {
         super(context);
     }
 
-    public RoadWarningView(Context context, Form form){
+    public RoadWarningView(Context context, RoadForm form){
         super(context);
-        this.mForm = form;
+        this.mRoadForm = form;
     }
 
     @Override
@@ -33,9 +33,9 @@ public class RoadWarningView extends IconView {
     }
 
     public String getMessage(){
-        if(mForm.messages != null){
+        if(mRoadForm.messages != null){
             StringBuilder sb = new StringBuilder();
-                for(String s : mForm.messages){
+                for(String s : mRoadForm.messages){
 //                    Log.i("debug", s);
                     sb.append("- ").append(s).append("\n");
                 }
