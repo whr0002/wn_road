@@ -81,10 +81,15 @@ public class GPS implements GoogleApiClient.ConnectionCallbacks,
             latitudeView.setText(""+location.getLatitude());
             longitudeView.setText(""+location.getLongitude());
         }
+
+        if(mRecorder.locations.size() == 0){
+            mRecorder.record(location, 0);
+        }
+
         currentLocation = location;
 
         if(mRecorder.isRecording){
-            mRecorder.record(location, 5);
+            mRecorder.record(location, 0);
         }
 
         if(mPreviouLocation == null){
