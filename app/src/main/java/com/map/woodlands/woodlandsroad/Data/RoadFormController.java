@@ -3,6 +3,7 @@ package com.map.woodlands.woodlandsroad.Data;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -11,7 +12,10 @@ import com.map.woodlands.woodlandsroad.Fragments.RoadFormFragment;
 
 import java.io.File;
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Jimmy on 3/18/2015.
@@ -174,6 +178,43 @@ public class RoadFormController {
         }
     }
 
+    public void submitForms(List<RoadForm> mForms) {
+
+        UserInfo ui = getUserInfo();
+        if(ui != null) {
+            if(ui.getRole() != null && !ui.getRole().equals("null")) {
+
+                if (mForms != null) {
+                    int counter = 1;
+                    int total = mForms.size();
+                    if (total > 0) {
+
+//                        progressDialog = ProgressDialog.show(mContext,"","Uploading...", true);
+                        progressDialog = new ProgressDialog(mContext);
+                        progressDialog.setProgress(0);
+                        progressDialog.setMax(total);
+                        progressDialog.setIndeterminate(true);
+                        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                        progressDialog.setTitle("Uploading");
+                        progressDialog.show();
+
+                        RoadUploader uploader = new RoadUploader(mContext, mFormFragment, progressDialog, total);
+                        for (RoadForm form : mForms) {
+                            uploader.execute(form,counter);
+                            counter++;
+                        }
+                    }
+                }
+            }else{
+                Toast.makeText(mContext,
+                        "You are not authorized to upload any forms",
+                        Toast.LENGTH_LONG).show();
+            }
+        }else{
+            Toast.makeText(mContext, "Please login first", Toast.LENGTH_LONG).show();
+        }
+    }
+
     /**
      *
      * Single form submission
@@ -263,10 +304,22 @@ public class RoadFormController {
 
     public void addTestData(){
         ArrayList<RoadForm> forms = new ArrayList<RoadForm>();
-        for(int i=0;i<1;i++){
+        for(int i=0;i<9;i++){
             RoadForm f = new RoadForm();
+            f.InspectorName = "tester";
+            f.RoadName = "test road";
+            f.RoadStatus = "Reclaimed";
 
-
+            f.INSP_DATE = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+            f.RS_Condition = "Good";
+            f.RS_RoadSurface = "Fair";
+            f.RS_VegetationCover = "Mostly covered";
+            f.DI_Ditches = "Poor";
+            f.DI_VegetationCover = "Bare";
+            f.OT_Signage = "Present";
+            f.OT_RoadMR = "Yes";
+            f.Locations = new ArrayList<Location>();
+            f.STATUS = "Ready to submit";
 
             forms.add(f);
         }

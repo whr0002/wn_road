@@ -94,14 +94,10 @@ public class RoadUploader {
                         public void onSuccess(int i, Header[] headers, byte[] bytes) {
 
                             int currentC = counter.incrementAndGet();
-                            int totalSuccess = successCounter.incrementAndGet();
                             progressDialog.setProgress(currentC);
 
 
-                            String msg = "Submitted "
-                                    + totalSuccess
-                                    + "/"
-                                    + total;
+
 
                             String s = "";
 
@@ -113,10 +109,15 @@ public class RoadUploader {
 
                             // Delete submitted form
                             if(s.equals("Form Submitted")){
-
+                               successCounter.incrementAndGet();
                                 deleteFormIfSuccess(mForm);
 
                             }
+
+                            String msg = "Submitted "
+                                    + successCounter.get()
+                                    + "/"
+                                    + total;
 
                             // Send a msg to user when uploading is done
                             if(currentC == total){
@@ -131,6 +132,7 @@ public class RoadUploader {
                             int currentC = counter.incrementAndGet();
                             int totalSuccess = successCounter.get();
                             progressDialog.setProgress(currentC);
+
 
                             String msg = "Submitted "
                                     + totalSuccess

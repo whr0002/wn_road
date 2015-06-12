@@ -63,7 +63,7 @@ public class Recorder {
 
         if(ls != null) {
             for (Location location : ls) {
-                temp += location.getLatitude() + "," + location.getLongitude() + ",0 ";
+                temp += location.getLongitude() + "," + location.getLatitude() + ",0 ";
             }
         }
 

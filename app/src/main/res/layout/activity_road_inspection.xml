@@ -40,10 +40,20 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
+                            android:layout_weight="0.4"
                             android:text="Name"
                             android:textSize="18sp"
                             android:textColor="@color/black"
+                            android:layout_gravity="center"
+                            />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.1"
+                            android:text="*"
+                            android:textSize="18sp"
+                            android:textColor="@color/red"
                             android:layout_gravity="center"
                             />
 
@@ -233,13 +243,21 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
+                            android:layout_weight="0.4"
                             android:text="Road Name"
                             android:textSize="18sp"
                             android:textColor="@color/black"
                             android:layout_gravity="center"
                             />
-
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.1"
+                            android:text="*"
+                            android:textSize="18sp"
+                            android:textColor="@color/red"
+                            android:layout_gravity="center"
+                            />
                         <EditText
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"

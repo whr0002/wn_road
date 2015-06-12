@@ -82,7 +82,7 @@ public class GPS implements GoogleApiClient.ConnectionCallbacks,
             longitudeView.setText(""+location.getLongitude());
         }
 
-        if(mRecorder.locations.size() == 0){
+        if(mRecorder.locations != null && mRecorder.locations.size() == 0){
             mRecorder.record(location, 0);
         }
 

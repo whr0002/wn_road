@@ -28,6 +28,7 @@ import com.map.woodlands.woodlandsroad.Adapters.RoadFormArrayAdapter;
 import com.map.woodlands.woodlandsroad.Data.DeleteDialog;
 import com.map.woodlands.woodlandsroad.Data.RoadForm;
 import com.map.woodlands.woodlandsroad.Data.RoadFormController;
+import com.map.woodlands.woodlandsroad.Data.SubmitDialog;
 import com.map.woodlands.woodlandsroad.R;
 
 import java.util.ArrayList;
@@ -63,7 +64,7 @@ public class RoadFormFragment extends Fragment{
 
         formController = new RoadFormController(aba, this);
 
-//        formController.addTestData();
+        formController.addTestData();
 
         setHasOptionsMenu(true);
 
@@ -155,7 +156,7 @@ public class RoadFormFragment extends Fragment{
 
                     case R.id.submit_selected:
 
-                        submitSelectedItems();
+                        submitSelectedItems(adapter);
                         actionMode.finish();
 
                         return true;
@@ -221,23 +222,21 @@ public class RoadFormFragment extends Fragment{
     /**
      * Submit selected items in action mode
      */
-    public void submitSelectedItems(){
-//        SparseBooleanArray sparseBooleanArray = mGridview.getCheckedItemPositions();
-//
-//        List<Form> forms = new ArrayList<Form>();
-//
-//        for(int i=0;i<formAdapter.getCount();i++){
-//            if(sparseBooleanArray.get(i)){
-//
-//                Form form = formAdapter.getItem(i);
-//                if(form.Message == null) {
-//                    forms.add(form);
-//                }
-//            }
-//        }
-//
-//        SubmitDialog dialog = new SubmitDialog(this, forms, "Do you want to submit selected forms?");
-//        dialog.show();
+    public void submitSelectedItems(ArrayAdapter<RoadForm> adapter){
+        SparseBooleanArray sparseBooleanArray = listView.getCheckedItemPositions();
+        List<RoadForm> forms = new ArrayList<RoadForm>();
+
+        for(int i=0;i<adapter.getCount();i++){
+            if(sparseBooleanArray.get(i)){
+                forms.add(adapter.getItem(i));
+            }
+
+        }
+
+        SubmitDialog submitDialog = new SubmitDialog(this.getActivity(),
+                forms, "Are you sure you want to submit selected forms?", formController, adapter);
+
+        submitDialog.show();
     }
 
 

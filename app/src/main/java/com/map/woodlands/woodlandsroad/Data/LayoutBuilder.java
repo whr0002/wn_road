@@ -31,12 +31,12 @@ public class LayoutBuilder {
         mContext = context;
     }
 
-    public LinearLayout buildDropDown(final String title, int arrayID){
+    public LinearLayout buildDropDown(final String title, int arrayID, boolean isRequired){
 
         // Wrapper
         final LinearLayout wrapper = new LinearLayout(mContext);
         LinearLayout.LayoutParams wrapperParams = new LinearLayout
-                .LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 120);
+                .LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 130);
         wrapper.setWeightSum(1.0f);
         wrapper.setOrientation(LinearLayout.HORIZONTAL);
         wrapper.setLayoutParams(wrapperParams);
@@ -57,7 +57,15 @@ public class LayoutBuilder {
         params3.gravity = Gravity.CENTER;
         params3.weight = 0.2f;
 
+        LinearLayout.LayoutParams params4 = new LinearLayout
+                .LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT);
+        params4.gravity = Gravity.CENTER;
+        params4.weight = 0.1f;
 
+
+        if(isRequired){
+            params.weight = 0.4f;
+        }
 
 
         // Title view
@@ -70,6 +78,13 @@ public class LayoutBuilder {
         titleView.setTag(arrayID);
         titleView.setLayoutParams(params);
 
+
+        TextView required = new TextView(mContext);
+        required.setText("*");
+        required.setTextSize(18.0f);
+        required.setTextColor(mContext.getResources().getColor(R.color.red));
+        required.setGravity(Gravity.CENTER_VERTICAL);
+        required.setLayoutParams(params4);
 
 
         // Drop Down
@@ -140,6 +155,9 @@ public class LayoutBuilder {
 
         // Add child views to wrapper
         wrapper.addView(titleView);
+        if(isRequired){
+            wrapper.addView(required);
+        }
         wrapper.addView(spinner);
         wrapper.addView(imageButton);
 

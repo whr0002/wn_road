@@ -17,14 +17,76 @@ public class RoadFormValidator {
 
     public void validateForm(){
         if (mForm != null){
-            // Date is required
-            if(mForm.INSP_DATE.length() == 0){
-                messages.add("Date is required");
+
+            if(mForm.InspectorName == null) {
+                messages.add("Name is required");
+            }else if(mForm.InspectorName.trim().length() == 0){
+                    messages.add("Name is required");
             }
 
-            if(mForm.InspectorName.length() == 0){
-                messages.add("Name is required");
+
+            if(mForm.Locations == null){
+                messages.add("Record coordinates is required");
+            }else if(mForm.Locations != null && mForm.Locations.size() == 0){
+                messages.add("Record coordinates is required");
             }
+
+            if(mForm.RoadName == null){
+                messages.add("Road Name is required");
+            }else if(mForm.RoadName.trim().length() == 0){
+                messages.add("Road Name is required");
+            }
+
+            if(mForm.RoadStatus == null){
+                messages.add("Road Status is required");
+            }else if(mForm.RoadStatus.trim().length() == 0){
+                messages.add("Road Status is required");
+            }
+
+            if(mForm.RS_Condition == null){
+                messages.add("Road Surface Condition is required");
+            }else if(mForm.RS_Condition.trim().length() == 0){
+                messages.add("Road Surface Condition is required");
+            }
+
+
+            if(mForm.RS_RoadSurface == null){
+                messages.add("Road Surface is required");
+            }else if(mForm.RS_RoadSurface.trim().length() == 0){
+                messages.add("Road Surface is required");
+            }
+
+            if(mForm.RS_VegetationCover == null){
+                messages.add("Road Surface Vegetation is required");
+            }else if(mForm.RS_VegetationCover.trim().length() == 0){
+                messages.add("Road Surface Vegetation Cover is required");
+            }
+
+            if(mForm.DI_Ditches == null){
+                messages.add("Ditches is required");
+            }else if(mForm.DI_Ditches.trim().length() == 0){
+                messages.add("Ditches is required");
+            }
+
+            if(mForm.DI_VegetationCover == null){
+                messages.add("Ditches Vegetation Cover is required");
+            }else if(mForm.DI_VegetationCover.trim().length() == 0){
+                messages.add("Ditches Vegetation Cover is required");
+            }
+
+            if(mForm.RoadStatus == null){
+                messages.add("Road Status is required");
+            }else if(mForm.OT_Signage.trim().length() == 0){
+                messages.add("Signage is required");
+            }
+
+            if(mForm.OT_RoadMR == null){
+                messages.add("Road maintenace is required");
+            }else if(mForm.OT_RoadMR.trim().length() == 0){
+                messages.add("Road maintenace is required");
+            }
+
+
 
         }else{
             messages.add("Form is null");
