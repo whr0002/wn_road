@@ -31,12 +31,6 @@ public class RoadFormValidator {
                 messages.add("Record coordinates is required");
             }
 
-            if(mForm.RoadName == null){
-                messages.add("Road Name is required");
-            }else if(mForm.RoadName.trim().length() == 0){
-                messages.add("Road Name is required");
-            }
-
             if(mForm.RoadStatus == null){
                 messages.add("Road Status is required");
             }else if(mForm.RoadStatus.trim().length() == 0){
@@ -84,6 +78,12 @@ public class RoadFormValidator {
                 messages.add("Road maintenace is required");
             }else if(mForm.OT_RoadMR.trim().length() == 0){
                 messages.add("Road maintenace is required");
+            }
+
+            if (mForm.OT_RoadRIA == null) {
+                messages.add("Road required immediate action is required");
+            }else if(mForm.OT_RoadRIA.trim().length() == 0){
+                messages.add("Road required immediate action is required");
             }
 
 

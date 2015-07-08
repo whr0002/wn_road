@@ -1,10 +1,12 @@
 package com.map.woodlands.woodlandsroad.Activities;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -57,12 +59,20 @@ public class RoadInspectionActivity extends ActionBarActivity implements
     private int formID;
     private int formIndex;
     private RoadForm f;
-
-
+    private PowerManager.WakeLock mWakeLock = null;
+    private PowerManager mPowerManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Set a wakelock to allow users to run the app without turning on the screen
+        mPowerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        mWakeLock = mPowerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Lock");
+        mWakeLock.setReferenceCounted(false);
+        mWakeLock.acquire();
+
+        // Set a layout
         setContentView(R.layout.activity_road_inspection);
 
         ActionBar actionBar = getSupportActionBar();
@@ -120,6 +130,14 @@ public class RoadInspectionActivity extends ActionBarActivity implements
         dateView.setText(date);
     }
 
+    @Override
+    protected void onDestroy() {
+        if(mWakeLock != null){
+            mWakeLock.release();
+        }
+        super.onDestroy();
+    }
+
     private void buildUI(){
         LinearLayout wrapper = (LinearLayout) findViewById(R.id.wrapper);
         roadInfoLayout = (LinearLayout) findViewById(R.id.roadInfoLayout);
@@ -169,7 +187,7 @@ public class RoadInspectionActivity extends ActionBarActivity implements
         last_crossings = layoutBuilder.buildDropDown("Crossings", R.array.last_crossings, false);
         last_groundAccess = layoutBuilder.buildDropDown("Ground Access", R.array.last_ground_access, false);
         last_roadMaintenanceRequired = layoutBuilder.buildDropDown("Road maintainance required?", R.array.yes_no, true);
-        last_roadImmediateAction = layoutBuilder.buildDropDown("Road requires immediate action*?", R.array.yes_no, false);
+        last_roadImmediateAction = layoutBuilder.buildDropDown("Road requires immediate action*?", R.array.yes_no, true);
 
         lastSection.addView(last_signage);
         lastSection.addView(last_crossings);
@@ -182,13 +200,28 @@ public class RoadInspectionActivity extends ActionBarActivity implements
     @Override
     protected void onResume() {
         super.onResume();
+
+        if(mWakeLock != null && !mWakeLock.isHeld()) {
+            mWakeLock.acquire();
+        }
+
         gps.mGoogleApiClient.connect();
     }
 
     @Override
     protected void onPause() {
+        if(mPowerManager.isScreenOn()){
+            // The screen is on, but it's out of activity
+//            Log.i("debug", "Screen is on");
+
+            if(mWakeLock != null && mWakeLock.isHeld()) {
+                mWakeLock.release();
+            }
+            gps.mGoogleApiClient.disconnect();
+
+        }
+
         super.onPause();
-        gps.mGoogleApiClient.disconnect();
     }
 
     @Override

@@ -24,7 +24,7 @@ public class GPS implements GoogleApiClient.ConnectionCallbacks,
     public TextView latitudeView;
     public TextView longitudeView;
 
-    protected static final long timeInterval = 5000;
+    protected static final long timeInterval = 3000;
     protected static final LocationRequest REQUEST = LocationRequest.create()
             .setInterval(timeInterval)
             .setFastestInterval(16)
@@ -77,19 +77,24 @@ public class GPS implements GoogleApiClient.ConnectionCallbacks,
     @Override
     public void onLocationChanged(Location location) {
 
+
+        float accuracy = location.getAccuracy();
+//        Log.i("debug", "Accuracy: " + accuracy);
+
         if(latitudeView != null && longitudeView != null){
             latitudeView.setText(""+location.getLatitude());
             longitudeView.setText(""+location.getLongitude());
         }
 
         if(mRecorder.locations != null && mRecorder.locations.size() == 0){
-            mRecorder.record(location, 0);
+            mRecorder.record(location, 0, accuracy);
         }
 
         currentLocation = location;
 
         if(mRecorder.isRecording){
-            mRecorder.record(location, 0);
+//            Log.i("debug", "(" + location.getLatitude() + ", " + location.getLongitude() + ") " + calculateDistance(mPreviouLocation, location));
+            mRecorder.record(location, 10, accuracy);
         }
 
         if(mPreviouLocation == null){

@@ -56,7 +56,7 @@ public class ImagePopup {
             public boolean onMenuItemClick(MenuItem item) {
                 switch(item.getItemId()){
                     case R.id.add_desc:
-                        Toast.makeText(mContext, "Add Description " + mView.getId(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(mContext, "Add Description " + mView.getId(), Toast.LENGTH_SHORT).show();
                         showDialog();
                         break;
 

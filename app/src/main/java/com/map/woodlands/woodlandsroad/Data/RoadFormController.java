@@ -196,6 +196,7 @@ public class RoadFormController {
                         progressDialog.setIndeterminate(true);
                         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                         progressDialog.setTitle("Uploading");
+                        progressDialog.setCancelable(false);
                         progressDialog.show();
 
                         RoadUploader uploader = new RoadUploader(mContext, mFormFragment, progressDialog, total);

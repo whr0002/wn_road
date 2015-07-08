@@ -36,15 +36,23 @@ public class Recorder {
         }
     }
 
-    public void record(Location location, double meters){
-        if(locations.size()>0){
-            Location lastLocation = locations.get(locations.size()-1);
-            if(GPS.calculateDistance(lastLocation, location) > meters ){
+    public void record(Location location, double meters, double accuracy){
 
+        // Record only if accuracy is less than or equal to 10
+        if(accuracy > 0 && accuracy <= 10) {
+            if (locations.size() > 0) {
+                Location lastLocation = locations.get(locations.size() - 1);
+                double distance = GPS.calculateDistance(lastLocation, location);
+
+//                Log.i("debug", "Distance: " + distance);
+                // Distance between previous location and current location must be within 500 meters
+                if (distance > meters && distance < 500) {
+
+                    locations.add(location);
+                }
+            } else {
                 locations.add(location);
             }
-        }else{
-            locations.add(location);
         }
 
     }

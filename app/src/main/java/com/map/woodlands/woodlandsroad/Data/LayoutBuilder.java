@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -88,7 +89,8 @@ public class LayoutBuilder {
 
 
         // Drop Down
-        final Spinner spinner = new Spinner(mContext);
+//        final Spinner spinner = new Spinner(mContext);
+        final Spinner spinner = (Spinner) ((LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.cspinner, null);
         String[] values = mContext.getResources().getStringArray(arrayID);
 
         ArrayList<String> names = new ArrayList<String>();
@@ -111,9 +113,6 @@ public class LayoutBuilder {
             }
             names.add(name);
             descs.add(desc);
-
-
-
         }
         if(descs.size()>0){
             if (wholeDesc.trim().length() == 0){
@@ -121,11 +120,6 @@ public class LayoutBuilder {
             }
             descs.set(0, wholeDesc);
         }
-
-
-
-
-
 
 
         String[] namesArray = names.toArray(new String[names.size()]);
@@ -159,7 +153,11 @@ public class LayoutBuilder {
             wrapper.addView(required);
         }
         wrapper.addView(spinner);
-        wrapper.addView(imageButton);
+
+        if(!wholeDesc.equals("No description")){
+            wrapper.addView(imageButton);
+        }
+
 
 
 

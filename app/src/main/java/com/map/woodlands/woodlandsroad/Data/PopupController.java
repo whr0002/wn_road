@@ -20,7 +20,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -69,15 +68,15 @@ public class PopupController {
         menu.add(1, counter, counter, "Choose...");
         counter++;
 
-        while(i.hasNext()){
-            Map.Entry me = (Map.Entry)i.next();
-            menu.add(1, counter, counter, me.getKey().toString());
+//        while(i.hasNext()){
+//            Map.Entry me = (Map.Entry)i.next();
+//            menu.add(1, counter, counter, me.getKey().toString());
+//
+//            counter++;
+//        }
 
-            counter++;
-        }
-
-        menu.add(1, counter, counter, "Processed Data");
-        counter++;
+//        menu.add(1, counter, counter, "Processed Data");
+//        counter++;
         menu.add(1, counter, counter, "Raw Data");
         counter++;
         menu.add(1, counter, counter, "Clear");
@@ -99,10 +98,10 @@ public class PopupController {
                     }
                 }else if(title.equals("Raw Data")){
                     // Get raw data
-                    String url = mContext.getString(R.string.raw_data_url);
-                    if(url != null) {
-                        dataController.loadCoords(url, 1);
-                    }
+//                    String url = mContext.getString(R.string.raw_data_url);
+//                    if(url != null) {
+//                        dataController.loadCoords(url, 1);
+//                    }
                 }else if(title.equals("Clear")){
                     mapController.clear();
                 }else if(title.equals("Choose...")){

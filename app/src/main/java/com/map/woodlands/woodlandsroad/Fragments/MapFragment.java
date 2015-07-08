@@ -149,10 +149,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS
                         | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
-        menu.add(0,1,1,"Markers")
-                .setIcon(R.drawable.file_search)
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS
-                        | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+//        menu.add(0,1,1,"Markers")
+//                .setIcon(R.drawable.file_search)
+//                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS
+//                        | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
     }
 
 
